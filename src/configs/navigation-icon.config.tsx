@@ -23,7 +23,8 @@ import {
     HiOutlineShare,
     HiOutlineVariable,
     HiOutlineCode,
-    HiOutlinePhotograph 
+    HiOutlinePhotograph,
+    HiDocumentDuplicate 
 } from 'react-icons/hi'
 
 export type NavigationIcons = Record<string, JSX.Element>
@@ -56,7 +57,8 @@ const navigationIcon: NavigationIcons = {
     sharedComponentDoc: <HiOutlineShare />,
     utilsDoc: <HiOutlineVariable />,
     changeLog: <HiOutlineCode />,
-    banner: <HiOutlinePhotograph  />
+    banner: <HiOutlinePhotograph  />,
+    ppPages: <HiDocumentDuplicate />
 }
 
 export default navigationIcon

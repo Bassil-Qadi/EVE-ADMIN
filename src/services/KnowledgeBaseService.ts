@@ -93,3 +93,42 @@ export async function apiDeleteFAQ<T>(
         method: 'delete',
     })
 }
+
+export async function apiGetPages<T>() {
+    return ApiService.fetchData<T>({
+        url: '/pages',
+        method: 'get',
+    })
+}
+
+export async function apiAddPage<T>(
+    data: any
+) {
+    return ApiService.fetchData<T>({
+        url: '/page/create',
+        method: 'post',
+        data,
+    })
+}
+
+export async function apiUpdatePage<T>(
+    data: any
+) {
+    let id = data.id
+    data = {...data, ["id"]: undefined}
+    return ApiService.fetchData<T>({
+        url: `/page/${id}`,
+        method: 'put',
+        data,
+    })
+}
+
+
+export async function apiDeletePage<T>(
+    data: any
+) {
+    return ApiService.fetchData<T>({
+        url: `/page/${data}`,
+        method: 'delete',
+    })
+}

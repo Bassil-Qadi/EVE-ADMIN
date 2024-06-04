@@ -216,6 +216,18 @@ const appsRoute: Routes = [
         authority: [ADMIN, USER],
     },
     {
+        key: 'appsPages.managePages',
+        path: `${APP_PREFIX_PATH}/pages/manage-pages`,
+        component: lazy(() => import('@/views/knowledge-base/ManagePages')),
+        authority: [ADMIN, USER],
+    },
+    {
+        key: 'appsPages.editPage',
+        path: `${APP_PREFIX_PATH}/pages/edit-page`,
+        component: lazy(() => import('@/views/knowledge-base/EditPage')),
+        authority: [ADMIN, USER],
+    },
+    {
         key: 'appsAccount.settings',
         path: `${APP_PREFIX_PATH}/account/settings/:tab`,
         component: lazy(() => import('@/views/account/Settings')),

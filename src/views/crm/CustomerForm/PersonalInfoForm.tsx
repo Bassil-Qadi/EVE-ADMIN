@@ -30,6 +30,7 @@ type FormFieldsName = {
 }
 
 type PersonalInfoFormProps = {
+    mode: string
     touched: FormikTouched<FormFieldsName>
     errors: FormikErrors<FormFieldsName>
 }
@@ -40,7 +41,7 @@ const options: Option[] = [
 ]
 
 const PersonalInfoForm = (props: PersonalInfoFormProps) => {
-    const { touched, errors } = props
+    const { mode, touched, errors } = props
 
     return (
         <>
@@ -113,7 +114,7 @@ const PersonalInfoForm = (props: PersonalInfoFormProps) => {
                     prefix={<HiMail className="text-xl" />}
                 />
             </FormItem>
-            <FormItem
+            {mode !== 'edit' && <FormItem
                 label="Passowrd"
                 invalid={errors.passowrd && touched.passowrd}
                 errorMessage={errors.passowrd}
@@ -126,7 +127,7 @@ const PersonalInfoForm = (props: PersonalInfoFormProps) => {
                     component={Input}
                     prefix={<HiLockOpen className="text-xl" />}
                 />
-            </FormItem>
+            </FormItem>}
             <FormItem
                 label="Role"
                 invalid={errors.role && touched.role}

@@ -63,6 +63,7 @@ const CustomerEditContent = forwardRef<FormikRef>((_, ref) => {
 
     return (
         <CustomerForm
+            action='edit'
             ref={ref}
             customer={customer}
             onFormSubmit={onFormSubmit}

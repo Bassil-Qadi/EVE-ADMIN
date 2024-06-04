@@ -14,7 +14,7 @@ type BaseCustomerInfo = {
     img: string,
     phone: string,
     role: string,
-    password: string
+    password?: string
 }
 
 export type Customer = BaseCustomerInfo 
@@ -28,6 +28,7 @@ export type CustomerProps = Partial<
 >
 
 type CustomerFormProps = {
+    action: string
     customer: CustomerProps,
     onFormSubmit: (values: FormModel) => void
 }
@@ -48,7 +49,7 @@ const validationSchema = Yup.object().shape({
 const { TabNav, TabList, TabContent } = Tabs
 
 const CustomerForm = forwardRef<FormikRef, CustomerFormProps>((props, ref) => {
-    const { customer, onFormSubmit } = props
+    const { action, customer, onFormSubmit } = props
 
     return (
         <Formik<FormModel>
@@ -59,7 +60,8 @@ const CustomerForm = forwardRef<FormikRef, CustomerFormProps>((props, ref) => {
                 img: customer.img || '',
                 phone: customer?.phone || '',
                 role: customer?.role || '',
-                password: customer?.password || ''
+                // password: customer?.password || ''
+                ...(action !== 'edit' && { password: customer?.password || '' })
             }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
@@ -80,6 +82,7 @@ const CustomerForm = forwardRef<FormikRef, CustomerFormProps>((props, ref) => {
                             <div className="p-6">
                                 <TabContent value="personalInfo">
                                     <PersonalInfoForm
+                                        mode={action}
                                         touched={touched}
                                         errors={errors}
                                     />

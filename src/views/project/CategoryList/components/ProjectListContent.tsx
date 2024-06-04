@@ -32,6 +32,7 @@ const ProjectListContent = () => {
 
     const onDeleteCategory = () => {
         dispatch(deleteCategory(selectedCategory))
+        dispatch(toggleDeleteCategoryDialog(false))
     }
 
     useEffect(() => {

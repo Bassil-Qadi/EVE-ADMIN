@@ -4,7 +4,7 @@ import Button from '@/components/ui/Button'
 import Avatar from '@/components/ui/Avatar'
 import Upload from '@/components/ui/Upload'
 import { Field, Form, Formik, FieldProps } from 'formik'
-import { HiOutlineUser } from 'react-icons/hi'
+import { HiCloudUpload  } from 'react-icons/hi'
 import {
     // putProject,
     addCategory,
@@ -47,16 +47,6 @@ const NewCategoryForm = () => {
         formData.append('createdBy', currentUserId || '')
         formData.append('file', file)
 
-        for (let [key, value] of formData.entries()) {
-            console.log(`${key}: ${value}`);
-          }
-
-        const values = {
-            id: currentUserId,
-            name: name,
-            desc: description,
-            file: file
-        }
         dispatch(addCategory(formData))
         dispatch(toggleNewProjectDialog(false))
         dispatch(getCategoryList())
@@ -135,8 +125,7 @@ const NewCategoryForm = () => {
                                     <Avatar
                                         className="border-2 border-white dark:border-gray-800 shadow-lg"
                                         size={100}
-                                        shape="circle"
-                                        icon={<HiOutlineUser />}
+                                        icon={<HiCloudUpload  />}
                                         {...avatarProps}
                                     />
                                 </Upload>

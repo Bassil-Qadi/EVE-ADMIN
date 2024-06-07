@@ -7,6 +7,7 @@ interface LogoProps extends CommonProps {
     mode?: 'light' | 'dark'
     imgClass?: string
     logoWidth?: number | string
+    page: string
 }
 
 const LOGO_SRC_PATH = '/img/logo/'
@@ -19,6 +20,7 @@ const Logo = (props: LogoProps) => {
         imgClass,
         style,
         logoWidth = 'auto',
+        page = 'authPage'
     } = props
 
     return (
@@ -30,8 +32,9 @@ const Logo = (props: LogoProps) => {
             }}
         >
             <img
+                width={'70px'}
                 className={imgClass}
-                src={`${LOGO_SRC_PATH}logo-${mode}-${type}.png`}
+                src={`${page === 'sidebar' ? `${LOGO_SRC_PATH}eva.png` : `${LOGO_SRC_PATH}eva icon.png`}`}
                 alt={`${APP_NAME} logo`}
             />
         </div>

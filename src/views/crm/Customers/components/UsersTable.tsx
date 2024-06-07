@@ -44,13 +44,13 @@ const ActionColumn = ({ row, onDialogOpen }: { row: User, onDialogOpen: (id: str
             className={`${textTheme} cursor-pointer select-none font-semibold`}
             onClick={onEdit}
         >
-            Edit
+            تعديل
         </div>
         <div
             className={`text-red-600 cursor-pointer select-none font-semibold`}
             onClick={() => onDialogOpen(row.id || '')}
         >
-            Delete
+            حذف
         </div>
         </div>
     )
@@ -115,7 +115,7 @@ const Customers = () => {
     const columns: ColumnDef<User>[] = useMemo(
         () => [
             {
-                header: 'Name',
+                header: 'الاسم',
                 accessorKey: 'name',
                 cell: (props) => {
                     const row = props.row.original
@@ -123,11 +123,11 @@ const Customers = () => {
                 },
             },
             {
-                header: 'Email',
+                header: 'البريد الإلكتروني',
                 accessorKey: 'email',
             },
             {
-                header: 'Role',
+                header: 'الدور',
                 accessorKey: 'role',
                 cell: (props) => {
                     const row = props.row.original
@@ -139,7 +139,7 @@ const Customers = () => {
                 },
             },
             {
-                header: 'Is Verified',
+                header: 'التوثيق',
                 accessorKey: 'isVerified',
                 cell: (props) => {
                     const row = props.row.original
@@ -154,7 +154,19 @@ const Customers = () => {
                 },
             },
             {
-                header: 'Created At',
+                header: 'رقم الجوال',
+                accessorKey: 'phone',
+                cell: (props) => {
+                    const row = props.row.original
+                    return (
+                        <div className="flex items-center">
+                          {row?.phone}
+                        </div>
+                    )
+                },
+            },
+            {
+                header: 'تاريخ الإنشاء',
                 accessorKey: 'createdAt',
                 cell: (props) => {
                     const row = props.row.original
@@ -237,7 +249,7 @@ const Customers = () => {
             <ConfirmDialog 
                 isOpen={dialogOpen}
                 type="danger"
-                title="Delete user"
+                title="حذف المستخدم"
                 confirmButtonColor="red-600"
                 onClose={onDialogClose}
                 onRequestClose={onDialogClose}
@@ -245,9 +257,7 @@ const Customers = () => {
                 onConfirm={onDelete}
             >
                 <p>
-                    Are you sure you want to delete this user? All record
-                    related to this user will be deleted as well. This
-                    action cannot be undone.
+                هل أنت متأكد من أنك تريد حذف هذا المستخدم؟ سيتم حذف جميع السجلات المتعلقة بهذا المستخدم أيضًا. لا يمكن التراجع عن هذا الإجراء.
                 </p>
             </ConfirmDialog>
         </>

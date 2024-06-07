@@ -1,19 +1,20 @@
 {
     "nav": {
-        "apps": "تطبيقات",
+        "apps": "لوحة التحكم",
         "appsProject": {
-            "project": "مشروع",
+            "project": "الصالونات",
             "dashboard": "لوحة القيادة",
-            "projectList": "قائمة المشروع",
+            "projectList": "قائمة الصالونات",
+            "categoryList": "قائمة الأصناف",
             "scrumBoard": "مجلس سكرم",
             "issue": "القضية"
         },
         "appsCrm": {
-            "crm": "إدارة علاقات العملاء",
+            "crm": "إدارة المستخدمين",
             "dashboard": "لوحة القيادة",
             "calendar": "تقويم",
-            "customers": "عملاء",
-            "customerDetails": "تفاصيل العميل",
+            "customers": "المستخدمين",
+            "customerDetails": "تفاصيل المستخدم",
             "mail": "بريد"
         },
         "appsSales": {
@@ -37,7 +38,8 @@
             "helpCenter": "مركز المساعدة",
             "article": "مقالة - سلعة",
             "manageArticles": "إدارة المقالات",
-            "editArticle": "تحرير المادة"
+            "editArticle": "تحرير صفحة FAQ",
+            "manageFAQs": "إدارة الأسئلة الأكثر شيوعا"
         },
         "appsAccount": {
             "account": "الحساب",
@@ -105,7 +107,9 @@
         "pages": {
             "pages": "الصفحات",
             "welcome": "أهلا بك",
-            "accessDenied": "تم الرفض"
+            "accessDenied": "تم الرفض",
+            "editPage": "تعديل الصفحات",
+            "managePages": "قائمة الصفحات"
         },
         "authentication": {
             "authentication": "المصادقة",
@@ -132,6 +136,10 @@
             "sharedComponentDoc": "مكون مشترك",
             "utilsDoc": "المرافق",
             "changeLog": "سجل التغيير"
+        },
+        "banners": {
+            "banner": "العروض",
+            "manageBanners": "قائمة العروض"
         }
     }
 }

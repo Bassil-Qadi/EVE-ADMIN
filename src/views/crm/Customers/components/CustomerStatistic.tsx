@@ -85,21 +85,21 @@ const CustomerStatistic = () => {
             <StatisticCard
                 icon={<HiOutlineUserGroup />}
                 avatarClass="!bg-grey-600"
-                label="Total Users"
+                label="مجموع المستخدمين"
                 value={statisticData?.length}
                 loading={loading}
             />
             <StatisticCard
                 icon={<HiOutlineUsers />}
                 avatarClass="!bg-emerald-500"
-                label="Verified Users"
+                label="المستخدمين الموثقين"
                 value={statisticData?.filter(el => el.isVerified === true).length}
                 loading={loading}
             />
             <StatisticCard
                 icon={<HiOutlineUserAdd />}
                 avatarClass="!bg-red-500"
-                label="Unverified Users"
+                label="المستخدمين الغير موثقين"
                 value={statisticData?.filter(el => el.isVerified === true).length}
                 loading={loading}
             />

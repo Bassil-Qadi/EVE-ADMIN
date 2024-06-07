@@ -43,20 +43,20 @@ const ListItem = ({ data, cardBorder }: ListItemProps) => {
                             <span><p className="mt-4"><strong>Owner:</strong> {createdBy?.name}</p></span>
                         </div>
                     </div>
-                    <div className="my-1 sm:my-0 col-span-12 sm:col-span-2 md:col-span-2 lg:col-span-2 md:flex md:items-center md:justify-end">
+                    {/* <div className="my-1 sm:my-0 col-span-12 sm:col-span-2 md:col-span-2 lg:col-span-2 md:flex md:items-center md:justify-end">
                         <div className="inline-flex items-center px-2 py-1 border border-gray-300 rounded-full">
                             <HiOutlineClipboardCheck className="text-base" />
                             <span className="ml-1 rtl:mr-1 whitespace-nowrap">
                                 {10} / {12}
                             </span>
                         </div>
-                    </div>
-                    <div className="my-1 sm:my-0 col-span-12 md:col-span-2 lg:col-span-3 md:flex md:items-center">
+                    </div> */}
+                    {/* <div className="my-1 sm:my-0 col-span-12 md:col-span-2 lg:col-span-3 md:flex md:items-center">
                         <ProgressionBar progression={80} />
-                    </div>
-                    <div className="my-1 sm:my-0 col-span-12 md:col-span-3 lg:col-span-3 md:flex md:items-center">
-                        {/* <Members members={member} /> */}
-                    </div>
+                    </div> */}
+                    {/* <div className="my-1 sm:my-0 col-span-12 md:col-span-3 lg:col-span-3 md:flex md:items-center">
+                        <Members members={member} />
+                    </div> */}
                     <div className="my-1 sm:my-0 col-span-12 sm:col-span-1 flex md:items-center justify-end">
                         <ItemDropdown />
                     </div>

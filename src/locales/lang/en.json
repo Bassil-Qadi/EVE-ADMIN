@@ -1,8 +1,8 @@
 {
     "nav": {
-        "apps": "Apps",
+        "apps": "Dashboard",
         "appsProject": {
-            "project": "Saloon",
+            "project": "Saloons",
             "dashboard": "Dashboard",
             "projectList": "Saloons List",
             "scrumBoard": "Scrum Board",

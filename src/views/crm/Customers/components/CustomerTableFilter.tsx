@@ -18,9 +18,9 @@ type Option = {
 const { Control } = components
 
 const options: Option[] = [
-    { value: 'all', label: 'All', color: 'bg-gray-500' },
-    { value: true, label: 'Verified', color: 'bg-emerald-500' },
-    { value: false, label: 'Not Verified', color: 'bg-red-500' },
+    { value: 'all', label: 'الكل', color: 'bg-gray-500' },
+    { value: true, label: 'المستخدمين الموثقين', color: 'bg-emerald-500' },
+    { value: false, label: 'المستخدمين غير الموثقين', color: 'bg-red-500' },
 ]
 
 const CustomSelectOption = ({

@@ -56,7 +56,7 @@ const Confirmations = ({ data }: { data: Article[] }) => {
         dispatch(setFAQs(removedData))
         toast.push(
             <Notification title={'Successfuly Deleted'} type="success">
-                FAq successfuly Deleted
+                تم حذف السؤال بنجاح
             </Notification>
         )
     }
@@ -113,7 +113,7 @@ const Confirmations = ({ data }: { data: Article[] }) => {
         dispatch(toggleAddFaq(false))
         toast.push(
             <Notification title={'Successfuly Added'} type="success">
-                FAQ successfuly Added
+                تم إضافة السؤال بنجاح
             </Notification>
         )
     }
@@ -123,7 +123,7 @@ const Confirmations = ({ data }: { data: Article[] }) => {
             <ConfirmDialog
                 isOpen={articleDeleteConfirmation}
                 type="danger"
-                title="Delete article"
+                title="حذف السؤال"
                 confirmButtonColor="red-600"
                 onClose={onArticleDeleteConfirmationClose}
                 onRequestClose={onArticleDeleteConfirmationClose}
@@ -131,8 +131,7 @@ const Confirmations = ({ data }: { data: Article[] }) => {
                 onConfirm={onArticleDeleteConfirm}
             >
                 <p>
-                    Are you sure you want to delete this article? This action
-                    cannot be undone.
+                هل أنت متأكد من أنك تريد حذف هذا السؤال لا يمكن التراجع عن هذا الإجراء.
                 </p>
             </ConfirmDialog>
             <Dialog
@@ -140,13 +139,13 @@ const Confirmations = ({ data }: { data: Article[] }) => {
                 onClose={onFaqAddDialogClose}
                 onRequestClose={onFaqAddDialogClose}
             >
-                <h5 className="mb-4">Add FAQ</h5>
+                <h5 className="mb-4">إضافة سؤال</h5>
                 <div className="mb-4">  
-                    <label className="mb-2">Title</label>
+                    <label className="mb-2">العنوان</label>
                     <Input ref={categoryAddTitleInputRef} />
                 </div>
                 <div>
-                    <label className="mb-2">Description</label>
+                    <label className="mb-2">الموضوع</label>
                     <Input ref={categoryAddDescInputRef} />
                 </div>
                 <div className="text-right mt-6">
@@ -156,14 +155,14 @@ const Confirmations = ({ data }: { data: Article[] }) => {
                         variant="plain"
                         onClick={onFaqAddDialogClose}
                     >
-                        Cancel
+                        إلغاء
                     </Button>
                     <Button
                         size="sm"
                         variant="solid"
                         onClick={onCategoryAddDialogConfirm}
                     >
-                        Add
+                        إضافة
                     </Button>
                 </div>
             </Dialog>
@@ -172,13 +171,13 @@ const Confirmations = ({ data }: { data: Article[] }) => {
                 onClose={onFaqEditDialogClose}
                 onRequestClose={onFaqEditDialogClose}
             >
-                <h5 className="mb-4">Edit FAQ</h5>
+                <h5 className="mb-4">تعديل السؤال</h5>
                 <div className="mb-4">  
-                    <label className="mb-2">Title</label>
+                    <label className="mb-2">العنوان</label>
                     <Input ref={categoryAddTitleInputRef} placeholder={selected?.title} />
                 </div>
                 <div>
-                    <label className="mb-2">Description</label>
+                    <label className="mb-2">الموضوع</label>
                     <Input ref={categoryAddDescInputRef} placeholder={selected?.description} />
                 </div>
                 <div className="text-right mt-6">
@@ -188,14 +187,14 @@ const Confirmations = ({ data }: { data: Article[] }) => {
                         variant="plain"
                         onClick={onFaqEditDialogClose}
                     >
-                        Cancel
+                        إلغاء
                     </Button>
                     <Button
                         size="sm"
                         variant="solid"
                         onClick={onFagEditConfirm}
                     >
-                        Save
+                        حفظ
                     </Button>
                 </div>
             </Dialog>

@@ -44,7 +44,7 @@ const UserCreateContent = forwardRef<FormikRef>((_, ref) => {
         dispatch(setUsersList(newData))
         toast.push(
             <Notification title={'Successfuly Added'} type="success">
-                Customer successfuly Added
+                تم إضافة المستخدم بنجاح
             </Notification>
         )
     }

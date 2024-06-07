@@ -86,7 +86,7 @@ const Editor = ({ mode, data }: { mode: string, data: { title: string | null, de
                     ) : (
                         <FormContainer>
                             <FormItem
-                                label="Title"
+                                label="العنوان"
                                 invalid={errors.title && touched.title}
                                 errorMessage={errors.title}
                             >
@@ -97,7 +97,7 @@ const Editor = ({ mode, data }: { mode: string, data: { title: string | null, de
                                 />
                             </FormItem>
                             <FormItem
-                                label="Content"
+                                label="الموضوع"
                                 className="mb-0"
                                 labelClass="!justify-start"
                                 invalid={errors.description && touched.description}
@@ -119,7 +119,7 @@ const Editor = ({ mode, data }: { mode: string, data: { title: string | null, de
                             </FormItem>
                             <div className="mt-4 flex justify-end">
                                 <Button loading={isSubmitting} variant="solid">
-                                    Submit
+                                    إرسال
                                 </Button>
                             </div>
                         </FormContainer>

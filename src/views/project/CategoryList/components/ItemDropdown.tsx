@@ -18,10 +18,10 @@ const ItemDropdown = ({ categoryId }: any) => {
     }
     
     const dropdownList = [
-        { label: 'Add Flag', value: 'addFlag', icon: <HiOutlineFlag /> },
-        { label: 'Move', value: 'move', icon: <HiOutlineSwitchHorizontal /> },
-        { label: 'Setting', value: 'projectSetting', icon: <HiOutlineCog /> },
-        { label: 'Remove', value: 'categoryRemove', icon: <HiOutlineFolderRemove  />, click: handleOpenDeleteCategory },
+        { label: 'إضافة مرجع', value: 'addFlag', icon: <HiOutlineFlag /> },
+        { label: 'نقل', value: 'move', icon: <HiOutlineSwitchHorizontal /> },
+        { label: 'الإعدادات', value: 'projectSetting', icon: <HiOutlineCog /> },
+        { label: 'حذف', value: 'categoryRemove', icon: <HiOutlineFolderRemove  />, click: handleOpenDeleteCategory },
     ]
 
     return (

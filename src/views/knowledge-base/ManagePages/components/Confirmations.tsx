@@ -130,7 +130,7 @@ const Confirmations = ({ data }: { data: Page[] }) => {
             <ConfirmDialog
                 isOpen={articleDeleteConfirmation}
                 type="danger"
-                title="Delete Page"
+                title="حذف الصفحة"
                 confirmButtonColor="red-600"
                 onClose={onArticleDeleteConfirmationClose}
                 onRequestClose={onArticleDeleteConfirmationClose}
@@ -138,8 +138,7 @@ const Confirmations = ({ data }: { data: Page[] }) => {
                 onConfirm={onArticleDeleteConfirm}
             >
                 <p>
-                    Are you sure you want to delete this page? This action
-                    cannot be undone.
+                هل أنت متأكد من أنك تريد حذف هذه الصفحة؟ لا يمكن التراجع عن هذا الإجراء.
                 </p>
             </ConfirmDialog>
             <Dialog
@@ -147,13 +146,13 @@ const Confirmations = ({ data }: { data: Page[] }) => {
                 onClose={onFaqAddDialogClose}
                 onRequestClose={onFaqAddDialogClose}
             >
-                <h5 className="mb-4">Add Page</h5>
+                <h5 className="mb-4">إضافة صفحة</h5>
                 <div className="mb-4">  
-                    <label className="mb-2">Title</label>
+                    <label className="mb-2">العنوان</label>
                     <Input ref={categoryAddTitleInputRef} />
                 </div>
                 <div>
-                    <label className="mb-2">Description</label>
+                    <label className="mb-2">الموضوع</label>
                     <Input ref={categoryAddDescInputRef} />
                 </div>
                 <div className="text-right mt-6">
@@ -163,14 +162,14 @@ const Confirmations = ({ data }: { data: Page[] }) => {
                         variant="plain"
                         onClick={onFaqAddDialogClose}
                     >
-                        Cancel
+                        إلغاء
                     </Button>
                     <Button
                         size="sm"
                         variant="solid"
                         onClick={onCategoryAddDialogConfirm}
                     >
-                        Add
+                        إضافة
                     </Button>
                 </div>
             </Dialog>
@@ -179,13 +178,13 @@ const Confirmations = ({ data }: { data: Page[] }) => {
                 onClose={onFaqEditDialogClose}
                 onRequestClose={onFaqEditDialogClose}
             >
-                <h5 className="mb-4">Edit Page</h5>
+                <h5 className="mb-4">تعديل الصفحة</h5>
                 <div className="mb-4">  
-                    <label className="mb-2">Title</label>
+                    <label className="mb-2">العنوان</label>
                     <Input ref={categoryAddTitleInputRef} placeholder={selected?.title} />
                 </div>
                 <div>
-                    <label className="mb-2">Description</label>
+                    <label className="mb-2">الموضوع</label>
                     <Input ref={categoryAddDescInputRef} placeholder={selected?.description} />
                 </div>
                 <div className="text-right mt-6">
@@ -195,14 +194,14 @@ const Confirmations = ({ data }: { data: Page[] }) => {
                         variant="plain"
                         onClick={onFaqEditDialogClose}
                     >
-                        Cancel
+                        إلغاء
                     </Button>
                     <Button
                         size="sm"
                         variant="solid"
                         onClick={onFagEditConfirm}
                     >
-                        Save
+                        حفظ
                     </Button>
                 </div>
             </Dialog>

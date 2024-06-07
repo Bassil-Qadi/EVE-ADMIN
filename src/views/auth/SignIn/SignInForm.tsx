@@ -83,7 +83,7 @@ const SignInForm = (props: SignInFormProps) => {
                     <Form>
                         <FormContainer>
                             <FormItem
-                                label="Email"
+                                label="البريد الإلكتروني"
                                 invalid={
                                     (errors.email &&
                                         touched.email) as boolean
@@ -99,7 +99,7 @@ const SignInForm = (props: SignInFormProps) => {
                                 />
                             </FormItem>
                             <FormItem
-                                label="Password"
+                                label="كلمة المرور"
                                 invalid={
                                     (errors.password &&
                                         touched.password) as boolean
@@ -119,10 +119,10 @@ const SignInForm = (props: SignInFormProps) => {
                                     name="rememberMe"
                                     component={Checkbox}
                                 >
-                                    Remember Me
+                                    تذكرني
                                 </Field>
                                 <ActionLink to={forgotPasswordUrl}>
-                                    Forgot Password?
+                                    هل نسيت كلمة المرور
                                 </ActionLink>
                             </div>
                             <Button
@@ -131,11 +131,11 @@ const SignInForm = (props: SignInFormProps) => {
                                 variant="solid"
                                 type="submit"
                             >
-                                {isSubmitting ? 'Signing in...' : 'Sign In'}
+                                {isSubmitting ? 'جاري تسجيل الدخول' : 'تسجيل الدخول'}
                             </Button>
                             <div className="mt-4 text-center">
-                                <span>{`Don't have an account yet?`} </span>
-                                <ActionLink to={signUpUrl}>Sign up</ActionLink>
+                                <span>{`لا تملك حسابًا بعد؟`} </span>
+                                <ActionLink to={signUpUrl}>تسجيل الدخول</ActionLink>
                             </div>
                         </FormContainer>
                     </Form>

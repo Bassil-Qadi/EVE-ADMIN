@@ -68,7 +68,7 @@ const ProjectListContent = () => {
         <ConfirmDialog
             isOpen={dialogOpen}
             type="danger"
-            title="Delete banner"
+            title="حذف العرض"
             confirmButtonColor="red-600"
             onClose={onDialogClose}
             onRequestClose={onDialogClose}
@@ -76,9 +76,7 @@ const ProjectListContent = () => {
             onConfirm={onDeleteBanner}
         >
                 <p>
-                    Are you sure you want to delete this banner? All record
-                    related to this banner will be deleted as well. This
-                    action cannot be undone.
+                هل أنت متأكد من أنك تريد حذف هذا العرض؟ سيتم حذف جميع السجلات المتعلقة بهذا العرض أيضًا. لا يمكن التراجع عن هذا الإجراء.
                 </p>
             </ConfirmDialog></>
     )

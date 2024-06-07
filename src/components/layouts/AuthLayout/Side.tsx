@@ -33,9 +33,13 @@ const Side = ({ children, content, ...rest }: SideProps) => {
                         </div>
                     </div>
                     <p className="text-lg text-white opacity-80">
-                        Elstar comes with a complete set of UI components
-                        crafted with Tailwind CSS, it fulfilled most of the use
-                        case to create modern and beautiful UI and application
+                        إحدى الرشكات الرائدة في مجال تطوير الربمجيات وتطبيقات
+                        الويب والمواقع االلكرتونية, نلزتم في رشكة هايرب تك
+                        بتوفري أفضل الربمجيات اليت تهدف اىل تطوير األعمال التجار
+                        ية , بخدمات برمجية متعددة (انظمة تخطيط موارد المؤسسات
+                        ERP وتطبيقات الجوال والمنصات االلكرتونية) نحن نجمع بني
+                        توجهات وأساليب تكنولوجيا المعلومات األكرث تقد ًما لتقديم
+                        حلول ذات قيمة مضافة لعمالئنا.
                     </p>
                 </div>
                 <span className="text-white">

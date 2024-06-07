@@ -56,7 +56,7 @@ const EditPage = () => {
                 <div className="max-w-[800px] mx-auto">
                     <div className="flex justify-between items-center mb-4">
                         <h3>
-                            {mode === 'edit' && <span>Edit Page</span>}
+                            {mode === 'edit' && <span>تعديل الصفحة</span>}
                             {mode === 'add' && <span>Add Article</span>}
                             {mode === 'preview' && <span>Preview Article</span>}
                         </h3>
@@ -67,14 +67,14 @@ const EditPage = () => {
                                     onModeChange(id ? 'edit' : 'add')
                                 }
                             >
-                                Back
+                                عودة
                             </Button>
                         ) : (
                             <Button
                                 size="sm"
                                 onClick={() => onModeChange('preview')}
                             >
-                                Preview
+                                عرض
                             </Button>
                         )}
                     </div>

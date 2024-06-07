@@ -54,12 +54,12 @@ const ActionBar = () => {
 
     return (
         <div className="lg:flex items-center justify-between mb-4">
-            <h3 className="mb-4 lg:mb-0">Saloons List</h3>
+            <h3 className="mb-4 lg:mb-0">قائمة الصالونات</h3>
             <div className="flex flex-col md:flex-row md:items-center gap-1">
                 <Input
                     ref={inputRef}
                     size="sm"
-                    placeholder="Search"
+                    placeholder="بحث"
                     prefix={<HiOutlineSearch className="text-lg" />}
                     onChange={handleInputChange}
                 />
@@ -99,7 +99,7 @@ const ActionBar = () => {
                     icon={<HiOutlinePlusCircle />}
                     onClick={onAddNewProject}
                 >
-                    Add New Saloon
+                    إضافة صالون جديد
                 </Button>
             </div>
         </div>

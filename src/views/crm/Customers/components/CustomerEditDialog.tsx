@@ -19,10 +19,10 @@ const DrawerFooter = ({ onSaveClick, onCancel }: DrawerFooterProps) => {
     return (
         <div className="text-right w-full">
             <Button size="sm" className="mr-2" onClick={onCancel}>
-                Cancel
+                إلغاء
             </Button>
             <Button size="sm" variant="solid" onClick={onSaveClick}>
-                Save
+                حفظ
             </Button>
         </div>
     )

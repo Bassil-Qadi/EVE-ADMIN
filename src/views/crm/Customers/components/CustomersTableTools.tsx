@@ -71,12 +71,12 @@ const CustomersTableTools = () => {
                     onClick={onCreateUser}
                     className="mb-4"
                 >
-                    Add New User
+                    إضافة مستخدم جديد
                 </Button>
             </div>
             <div className="mb-4">
                 <Button size="sm" onClick={onClearAll}>
-                    Clear All
+                    مسح الكل
                 </Button>
             </div>
         </div>

@@ -87,7 +87,7 @@ const PersonalInfoForm = (props: PersonalInfoFormProps) => {
                 </Field>
             </FormItem>
             <FormItem
-                label="Name"
+                label="الاسم"
                 invalid={errors.name && touched.name}
                 errorMessage={errors.name}
             >
@@ -101,7 +101,7 @@ const PersonalInfoForm = (props: PersonalInfoFormProps) => {
                 />
             </FormItem>
             <FormItem
-                label="Email"
+                label="البريد الإلكتروني"
                 invalid={errors.email && touched.email}
                 errorMessage={errors.email}
             >
@@ -115,7 +115,7 @@ const PersonalInfoForm = (props: PersonalInfoFormProps) => {
                 />
             </FormItem>
             {mode !== 'edit' && <FormItem
-                label="Passowrd"
+                label="كلمة المرور"
                 invalid={errors.passowrd && touched.passowrd}
                 errorMessage={errors.passowrd}
             >
@@ -129,7 +129,7 @@ const PersonalInfoForm = (props: PersonalInfoFormProps) => {
                 />
             </FormItem>}
             <FormItem
-                label="Role"
+                label="الدور"
                 invalid={errors.role && touched.role}
                 errorMessage={errors.role}
             >
@@ -151,7 +151,7 @@ const PersonalInfoForm = (props: PersonalInfoFormProps) => {
                 
             </FormItem>
             <FormItem
-                label="Phone Number"
+                label="رقم الجوال"
                 invalid={errors.phone && touched.phone}
                 errorMessage={errors.phone}
             >

@@ -64,14 +64,14 @@ const Statistic = ({ data = { categories: [],
             <StatisticCard
                 data={data.categories}
                 valuePrefix=""
-                label="Categories"
+                label="الفئات"
                 date={startDate}
             />
-            <StatisticCard data={data.services} label="Services" date={startDate} />
+            <StatisticCard data={data.services} label="الخدمات" date={startDate} />
             <StatisticCard
                 data={data.saloons}
                 valuePrefix=""
-                label="Saloons"
+                label="الصالونات"
                 date={startDate}
             />
         </div>

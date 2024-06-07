@@ -61,19 +61,19 @@ const GridItem = ({ data }: GridItemProps) => {
                     </div>
                     <ItemDropdown />
                 </div>
-                <p className="mt-4"><strong>Owner:</strong> {createdBy.name}</p>
+                <p className="mt-4"><strong>المالك:</strong> {createdBy.name}</p>
                 <div className="mt-3">
-                    <ProgressionBar progression={90} />
+                    {/* <ProgressionBar progression={90} /> */}
                     <div className="flex items-center justify-between mt-2">
                         <Members members={categories} />
-                        <div className="flex items-center rounded-full font-semibold text-xs">
+                        {/* <div className="flex items-center rounded-full font-semibold text-xs">
                             <div className="flex items-center px-2 py-1 border border-gray-300 rounded-full">
                                 <HiOutlineClipboardCheck className="text-base" />
                                 <span className="ml-1 rtl:mr-1 whitespace-nowrap">
                                     {10} / {12}
                                 </span>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

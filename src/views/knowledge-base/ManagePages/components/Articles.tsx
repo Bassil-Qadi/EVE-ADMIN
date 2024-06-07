@@ -77,7 +77,7 @@ const CategorySection = ({ data }: { data: Page }) => {
                                 </span>
                             </div>
                             <div className="flex">
-                                <Tooltip title="Delete">
+                                <Tooltip title="حذف">
                                     <Button
                                         shape="circle"
                                         variant="plain"
@@ -88,7 +88,7 @@ const CategorySection = ({ data }: { data: Page }) => {
                                         }
                                     />
                                 </Tooltip>
-                                <Tooltip title="Edit">
+                                <Tooltip title="تعديل">
                                     <Button
                                         shape="circle"
                                         variant="plain"
@@ -154,7 +154,7 @@ const Articles = () => {
                             <div className="p-4 border-2 border-dashed rounded-full border-gray-200 dark:border-gray-600 group-hover:border-indigo-600">
                                 <HiOutlinePlus className="text-4xl text-gray-200 dark:text-gray-600 group-hover:text-indigo-600" />
                             </div>
-                            <p className="mt-5 font-semibold">Add New Page</p>
+                            <p className="mt-5 font-semibold">إضافة صفحة جديدة</p>
                         </div>
                     </Card>
                 {pages?.map((page) => <CategorySection key={page._id} data={page} />)}

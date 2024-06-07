@@ -200,7 +200,7 @@ const appsRoute: Routes = [
         component: lazy(() => import('@/views/knowledge-base/ManageFAQs')),
         authority: [ADMIN, USER],
         meta: {
-            header: 'Manage FAQs',
+            header: 'إدارة الأسئلة الأكثر شيوعا FAQ',
         },
     },
     {

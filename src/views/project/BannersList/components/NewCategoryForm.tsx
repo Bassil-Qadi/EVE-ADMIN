@@ -69,7 +69,7 @@ const NewCategoryForm = () => {
                 <Form>
                     <FormContainer>
                         <FormItem
-                            label="Title"
+                            label="العنوان"
                             invalid={errors.title && touched.title}
                             errorMessage={errors.title}
                         >
@@ -82,7 +82,7 @@ const NewCategoryForm = () => {
                             />
                         </FormItem>
                         <FormItem
-                            label="Description"
+                            label="الموضوع"
                             invalid={errors.description && touched.description}
                             errorMessage={errors.description}
                         >
@@ -140,7 +140,7 @@ const NewCategoryForm = () => {
                             </Field>
                         </FormItem>
                         <Button block variant="solid" type="submit">
-                            Submit
+                            إضافة
                         </Button>
                     </FormContainer>
                 </Form>

@@ -100,7 +100,7 @@ const CustomerStatistic = () => {
                 icon={<HiOutlineUserAdd />}
                 avatarClass="!bg-red-500"
                 label="المستخدمين الغير موثقين"
-                value={statisticData?.filter(el => el.isVerified === true).length}
+                value={statisticData?.filter(el => el.isVerified === false).length}
                 loading={loading}
             />
         </div>

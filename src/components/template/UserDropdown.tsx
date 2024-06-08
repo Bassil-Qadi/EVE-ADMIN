@@ -17,17 +17,17 @@ type DropdownList = {
 
 const dropdownItemList: DropdownList[] = [
     {
-        label: 'Profile',
+        label: 'الملف الشخصي',
         path: '/app/account/settings/profile',
         icon: <HiOutlineUser />,
     },
     {
-        label: 'Account Setting',
+        label: 'إعدادات الحساب',
         path: '/app/account/settings/profile',
         icon: <HiOutlineCog />,
     },
     {
-        label: 'Activity Log',
+        label: 'سجل النشاطات',
         path: '/app/account/activity-log',
         icon: <FiActivity />,
     },
@@ -101,7 +101,7 @@ const _UserDropdown = ({ className }: CommonProps) => {
                     <span className="text-xl opacity-50">
                         <HiOutlineLogout />
                     </span>
-                    <span>Sign Out</span>
+                    <span>تسجيل الخروح</span>
                 </Dropdown.Item>
             </Dropdown>
         </div>

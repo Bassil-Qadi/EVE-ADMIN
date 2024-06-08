@@ -137,6 +137,15 @@ const manageArticlesSlice = createSlice({
             .addCase(getFAQs.rejected, (state) => {
                 state.loading = false
             })
+            .addCase(addFAQ.fulfilled, (state, action) => {
+                state.loading = false
+            })
+            .addCase(addFAQ.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(addFAQ.rejected, (state) => {
+                state.loading = false
+            })
     },
 })
 

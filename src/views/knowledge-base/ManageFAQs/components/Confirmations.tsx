@@ -5,6 +5,7 @@ import Input from '@/components/ui/Input'
 import ConfirmDialog from '@/components/shared/ConfirmDialog'
 import {
     setFAQs,
+    setSelected,
     toggleAddFaq,
     toggleEditFaq,
     toggleArticleDeleteConfirmation,
@@ -54,6 +55,7 @@ const Confirmations = ({ data }: { data: Article[] }) => {
         dispatch(toggleArticleDeleteConfirmation(false))
         dispatch(deleteFAQ(selected.id))
         dispatch(setFAQs(removedData))
+        dispatch(setSelected({}))
         toast.push(
             <Notification title={'Successfuly Deleted'} type="success">
                 تم حذف السؤال بنجاح
@@ -95,20 +97,21 @@ const Confirmations = ({ data }: { data: Article[] }) => {
     const onCategoryAddDialogConfirm = () => {
         const allFAQs = cloneDeep(data)
         if (categoryAddTitleInputRef.current && categoryAddDescInputRef.current) {
-            const newData = [
-                {
-                    title: categoryAddTitleInputRef.current.value,
-                    description: categoryAddDescInputRef.current.value,
-                    createdBy: currentUserId,
-                },
-                ...allFAQs,
-            ]
-            dispatch(setFAQs(newData))
-            dispatch(addFAQ({
+            let returndedData = dispatch(addFAQ({
                 title: categoryAddTitleInputRef.current.value,
                 description: categoryAddDescInputRef.current.value,
                 createdBy: currentUserId,
             }))
+
+            returndedData.then(data => {
+                if(data.payload.statusCode === 201) {
+                    const newData = [
+                        ...allFAQs,
+                        data.payload.data
+                    ]
+                    dispatch(setFAQs(newData))
+                }
+            })
         }
         dispatch(toggleAddFaq(false))
         toast.push(

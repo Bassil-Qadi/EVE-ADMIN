@@ -11,7 +11,6 @@ import {
     deletePage,
     addPage,
     updatePage,
-    getPages,
     useAppDispatch,
     useAppSelector,
     Page
@@ -57,7 +56,7 @@ const Confirmations = ({ data }: { data: Page[] }) => {
         dispatch(setPages(removedData))
         toast.push(
             <Notification title={'Successfuly Deleted'} type="success">
-                FAq successfuly Deleted
+                تم حذف الصفحة بنجاح
             </Notification>
         )
     }
@@ -68,8 +67,8 @@ const Confirmations = ({ data }: { data: Page[] }) => {
             if(page._id === selected.id) {
                 return {
                     ...page,
-                    title: categoryAddTitleInputRef.current.value || page.title,
-                    description: categoryAddDescInputRef.current.value || page.description
+                    title: categoryAddTitleInputRef.current!.value || page.title,
+                    description: categoryAddDescInputRef.current!.value || page.description
                 }
             }
             return page
@@ -78,8 +77,8 @@ const Confirmations = ({ data }: { data: Page[] }) => {
         dispatch(setPages(editedPages))
         dispatch(updatePage({
             id: selected.id,
-            title: categoryAddTitleInputRef.current.value || selected.title,
-            description: categoryAddDescInputRef.current.value || selected.description,
+            title: categoryAddTitleInputRef.current!.value || selected.title,
+            description: categoryAddDescInputRef.current!.value || selected.description,
             updatedBy: currentUserId
         }))
         dispatch(toggleEditPage(false))
@@ -94,33 +93,28 @@ const Confirmations = ({ data }: { data: Page[] }) => {
     }
 
     const onCategoryAddDialogConfirm = () => {
-        // const allPages = cloneDeep(data)
-        // if (categoryAddTitleInputRef.current && categoryAddDescInputRef.current) {
-        //     const newData = [
-        //         {
-        //             title: categoryAddTitleInputRef.current.value,
-        //             description: categoryAddDescInputRef.current.value,
-        //             createdBy: currentUserId,
-        //         },
-        //         ...allPages,
-        //     ]
-        //     dispatch(addPage({
-        //         title: categoryAddTitleInputRef.current.value,
-        //         description: categoryAddDescInputRef.current.value,
-        //         createdBy: currentUserId,
-        //     }))
-        //     dispatch(setPages(newData))
-        // }
-        dispatch(addPage({
-            title: categoryAddTitleInputRef.current.value,
-            description: categoryAddDescInputRef.current.value,
-            createdBy: currentUserId,
-        }))
-        dispatch(getPages())
+        const allPages = cloneDeep(data)
+        if (categoryAddTitleInputRef.current && categoryAddDescInputRef.current) {
+            let returndedData = dispatch(addPage({
+                title: categoryAddTitleInputRef.current.value,
+                description: categoryAddDescInputRef.current.value,
+                createdBy: currentUserId,
+            }))
+
+            returndedData.then(data => {
+                if(data.payload.statusCode === 201) {
+                    const newData = [
+                        ...allPages,
+                        data.payload.data
+                    ]
+                    dispatch(setPages(newData))
+                }
+            })
+        }
         dispatch(toggleAddPage(false))
         toast.push(
             <Notification title={'Successfuly Added'} type="success">
-                Page successfuly Added
+                تم إضافة الصفحة بنجاح
             </Notification>
         )
     }

@@ -21,16 +21,16 @@ const dropdownItemList: DropdownList[] = [
         path: '/app/account/settings/profile',
         icon: <HiOutlineUser />,
     },
-    {
-        label: 'إعدادات الحساب',
-        path: '/app/account/settings/profile',
-        icon: <HiOutlineCog />,
-    },
-    {
-        label: 'سجل النشاطات',
-        path: '/app/account/activity-log',
-        icon: <FiActivity />,
-    },
+    // {
+    //     label: 'إعدادات الحساب',
+    //     path: '/app/account/settings/profile',
+    //     icon: <HiOutlineCog />,
+    // },
+    // {
+    //     label: 'سجل النشاطات',
+    //     path: '/app/account/activity-log',
+    //     icon: <FiActivity />,
+    // },
 ]
 
 const _UserDropdown = ({ className }: CommonProps) => {

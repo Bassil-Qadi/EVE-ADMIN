@@ -55,11 +55,11 @@ const settingsMenu: Record<
         path: string
     }
 > = {
-    profile: { label: 'Profile', path: 'profile' },
-    password: { label: 'Password', path: 'password' },
-    notification: { label: 'Notification', path: 'notification' },
-    integration: { label: 'Integration', path: 'integration' },
-    billing: { label: 'Billing', path: 'billing' },
+    profile: { label: 'الملف الشخصي', path: 'profile' },
+    password: { label: 'كلمة السر', path: 'password' },
+    notification: { label: 'الإشعارات', path: 'notification' },
+    // integration: { label: 'Integration', path: 'integration' },
+    // billing: { label: 'Billing', path: 'billing' },
 }
 
 const Settings = () => {

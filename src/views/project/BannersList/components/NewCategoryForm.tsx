@@ -46,7 +46,7 @@ const NewCategoryForm = () => {
         formData.append('saloonId', saloonId || '')
         formData.append('userId', userId || '')
         formData.append('image', image)
-        formData.append('status', 'true')
+        // formData.append('status', 'true')
 
         dispatch(addBanner(formData))
         dispatch(toggleNewBannerDialog(false))
@@ -77,12 +77,12 @@ const NewCategoryForm = () => {
                                 type="text"
                                 autoComplete="off"
                                 name="title"
-                                placeholder="Enter title"
+                                placeholder="ادخل عنوان العرض"
                                 component={Input}
                             />
                         </FormItem>
                         <FormItem
-                            label="الموضوع"
+                            label="التفاصيل"
                             invalid={errors.description && touched.description}
                             errorMessage={errors.description}
                         >
@@ -91,7 +91,7 @@ const NewCategoryForm = () => {
                                 type="text"
                                 autoComplete="off"
                                 name="description"
-                                placeholder="Enter Description"
+                                placeholder="ادخل تفاصيل العرض"
                                 component={Input}
                             />
                         </FormItem>

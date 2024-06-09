@@ -23,7 +23,7 @@ const NewProjectDialog = () => {
             onClose={onDialogClose}
             onRequestClose={onDialogClose}
         >
-            <h4>Add new saloon</h4>
+            <h4>إضافة صالون جديد</h4>
             <div className="mt-4">
                 <NewProjectForm />
             </div>

@@ -55,7 +55,7 @@ const appsRoute: Routes = [
         component: lazy(() => import('@/views/crm/Customers')),
         authority: [ADMIN, USER],
         meta: {
-            header: 'Users',
+            header: 'المستخدمين',
         },
     },
     {
@@ -64,7 +64,7 @@ const appsRoute: Routes = [
         component: lazy(() => import('@/views/crm/CustomerDetail')),
         authority: [ADMIN, USER],
         meta: {
-            header: 'Customer Details',
+            header: 'تفاصيل الحساب',
             headerContainer: true,
         },
     },
@@ -233,7 +233,7 @@ const appsRoute: Routes = [
         component: lazy(() => import('@/views/account/Settings')),
         authority: [ADMIN, USER],
         meta: {
-            header: 'Settings',
+            header: 'إعدادات الحساب',
             headerContainer: true,
         },
     },

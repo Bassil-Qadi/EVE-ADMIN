@@ -144,11 +144,11 @@ const Confirmations = ({ data }: { data: Article[] }) => {
             >
                 <h5 className="mb-4">إضافة سؤال</h5>
                 <div className="mb-4">  
-                    <label className="mb-2">العنوان</label>
+                    <label className="mb-2">السؤال</label>
                     <Input ref={categoryAddTitleInputRef} />
                 </div>
                 <div>
-                    <label className="mb-2">الموضوع</label>
+                    <label className="mb-2">الإجابة</label>
                     <Input ref={categoryAddDescInputRef} />
                 </div>
                 <div className="text-right mt-6">
@@ -176,11 +176,11 @@ const Confirmations = ({ data }: { data: Article[] }) => {
             >
                 <h5 className="mb-4">تعديل السؤال</h5>
                 <div className="mb-4">  
-                    <label className="mb-2">العنوان</label>
+                    <label className="mb-2">السؤال</label>
                     <Input ref={categoryAddTitleInputRef} placeholder={selected?.title} />
                 </div>
                 <div>
-                    <label className="mb-2">الموضوع</label>
+                    <label className="mb-2">الإجابة</label>
                     <Input ref={categoryAddDescInputRef} placeholder={selected?.description} />
                 </div>
                 <div className="text-right mt-6">

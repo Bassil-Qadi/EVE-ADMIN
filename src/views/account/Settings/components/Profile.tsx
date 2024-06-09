@@ -18,6 +18,7 @@ import {
     HiOutlineUser,
     HiCheck,
     HiOutlineGlobeAlt,
+    HiOutlinePhone 
 } from 'react-icons/hi'
 import * as Yup from 'yup'
 import type { OptionProps, ControlProps } from 'react-select'
@@ -29,7 +30,7 @@ export type ProfileFormModel = {
     title: string
     avatar: string
     timeZone: string
-    lang: string
+    role: string
     syncData: boolean
 }
 
@@ -40,7 +41,6 @@ type ProfileProps = {
 type LanguageOption = {
     value: string
     label: string
-    imgPath: string
 }
 
 const { Control } = components
@@ -50,19 +50,17 @@ const validationSchema = Yup.object().shape({
         .min(3, 'Too Short!')
         .max(12, 'Too Long!')
         .required('User Name Required'),
-    email: Yup.string().email('Invalid email').required('Email Required'),
-    title: Yup.string(),
-    avatar: Yup.string(),
-    lang: Yup.string(),
-    timeZone: Yup.string(),
-    syncData: Yup.bool(),
+        email: Yup.string().email('Invalid email').required('Email Required'),
+        title: Yup.string(),
+        avatar: Yup.string(),
+        lang: Yup.string(),
+        timeZone: Yup.string(),
+        syncData: Yup.bool(),
 })
 
 const langOptions: LanguageOption[] = [
-    { value: 'en', label: 'English (US)', imgPath: '/img/countries/us.png' },
-    { value: 'ch', label: '中文', imgPath: '/img/countries/cn.png' },
-    { value: 'jp', label: '日本语', imgPath: '/img/countries/jp.png' },
-    { value: 'fr', label: 'French', imgPath: '/img/countries/fr.png' },
+    { value: 'user', label: 'مستخدم' },
+    { value: 'ch', label: 'مسؤول' }
 ]
 
 const CustomSelectOption = ({
@@ -81,7 +79,6 @@ const CustomSelectOption = ({
             {...innerProps}
         >
             <div className="flex items-center">
-                <Avatar shape="circle" size={20} src={data.imgPath} />
                 <span className="ml-2 rtl:mr-2">{label}</span>
             </div>
             {isSelected && <HiCheck className="text-emerald-500 text-xl" />}
@@ -96,14 +93,6 @@ const CustomControl = ({
     const selected = props.getValue()[0]
     return (
         <Control {...props}>
-            {selected && (
-                <Avatar
-                    className="ltr:ml-4 rtl:mr-4"
-                    shape="circle"
-                    size={18}
-                    src={selected.imgPath}
-                />
-            )}
             {children}
         </Control>
     )
@@ -116,7 +105,7 @@ const Profile = ({
         title: '',
         avatar: '',
         timeZone: '',
-        lang: '',
+        role: '',
         syncData: false,
     },
 }: ProfileProps) => {
@@ -157,19 +146,19 @@ const Profile = ({
                     <Form>
                         <FormContainer>
                             <FormDesription
-                                title="General"
-                                desc="Basic info, like your name and address that will displayed in public"
+                                title="عام"
+                                desc="المعلومات الأساسية، مثل اسمك وعنوانك التي سيتم عرضها للعامة"
                             />
                             <FormRow
                                 name="name"
-                                label="Name"
+                                label="الاسم"
                                 {...validatorProps}
                             >
                                 <Field
                                     type="text"
                                     autoComplete="off"
                                     name="name"
-                                    placeholder="Name"
+                                    placeholder="الاسم"
                                     component={Input}
                                     prefix={
                                         <HiOutlineUserCircle className="text-xl" />
@@ -178,21 +167,21 @@ const Profile = ({
                             </FormRow>
                             <FormRow
                                 name="email"
-                                label="Email"
+                                label="البريد الإلكتروني"
                                 {...validatorProps}
                             >
                                 <Field
                                     type="email"
                                     autoComplete="off"
                                     name="email"
-                                    placeholder="Email"
+                                    placeholder="البريد الإلكتروني"
                                     component={Input}
                                     prefix={
                                         <HiOutlineMail className="text-xl" />
                                     }
                                 />
                             </FormRow>
-                            <FormRow
+                            {/* <FormRow
                                 name="avatar"
                                 label="Avatar"
                                 {...validatorProps}
@@ -233,35 +222,30 @@ const Profile = ({
                                         )
                                     }}
                                 </Field>
-                            </FormRow>
+                            </FormRow> */}
                             <FormRow
                                 name="title"
-                                label="Title"
+                                label="رقم الجوال"
                                 {...validatorProps}
-                                border={false}
+                                
                             >
                                 <Field
                                     type="text"
                                     autoComplete="off"
                                     name="title"
-                                    placeholder="Title"
+                                    placeholder="رقم الجوال"
                                     component={Input}
                                     prefix={
-                                        <HiOutlineBriefcase className="text-xl" />
+                                        <HiOutlinePhone className="text-xl" />
                                     }
                                 />
                             </FormRow>
-                            <FormDesription
-                                className="mt-8"
-                                title="Preferences"
-                                desc="Your personalized preference displayed in your account"
-                            />
                             <FormRow
-                                name="lang"
-                                label="Language"
+                                name="role"
+                                label="الدور"
                                 {...validatorProps}
                             >
-                                <Field name="lang">
+                                <Field name="role">
                                     {({ field, form }: FieldProps) => (
                                         <Select<LanguageOption>
                                             field={field}
@@ -274,7 +258,7 @@ const Profile = ({
                                             value={langOptions.filter(
                                                 (option) =>
                                                     option.value ===
-                                                    values?.lang
+                                                    values?.role
                                             )}
                                             onChange={(option) =>
                                                 form.setFieldValue(
@@ -286,45 +270,13 @@ const Profile = ({
                                     )}
                                 </Field>
                             </FormRow>
-                            <FormRow
-                                name="timeZone"
-                                label="Time Zone"
-                                {...validatorProps}
-                            >
-                                <Field
-                                    readOnly
-                                    type="text"
-                                    autoComplete="off"
-                                    name="timeZone"
-                                    placeholder="Time Zone"
-                                    component={Input}
-                                    prefix={
-                                        <HiOutlineGlobeAlt className="text-xl" />
-                                    }
-                                />
-                            </FormRow>
-                            <FormRow
-                                name="syncData"
-                                label="Sync Data"
-                                {...validatorProps}
-                                border={false}
-                            >
-                                <Field name="syncData" component={Switcher} />
-                            </FormRow>
                             <div className="mt-4 ltr:text-right">
-                                <Button
-                                    className="ltr:mr-2 rtl:ml-2"
-                                    type="button"
-                                    onClick={() => resetForm()}
-                                >
-                                    Reset
-                                </Button>
                                 <Button
                                     variant="solid"
                                     loading={isSubmitting}
                                     type="submit"
                                 >
-                                    {isSubmitting ? 'Updating' : 'Update'}
+                                    {isSubmitting ? 'جاري التحديث...' : 'تحديث'}
                                 </Button>
                             </div>
                         </FormContainer>

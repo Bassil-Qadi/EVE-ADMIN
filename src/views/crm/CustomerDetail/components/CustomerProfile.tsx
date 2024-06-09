@@ -18,13 +18,13 @@ import {
     // deleteCustomer,
     openEditCustomerDetailDialog,
     useAppDispatch,
-    User
+    User,
 } from '../store'
 import EditCustomerProfile from './EditCustomerProfile'
 
 type CustomerInfoFieldProps = {
     title?: string
-    value?: string,
+    value?: string
     color?: string
 }
 
@@ -36,7 +36,13 @@ const CustomerInfoField = ({ title, value, color }: CustomerInfoFieldProps) => {
     return (
         <div>
             <span>{title}</span>
-            <p className={`${color ? `text-${color}-500 dark:text-${color}-200` : 'text-gray-700 dark:text-gray-200'} font-semibold`}>
+            <p
+                className={`${
+                    color
+                        ? `text-${color}-500 dark:text-${color}-200`
+                        : 'text-gray-700 dark:text-gray-200'
+                } font-semibold`}
+            >
                 {value}
             </p>
         </div>
@@ -65,8 +71,8 @@ const CustomerProfileAction = ({ id }: { id?: string }) => {
         navigate('/app/crm/customers')
         toast.push(
             <Notification title={'Successfuly Deleted'} type="success">
-                Customer successfuly deleted
-            </Notification>
+                تم حذف المستخدم بنجاح
+            </Notification>,
         )
     }
 
@@ -77,7 +83,7 @@ const CustomerProfileAction = ({ id }: { id?: string }) => {
     return (
         <>
             <Button block icon={<HiOutlineTrash />} onClick={onDialogOpen}>
-                Delete
+                حذف
             </Button>
             <Button
                 block
@@ -85,12 +91,12 @@ const CustomerProfileAction = ({ id }: { id?: string }) => {
                 variant="solid"
                 onClick={onEdit}
             >
-                Edit
+                تعديل
             </Button>
             <ConfirmDialog
                 isOpen={dialogOpen}
                 type="danger"
-                title="Delete customer"
+                title="حذف المستخدم"
                 confirmButtonColor="red-600"
                 onClose={onDialogClose}
                 onRequestClose={onDialogClose}
@@ -98,9 +104,8 @@ const CustomerProfileAction = ({ id }: { id?: string }) => {
                 onConfirm={onDelete}
             >
                 <p>
-                    Are you sure you want to delete this customer? All record
-                    related to this customer will be deleted as well. This
-                    action cannot be undone.
+                    هل أنت متأكد أنك تريد حذف هذا المستخدم كل سجل المتعلقة بهذا
+                    المستخدم سيتم حذفها أيضًا. هذا لا يمكن التراجع عن الإجراء.
                 </p>
             </ConfirmDialog>
             <EditCustomerProfile />
@@ -119,25 +124,22 @@ const CustomerProfile = ({ data = {} }: CustomerProfileProps) => {
                     <h4 className="font-bold">{data.name?.toUpperCase()}</h4>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-y-7 gap-x-4 mt-8">
-                    <CustomerInfoField title="Email" value={data.email} />
+                    <CustomerInfoField title="البريد الإلكتروني" value={data.email} />
+                    <CustomerInfoField title="رقم الجوال" value={data?.phone} />
                     <CustomerInfoField
-                        title="Phone"
-                        value={data?.phone}
+                        title="حالة الحساب"
+                        value={data?.isVerified ? 'موثق' : 'غير موثق'}
+                        color={data?.isVerified ? 'green' : 'red'}
                     />
                     <CustomerInfoField
-                        title="Status"
-                        value={data?.isVerified ? "Verified" : "Not Verified"}
-                        color={data?.isVerified ? "green" : "red"}
+                        title="تاريخ الإنشاء"
+                        value={dayjs(data?.createdAt).format('DD/MM/YYYY')}
                     />
                     <CustomerInfoField
-                        title="Created At"
-                        value={dayjs(data?.createdAt).format("DD/MM/YYYY")}
+                        title="الدور"
+                        value={data?.role === 'user' ? 'مستخدم' : 'مسؤول'}
                     />
-                    <CustomerInfoField
-                        title="Role"
-                        value={data?.role?.toUpperCase()}
-                    />
-                    <div className="mb-7">
+                    {/* <div className="mb-7">
                         <span>Social</span>
                         <div className="flex mt-4">
                             <Button
@@ -171,7 +173,7 @@ const CustomerProfile = ({ data = {} }: CustomerProfileProps) => {
                                 }
                             />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="mt-4 flex flex-col xl:flex-row gap-2">
                     <CustomerProfileAction id={data.id} />

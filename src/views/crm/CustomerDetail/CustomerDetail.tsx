@@ -56,7 +56,7 @@ const CustomerDetail = () => {
                         <div className="w-full">
                             <AdaptableCard>
                                 <CurrentSubscription />
-                                <PaymentHistory userId={query.get('id')} />
+                                {/* <PaymentHistory userId={query.get('id')} /> */}
                                 <PaymentMethods />
                             </AdaptableCard>
                         </div>

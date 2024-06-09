@@ -17,8 +17,8 @@ const SalesReport = ({ className, data = {} }: SalesReportProps) => {
     return (
         <Card className={className}>
             <div className="flex items-center justify-between">
-                <h4>Sales Report</h4>
-                <Button size="sm">Export Report</Button>
+                <h4>تقرير عام</h4>
+                {/* <Button size="sm">Export Report</Button> */}
             </div>
             <Chart
                 series={data.series}

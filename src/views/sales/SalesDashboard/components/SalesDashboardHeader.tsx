@@ -37,7 +37,7 @@ const SalesDashboardHeader = () => {
                 <h3>الاحصائيات</h3>
                 <p>عرض كافة الاحصائيات الخاصة بالموقع</p>
             </div>
-            <div className="flex flex-col lg:flex-row lg:items-center gap-3">
+            {/* <div className="flex flex-col lg:flex-row lg:items-center gap-3">
                 <DatePickerRange
                     value={[
                         dayjs.unix(startDate).toDate(),
@@ -50,7 +50,7 @@ const SalesDashboardHeader = () => {
                 <Button size="sm" icon={<HiOutlineFilter />} onClick={onFilter}>
                     تصفية
                 </Button>
-            </div>
+            </div> */}
         </div>
     )
 }

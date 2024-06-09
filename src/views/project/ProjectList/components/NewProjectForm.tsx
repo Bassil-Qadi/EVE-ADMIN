@@ -1,144 +1,53 @@
-import { useState, useEffect } from 'react'
 import { FormItem, FormContainer } from '@/components/ui/Form'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
-import Select from '@/components/ui/Select'
 import Avatar from '@/components/ui/Avatar'
-import hooks from '@/components/ui/hooks'
-import NewTaskField from './NewTaskField'
+import Upload from '@/components/ui/Upload'
 import { Field, Form, Formik, FieldProps } from 'formik'
-import { HiCheck } from 'react-icons/hi'
-import { components, MultiValueGenericProps, OptionProps } from 'react-select'
+import { HiCloudUpload } from 'react-icons/hi'
 import {
-    getMembers,
-    putProject,
-    toggleNewProjectDialog,
     useAppDispatch,
     useAppSelector,
 } from '../store'
-import cloneDeep from 'lodash/cloneDeep'
 import * as Yup from 'yup'
 
 type FormModel = {
-    title: string
-    content: string
-    assignees: {
-        img: string
-        name: string
-        label: string
-    }[]
-}
-
-type TaskCount = {
-    completedTask?: number
-    totalTask?: number
-}
-
-const { MultiValueLabel } = components
-
-const { useUniqueId } = hooks
-
-const CustomSelectOption = ({
-    innerProps,
-    label,
-    data,
-    isSelected,
-}: OptionProps<{ img: string }>) => {
-    return (
-        <div
-            className={`flex items-center justify-between p-2 ${
-                isSelected
-                    ? 'bg-gray-100 dark:bg-gray-500'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-600'
-            }`}
-            {...innerProps}
-        >
-            <div className="flex items-center">
-                <Avatar shape="circle" size={20} src={data.img} />
-                <span className="ml-2 rtl:mr-2">{label}</span>
-            </div>
-            {isSelected && <HiCheck className="text-emerald-500 text-xl" />}
-        </div>
-    )
-}
-
-const CustomControlMulti = ({ children, ...props }: MultiValueGenericProps) => {
-    const { img } = props.data
-
-    return (
-        <MultiValueLabel {...props}>
-            <div className="inline-flex items-center">
-                <Avatar
-                    className="mr-2 rtl:ml-2"
-                    shape="circle"
-                    size={15}
-                    src={img}
-                />
-                {children}
-            </div>
-        </MultiValueLabel>
-    )
+    name: string
+    description: string
+    file: string
 }
 
 const validationSchema = Yup.object().shape({
-    title: Yup.string().min(3, 'Too Short!').required('Title required'),
-    content: Yup.string().required('Title required'),
-    assignees: Yup.array().min(1, 'Assignee required'),
-    rememberMe: Yup.bool(),
+    name: Yup.string().min(3, 'Too Short!').required('الرجاء إدحال الاسم'),
+    description: Yup.string().required('الرجاء إدخال التفاصيل')
 })
 
 const NewProjectForm = () => {
     const dispatch = useAppDispatch()
 
-    const members = useAppSelector((state) => state.projectList.data.allMembers)
-
-    const newId = useUniqueId('project-')
-
-    const [taskCount, setTaskCount] = useState<TaskCount>({})
-
-    useEffect(() => {
-        dispatch(getMembers())
-    }, [dispatch])
-
-    const handleAddNewTask = (count: TaskCount) => {
-        setTaskCount(count)
-    }
-
+    const currentUserId = useAppSelector((state) => state.auth.user.id)
+   
     const onSubmit = (
         formValue: FormModel,
         setSubmitting: (isSubmitting: boolean) => void
     ) => {
         setSubmitting(true)
 
-        const { title, content, assignees } = formValue
+        const formData = new FormData();
+        const { name, description, file } = formValue
 
-        const { totalTask, completedTask } = taskCount
-
-        const member = cloneDeep(assignees).map((assignee) => {
-            assignee.name = assignee.label
-            return assignee
-        })
-
-        const values = {
-            id: newId,
-            name: title,
-            desc: content,
-            totalTask,
-            completedTask,
-            progression:
-                ((completedTask as number) / (totalTask as number)) * 100 || 0,
-            member,
-        }
-        dispatch(putProject(values))
-        dispatch(toggleNewProjectDialog(false))
+        formData.append('name', name)
+        formData.append('description', description)
+        formData.append('createdBy', currentUserId || '')
+        formData.append('file', file)
     }
 
     return (
         <Formik
             initialValues={{
-                title: '',
-                content: '',
-                assignees: [],
+                name: '',
+                description: '',
+                file: '',
             }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
@@ -149,65 +58,74 @@ const NewProjectForm = () => {
                 <Form>
                     <FormContainer>
                         <FormItem
-                            label="Title"
-                            invalid={errors.title && touched.title}
-                            errorMessage={errors.title}
+                            label="الاسم"
+                            invalid={errors.name && touched.name}
+                            errorMessage={errors.name}
                         >
                             <Field
                                 type="text"
                                 autoComplete="off"
                                 name="title"
-                                placeholder="Enter title"
+                                placeholder="ادخل اسم الصالون"
                                 component={Input}
                             />
                         </FormItem>
                         <FormItem
-                            label="Assignees"
-                            invalid={
-                                (errors.assignees && touched.assignees) as ''
-                            }
-                            errorMessage={errors.assignees as string}
-                        >
-                            <Field name="assignees">
-                                {({ field, form }: FieldProps) => (
-                                    <Select
-                                        isMulti
-                                        className="min-w-[120px]"
-                                        components={{
-                                            Option: CustomSelectOption,
-                                            MultiValueLabel: CustomControlMulti,
-                                        }}
-                                        field={field}
-                                        form={form}
-                                        options={members}
-                                        value={values.assignees}
-                                        onChange={(option) => {
-                                            form.setFieldValue(
-                                                field.name,
-                                                option
-                                            )
-                                        }}
-                                    />
-                                )}
-                            </Field>
-                        </FormItem>
-                        <FormItem
-                            label="Content"
-                            invalid={errors.content && touched.content}
-                            errorMessage={errors.content}
+                            label="التفاصيل"
+                            invalid={errors.description && touched.description}
+                            errorMessage={errors.description}
                         >
                             <Field
                                 textArea
                                 type="text"
                                 autoComplete="off"
-                                name="content"
-                                placeholder="Enter content"
+                                name="description"
+                                placeholder="ادخل تفاصيل الصالون"
                                 component={Input}
                             />
                         </FormItem>
-                        <NewTaskField onAddNewTask={handleAddNewTask} />
+                        <FormItem
+                invalid={errors.file && touched.file}
+                errorMessage={errors.file}
+            >
+                <Field name="file">
+                    {({ field, form }: FieldProps) => {
+                        const avatarProps = field.value
+                            ? { src: field.value }
+                            : {}
+                        return (
+                            <div className="flex justify-center">
+                                <Upload
+                                    className="cursor-pointer"
+                                    showList={false}
+                                    uploadLimit={1}
+                                    onChange={(files) =>
+                                        form.setFieldValue(
+                                            field.name,
+                                            URL.createObjectURL(files[0])
+                                        )
+                                    }
+                                    onFileRemove={(files) =>
+                                        form.setFieldValue(
+                                            field.name,
+                                            URL.createObjectURL(files[0])
+                                        )
+                                    }
+                                >
+                                    <Avatar
+                                        className="border-2 border-white dark:border-gray-800 shadow-lg"
+                                        size={100}
+                                        icon={<HiCloudUpload  />}
+                                        {...avatarProps}
+                                    />
+                                </Upload>
+                            </div>
+                        )
+                    }}
+                </Field>
+            </FormItem>
                         <Button block variant="solid" type="submit">
-                            Submit
+                            إرسال
                         </Button>
                     </FormContainer>
                 </Form>

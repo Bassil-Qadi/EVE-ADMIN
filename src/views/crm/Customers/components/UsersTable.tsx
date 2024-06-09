@@ -133,7 +133,7 @@ const Customers = () => {
                     const row = props.row.original
                     return <div className="flex items-center">
                     <span className="ml-2 rtl:mr-2 capitalize">
-                        {row.role}
+                        {row.role === 'user' ? 'مستخدم' : 'مسؤول'}
                     </span>
                 </div>
                 },
@@ -147,7 +147,7 @@ const Customers = () => {
                         <div className="flex items-center">
                             <Badge className={row.isVerified ? statusColor['isVerified'] : statusColor['notVerified']} />
                             <span className="ml-2 rtl:mr-2 capitalize">
-                                {row.isVerified ? "Verified" : "Not Verified"}
+                                {row.isVerified ? "موثق" : "غير موثق"}
                             </span>
                         </div>
                     )

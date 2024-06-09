@@ -89,64 +89,57 @@ const Password = ({ data }: { data?: LoginHistory[] }) => {
                         <Form>
                             <FormContainer>
                                 <FormDesription
-                                    title="Password"
-                                    desc="Enter your current & new password to reset your password"
+                                    title="كلمة المرور"
+                                    desc="أدخل كلمة المرور الحالية والجديدة لإعادة تعيين كلمة المرور الخاصة بك"
                                 />
                                 <FormRow
                                     name="password"
-                                    label="Current Password"
+                                    label="كلمة المرور الحالية"
                                     {...validatorProps}
                                 >
                                     <Field
                                         type="password"
                                         autoComplete="off"
                                         name="password"
-                                        placeholder="Current Password"
+                                        placeholder="أدخل كلمة المرور الحالية"
                                         component={Input}
                                     />
                                 </FormRow>
                                 <FormRow
                                     name="newPassword"
-                                    label="New Password"
+                                    label="كلمة المرور الجديدة"
                                     {...validatorProps}
                                 >
                                     <Field
                                         type="password"
                                         autoComplete="off"
                                         name="newPassword"
-                                        placeholder="New Password"
+                                        placeholder="أدخل كلمة المرور الجديدة"
                                         component={Input}
                                     />
                                 </FormRow>
                                 <FormRow
                                     name="confirmNewPassword"
-                                    label="Confirm Password"
+                                    label="تأكيد كلمة المرور"
                                     {...validatorProps}
                                 >
                                     <Field
                                         type="password"
                                         autoComplete="off"
                                         name="confirmNewPassword"
-                                        placeholder="Confirm Password"
+                                        placeholder="تأكيد كلمة المرور"
                                         component={Input}
                                     />
                                 </FormRow>
                                 <div className="mt-4 ltr:text-right">
-                                    <Button
-                                        className="ltr:mr-2 rtl:ml-2"
-                                        type="button"
-                                        onClick={() => resetForm()}
-                                    >
-                                        Reset
-                                    </Button>
                                     <Button
                                         variant="solid"
                                         loading={isSubmitting}
                                         type="submit"
                                     >
                                         {isSubmitting
-                                            ? 'Updating'
-                                            : 'Update Password'}
+                                            ? 'جاري التحديث...'
+                                            : 'تحديث كلمة المرور'}
                                     </Button>
                                 </div>
                             </FormContainer>
@@ -154,7 +147,7 @@ const Password = ({ data }: { data?: LoginHistory[] }) => {
                     )
                 }}
             </Formik>
-            <div className="mt-6">
+            {/* <div className="mt-6">
                 <FormDesription
                     title="Where you're signed in"
                     desc="You're signed in to your account on these devices."
@@ -200,7 +193,7 @@ const Password = ({ data }: { data?: LoginHistory[] }) => {
                         ))}
                     </div>
                 )}
-            </div>
+            </div> */}
         </>
     )
 }

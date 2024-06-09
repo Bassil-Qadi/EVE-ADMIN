@@ -24,18 +24,21 @@ import {
     HiOutlineVariable,
     HiOutlineCode,
     HiOutlinePhotograph,
-    HiDocumentDuplicate 
+    HiDocumentDuplicate,
+    HiOutlineScissors  
 } from 'react-icons/hi'
+
+import { LiveHelpOutlined, LocalOfferOutlined } from '@mui/icons-material';
 
 export type NavigationIcons = Record<string, JSX.Element>
 
 const navigationIcon: NavigationIcons = {
     apps: <HiOutlineViewGridAdd />,
-    project: <HiOutlineChartSquareBar />,
+    project: <HiOutlineScissors />,
     crm: <HiOutlineUserGroup />,
     sales: <HiOutlineTrendingUp />,
     crypto: <HiOutlineCurrencyDollar />,
-    knowledgeBase: <HiOutlineBookOpen />,
+    knowledgeBase: <LiveHelpOutlined />,
     account: <HiOutlineUserCircle />,
     uiComponents: <HiOutlineTemplate />,
     common: <HiOutlineColorSwatch />,
@@ -57,7 +60,7 @@ const navigationIcon: NavigationIcons = {
     sharedComponentDoc: <HiOutlineShare />,
     utilsDoc: <HiOutlineVariable />,
     changeLog: <HiOutlineCode />,
-    banner: <HiOutlinePhotograph  />,
+    banner: <LocalOfferOutlined  />,
     ppPages: <HiDocumentDuplicate />
 }
 

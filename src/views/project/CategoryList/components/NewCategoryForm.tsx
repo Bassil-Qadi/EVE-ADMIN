@@ -9,12 +9,10 @@ import {
     // putProject,
     addCategory,
     getCategoryList,
-    AddCategoryListResponse,
     toggleNewProjectDialog,
     useAppDispatch,
     useAppSelector,
 } from '../store'
-import cloneDeep from 'lodash/cloneDeep'
 import * as Yup from 'yup'
 
 type FormModel = {
@@ -24,8 +22,8 @@ type FormModel = {
 }
 
 const validationSchema = Yup.object().shape({
-    name: Yup.string().min(3, 'Too Short!').required('Title required'),
-    description: Yup.string().required('Title required')
+    name: Yup.string().min(3, 'Too Short!').required('الرجاء إدحال الاسم'),
+    description: Yup.string().required('الرجاء إدخال التفاصيل')
 })
 
 const NewCategoryForm = () => {
@@ -68,7 +66,7 @@ const NewCategoryForm = () => {
                 <Form>
                     <FormContainer>
                         <FormItem
-                            label="Title"
+                            label="الاسم"
                             invalid={errors.name && touched.name}
                             errorMessage={errors.name}
                         >
@@ -76,12 +74,12 @@ const NewCategoryForm = () => {
                                 type="text"
                                 autoComplete="off"
                                 name="name"
-                                placeholder="Enter title"
+                                placeholder="ادخل اسم الصنف"
                                 component={Input}
                             />
                         </FormItem>
                         <FormItem
-                            label="Description"
+                            label="التفاصيل"
                             invalid={errors.description && touched.description}
                             errorMessage={errors.description}
                         >
@@ -90,7 +88,7 @@ const NewCategoryForm = () => {
                                 type="text"
                                 autoComplete="off"
                                 name="description"
-                                placeholder="Enter Description"
+                                placeholder="ادخل تفاصيل الصنف"
                                 component={Input}
                             />
                         </FormItem>
@@ -135,7 +133,7 @@ const NewCategoryForm = () => {
                 </Field>
             </FormItem>
                         <Button block variant="solid" type="submit">
-                            Submit
+                            إرسال
                         </Button>
                     </FormContainer>
                 </Form>

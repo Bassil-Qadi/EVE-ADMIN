@@ -2,7 +2,7 @@ import ApiService from './ApiService'
 
 export async function apiGetSalesDashboardData<T> (){
     return ApiService.fetchData<T>({
-        url: '/categories',
+        url: '/admin/categories',
         method: 'get',
     })
 }
@@ -16,7 +16,7 @@ export async function apiGetServicesDashboardData<T>() {
 
 export async function apiGetSaloonsDashboardData<T>() {
     return ApiService.fetchData<T>({
-        url: '/all-saloons',
+        url: '/admin/all-saloons',
         method: 'get',
     })
 }

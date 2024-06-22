@@ -27,6 +27,7 @@ import {
     HiDocumentDuplicate,
     HiOutlineScissors  
 } from 'react-icons/hi'
+import StoreOutlinedIcon from '@mui/icons-material/StoreOutlined';
 
 import { LiveHelpOutlined, LocalOfferOutlined } from '@mui/icons-material';
 
@@ -61,7 +62,8 @@ const navigationIcon: NavigationIcons = {
     utilsDoc: <HiOutlineVariable />,
     changeLog: <HiOutlineCode />,
     banner: <LocalOfferOutlined  />,
-    ppPages: <HiDocumentDuplicate />
+    ppPages: <HiDocumentDuplicate />,
+    clinic: <StoreOutlinedIcon />
 }
 
 export default navigationIcon

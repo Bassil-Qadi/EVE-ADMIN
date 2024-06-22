@@ -17,10 +17,26 @@ const appsRoute: Routes = [
         authority: [ADMIN, USER],
     },
     {
+        key: 'appsProject.clinicsList',
+        path: `${APP_PREFIX_PATH}/project/clinics-list`,
+        component: lazy(() => import('@/views/project/ClinicsList')),
+        authority: [ADMIN, USER],
+    },
+    {
         key: 'appsProject.categoryList',
         path: `${APP_PREFIX_PATH}/project/category-list`,
         component: lazy(() => import('@/views/project/CategoryList')),
         authority: [ADMIN, USER],
+    },
+    {
+        key: 'appsProject.saloonDetails',
+        path: `${APP_PREFIX_PATH}/project/saloon-details`,
+        component: lazy(() => import('@/views/project/SaloonDetail')),
+        authority: [ADMIN, USER],
+        meta: {
+            header: 'تفاصيل الحساب',
+            headerContainer: true,
+        },
     },
     {
         key: 'appsProject.scrumBoard',

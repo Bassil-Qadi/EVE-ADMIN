@@ -3,9 +3,11 @@
         "apps": "لوحة التحكم",
         "appsProject": {
             "project": "الصالونات",
+            "clinics": "العيادات",
             "dashboard": "لوحة القيادة",
             "projectList": "قائمة الصالونات",
             "categoryList": "قائمة الأصناف",
+            "clinicsList": "قائمة العيادات",
             "scrumBoard": "مجلس سكرم",
             "issue": "القضية"
         },
@@ -18,7 +20,7 @@
             "mail": "بريد"
         },
         "appsSales": {
-            "sales": "مبيعات",
+            "sales": "الاحصائيات",
             "dashboard": "لوحة القيادة",
             "productList": "قائمة المنتجات",
             "productEdit": "المنتج تحرير",
@@ -45,7 +47,7 @@
             "account": "الحساب",
             "settings": "الإعدادات",
             "invoice": "فاتورة",
-            "activityLog": "سجل النشاطات",
+            "activityLog": "سجل الإشعارات",
             "kycForm": "نموذج kyc"
         },
         "uiComponents": "مكونات واجهة المستخدم",

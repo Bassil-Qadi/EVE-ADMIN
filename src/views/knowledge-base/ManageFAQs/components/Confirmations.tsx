@@ -57,7 +57,7 @@ const Confirmations = ({ data }: { data: Article[] }) => {
         dispatch(setFAQs(removedData))
         dispatch(setSelected({}))
         toast.push(
-            <Notification title={'Successfuly Deleted'} type="success">
+            <Notification title={'Successfully Deleted'} type="success">
                 تم حذف السؤال بنجاح
             </Notification>
         )
@@ -115,7 +115,7 @@ const Confirmations = ({ data }: { data: Article[] }) => {
         }
         dispatch(toggleAddFaq(false))
         toast.push(
-            <Notification title={'Successfuly Added'} type="success">
+            <Notification title={'Successfully Added'} type="success">
                 تم إضافة السؤال بنجاح
             </Notification>
         )

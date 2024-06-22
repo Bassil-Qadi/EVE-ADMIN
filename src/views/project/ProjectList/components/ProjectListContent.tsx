@@ -11,7 +11,7 @@ const ProjectListContent = () => {
     const loading = useAppSelector((state) => state.projectList.data.loading)
 
     const saloonsList = useAppSelector(
-        (state) => state.projectList.data.saloonsList
+        (state) => state.projectList.data.saloonsList.filter(saloon => saloon.type === 'saloon')
     )
     const view = useAppSelector((state) => state.projectList.data.view)
     const { sort, search } = useAppSelector(

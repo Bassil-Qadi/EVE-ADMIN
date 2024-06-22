@@ -10,9 +10,9 @@ export type ListItemData = {
     name: string,
     description: string,
     image: string,
-    createdBy: string,
-    createdAt: string,
-    updatedAt: string
+    createdBy?: string,
+    createdAt?: string,
+    updatedAt?: string
 }
 
 type ListItemProps = {

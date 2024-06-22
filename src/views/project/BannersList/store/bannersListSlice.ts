@@ -3,16 +3,17 @@ import {
     apiGetBannersList,
     apiPutProjectList,
     apiAddBannerList,
-    apiDeleteBannerList
+    apiDeleteBannerList,
+    apiPutBanner
 } from '@/services/ProjectService'
 
 type Banner = {
-    _id: string,
-    title: string,
-    description: string,
-    image: string,
-    saloonId: string,
-    userId: string,
+    _id: string
+    title: string
+    description: string
+    image: string
+    saloonId: string
+    userId: string
     status: string
 }
 
@@ -32,7 +33,7 @@ type AddCategoryListRequest = {
     description: string
     saloonId?: string
     userId?: string
-    image: string,
+    image: string
     status: string
 }
 
@@ -45,14 +46,15 @@ type PutProjectListRequest = {
 
 export type AddCategoryListResponse = BannersList
 
-
 export type ProjectListState = {
     loading: boolean
-    bannersList: BannersList,
+    bannersList: BannersList
     view: 'grid' | 'list'
     query: Query
-    newBannerDialog: boolean,
+    newBannerDialog: boolean
     deleteBannerDialog: boolean
+    editBannerdialog: boolean
+    selectedBanner: Banner
     deletedBannerId: string
 }
 
@@ -67,7 +69,7 @@ export const getBannersList = createAsyncThunk(
         >()
 
         return response.data.data
-    }
+    },
 )
 
 export const addBanner = createAsyncThunk(
@@ -78,7 +80,7 @@ export const addBanner = createAsyncThunk(
             AddCategoryListRequest
         >(data)
         return response.data
-    }
+    },
 )
 
 export const deleteBanner = createAsyncThunk(
@@ -86,18 +88,15 @@ export const deleteBanner = createAsyncThunk(
     async (data: any) => {
         const response = await apiDeleteBannerList<any>(data)
         return response.data
-    }
+    },
 )
 
 export const putBanner = createAsyncThunk(
     SLICE_NAME + '/putBanner',
-    async (data: PutProjectListRequest) => {
-        const response = await apiPutProjectList<
-            AddCategoryListResponse,
-            PutProjectListRequest
-        >(data)
+    async (data: any) => {
+        const response = await apiPutBanner(data)
         return response.data
-    }
+    },
 )
 
 const initialState: ProjectListState = {
@@ -110,7 +109,17 @@ const initialState: ProjectListState = {
     },
     newBannerDialog: false,
     deleteBannerDialog: false,
-    deletedBannerId: ''
+    editBannerdialog: false,
+    selectedBanner: {
+        _id: '',
+        title: '',
+        description: '',
+        image: '',
+        saloonId: '',
+        userId: '',
+        status: ''
+    },
+    deletedBannerId: '',
 }
 
 const categoryListSlice = createSlice({
@@ -132,9 +141,15 @@ const categoryListSlice = createSlice({
         toggleDeleteBannerDialog: (state, action) => {
             state.deleteBannerDialog = action.payload
         },
+        toggleEditBannerDialog: (state, action) => {
+            state.editBannerdialog = action.payload
+        },
+        setSelectedBanner: (state, action) => {
+            state.selectedBanner = action.payload
+        },
         setDeletedBannerId: (state, action) => {
             state.deletedBannerId = action.payload
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -145,13 +160,21 @@ const categoryListSlice = createSlice({
             .addCase(getBannersList.pending, (state) => {
                 state.loading = true
             })
-            // .addCase(putProject.fulfilled, (state, action) => {
-            //     state.projectList = action.payload
-            // })
+        // .addCase(putProject.fulfilled, (state, action) => {
+        //     state.projectList = action.payload
+        // })
     },
 })
 
-export const { toggleView, toggleSort, toggleNewBannerDialog, toggleDeleteBannerDialog, setSearch, setDeletedBannerId } =
-categoryListSlice.actions
+export const {
+    toggleView,
+    toggleSort,
+    toggleNewBannerDialog,
+    toggleDeleteBannerDialog,
+    setSearch,
+    setDeletedBannerId,
+    setSelectedBanner,
+    toggleEditBannerDialog
+} = categoryListSlice.actions
 
 export default categoryListSlice.reducer

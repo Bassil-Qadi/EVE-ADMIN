@@ -6,13 +6,13 @@ import { FcImageFile } from 'react-icons/fc'
 const Customize = () => {
     return (
         <div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
                 <Upload>
                     <Button variant="solid" icon={<HiOutlineCloudUpload />}>
                         Upload your file
                     </Button>
                 </Upload>
-            </div>
+            </div> */}
             <div>
                 <Upload draggable>
                     <div className="my-16 text-center">

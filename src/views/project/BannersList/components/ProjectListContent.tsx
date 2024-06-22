@@ -4,7 +4,12 @@ import GridItem from './GridItem'
 import ListItem from './ListItem'
 import ConfirmDialog from '@/components/shared/ConfirmDialog'
 import Spinner from '@/components/ui/Spinner'
-import { getBannersList, deleteBanner, useAppDispatch, useAppSelector, toggleDeleteBannerDialog } from '../store'
+import Dialog from '@/components/ui/Dialog'
+import EditBannerForm from './EditBannerForm'
+import Notification from '@/components/ui/Notification'
+import toast from '@/components/ui/toast'
+
+import { getBannersList, deleteBanner, useAppDispatch, useAppSelector, toggleDeleteBannerDialog, toggleEditBannerDialog } from '../store'
 
 const ProjectListContent = () => {
     const dispatch = useAppDispatch()
@@ -21,8 +26,13 @@ const ProjectListContent = () => {
     const dialogOpen = useAppSelector(
         (state) => state.bannersList.data.deleteBannerDialog
     )
-
-    const selectedCategory = useAppSelector(
+    const editDialogOpen = useAppSelector(
+        (state) => state.bannersList.data.editBannerdialog
+    )
+    const selectedBanner = useAppSelector(
+        (state) => state.bannersList.data.selectedBanner
+    )
+    const selectedBannerId = useAppSelector(
         (state) => state.bannersList.data.deletedBannerId
     )
 
@@ -30,8 +40,24 @@ const ProjectListContent = () => {
         dispatch(toggleDeleteBannerDialog(false))
     }
 
+    const onEditDialogClose = () => {
+        dispatch(toggleEditBannerDialog(false))
+    }
+
     const onDeleteBanner = () => {
-        dispatch(deleteBanner(selectedCategory))
+        let responseData = dispatch(deleteBanner(selectedBannerId))
+
+        dispatch(toggleDeleteBannerDialog(false))
+        responseData.then(data => {
+            if(data.payload.statusCode === 201) {
+                dispatch(getBannersList())
+                toast.push(
+                    <Notification title={'Successfully Deleted'} type="success">
+                        تم حذف العرض  بنجاح
+                    </Notification>
+                )
+            }
+        })
     }
 
     useEffect(() => {
@@ -78,7 +104,15 @@ const ProjectListContent = () => {
                 <p>
                 هل أنت متأكد من أنك تريد حذف هذا العرض؟ سيتم حذف جميع السجلات المتعلقة بهذا العرض أيضًا. لا يمكن التراجع عن هذا الإجراء.
                 </p>
-            </ConfirmDialog></>
+        </ConfirmDialog>
+        <Dialog
+            isOpen={editDialogOpen}
+            onClose={onEditDialogClose}
+            onRequestClose={onEditDialogClose}
+        >
+            <EditBannerForm banner={selectedBanner} />
+        </Dialog>
+        </>
     )
 }
 

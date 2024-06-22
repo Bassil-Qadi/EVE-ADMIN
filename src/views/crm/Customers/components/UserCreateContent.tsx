@@ -43,7 +43,7 @@ const UserCreateContent = forwardRef<FormikRef>((_, ref) => {
         dispatch(setCreateDrawerClose())
         dispatch(setUsersList(newData))
         toast.push(
-            <Notification title={'Successfuly Added'} type="success">
+            <Notification title={'Successfully Added'} type="success">
                 تم إضافة المستخدم بنجاح
             </Notification>
         )

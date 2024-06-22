@@ -1,26 +1,28 @@
-import { useAppDispatch, toggleDeleteCategoryDialog, setDeletedCategoryId } from '../store'
+import { useAppDispatch, toggleDeleteCategoryDialog, setDeletedCategoryId, setSelectedCategory, toggleEditCategoryDialog } from '../store'
 import Dropdown from '@/components/ui/Dropdown'
 import {
-    HiOutlineSwitchHorizontal,
-    HiOutlineFlag,
-    HiOutlineCog,
-    HiOutlineFolderRemove 
+    HiOutlineFolderRemove,
+    HiOutlinePencil  
 } from 'react-icons/hi'
 import EllipsisButton from '@/components/shared/EllipsisButton'
 
 
-const ItemDropdown = ({ categoryId }: any) => {
-    
+const ItemDropdown = ({ categoryId, category }: any) => {
+
     const dispatch = useAppDispatch()
+
     const handleOpenDeleteCategory = () => {
         dispatch(toggleDeleteCategoryDialog(true))
         dispatch(setDeletedCategoryId(categoryId))
     }
+
+    const handleOpenEditCategory = () => {
+        dispatch(toggleEditCategoryDialog(true))
+        dispatch(setSelectedCategory(category))
+    }
     
     const dropdownList = [
-        { label: 'إضافة مرجع', value: 'addFlag', icon: <HiOutlineFlag /> },
-        { label: 'نقل', value: 'move', icon: <HiOutlineSwitchHorizontal /> },
-        { label: 'الإعدادات', value: 'projectSetting', icon: <HiOutlineCog /> },
+        { label: 'تعديل', value: 'editProject', icon: <HiOutlinePencil  />, click: handleOpenEditCategory },
         { label: 'حذف', value: 'categoryRemove', icon: <HiOutlineFolderRemove  />, click: handleOpenDeleteCategory },
     ]
 

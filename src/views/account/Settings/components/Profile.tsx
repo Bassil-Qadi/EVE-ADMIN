@@ -1,9 +1,6 @@
 import Input from '@/components/ui/Input'
-import Avatar from '@/components/ui/Avatar'
-import Upload from '@/components/ui/Upload'
 import Button from '@/components/ui/Button'
 import Select from '@/components/ui/Select'
-import Switcher from '@/components/ui/Switcher'
 import Notification from '@/components/ui/Notification'
 import toast from '@/components/ui/toast'
 import { FormContainer } from '@/components/ui/Form'
@@ -14,24 +11,21 @@ import { components } from 'react-select'
 import {
     HiOutlineUserCircle,
     HiOutlineMail,
-    HiOutlineBriefcase,
-    HiOutlineUser,
     HiCheck,
-    HiOutlineGlobeAlt,
     HiOutlinePhone 
 } from 'react-icons/hi'
 import * as Yup from 'yup'
 import type { OptionProps, ControlProps } from 'react-select'
 import type { FormikProps, FieldInputProps, FieldProps } from 'formik'
+import { putUser, useAppDispatch, useAppSelector } from '@/views/crm/Customers/store'
+import { setUser } from '@/store'
 
 export type ProfileFormModel = {
     name: string
     email: string
-    title: string
-    avatar: string
-    timeZone: string
     role: string
-    syncData: boolean
+    phone: string
+    id: string
 }
 
 type ProfileProps = {
@@ -51,16 +45,12 @@ const validationSchema = Yup.object().shape({
         .max(12, 'Too Long!')
         .required('User Name Required'),
         email: Yup.string().email('Invalid email').required('Email Required'),
-        title: Yup.string(),
-        avatar: Yup.string(),
-        lang: Yup.string(),
-        timeZone: Yup.string(),
-        syncData: Yup.bool(),
+        phone: Yup.string(),
 })
 
 const langOptions: LanguageOption[] = [
     { value: 'user', label: 'مستخدم' },
-    { value: 'ch', label: 'مسؤول' }
+    { value: 'admin', label: 'مسؤول' }
 ]
 
 const CustomSelectOption = ({
@@ -102,26 +92,28 @@ const Profile = ({
     data = {
         name: '',
         email: '',
-        title: '',
-        avatar: '',
-        timeZone: '',
         role: '',
-        syncData: false,
+        phone: '',
+        id: '',
     },
 }: ProfileProps) => {
-    const onSetFormFile = (
-        form: FormikProps<ProfileFormModel>,
-        field: FieldInputProps<ProfileFormModel>,
-        file: File[]
-    ) => {
-        form.setFieldValue(field.name, URL.createObjectURL(file[0]))
-    }
+
+    const dispatch = useAppDispatch()
 
     const onFormSubmit = (
         values: ProfileFormModel,
         setSubmitting: (isSubmitting: boolean) => void
     ) => {
         console.log('values', values)
+        let putData = { ...values, updatedBy: data.id }
+        let response = dispatch(putUser(putData))
+
+        response.then(data => {
+            if(data.payload.statusCode === 200) {
+                dispatch(setUser(data.payload.data))
+            }
+        })
+
         toast.push(<Notification title={'Profile updated'} type="success" />, {
             placement: 'top-center',
         })
@@ -181,50 +173,8 @@ const Profile = ({
                                     }
                                 />
                             </FormRow>
-                            {/* <FormRow
-                                name="avatar"
-                                label="Avatar"
-                                {...validatorProps}
-                            >
-                                <Field name="avatar">
-                                    {({ field, form }: FieldProps) => {
-                                        const avatarProps = field.value
-                                            ? { src: field.value }
-                                            : {}
-                                        return (
-                                            <Upload
-                                                className="cursor-pointer"
-                                                showList={false}
-                                                uploadLimit={1}
-                                                onChange={(files) =>
-                                                    onSetFormFile(
-                                                        form,
-                                                        field,
-                                                        files
-                                                    )
-                                                }
-                                                onFileRemove={(files) =>
-                                                    onSetFormFile(
-                                                        form,
-                                                        field,
-                                                        files
-                                                    )
-                                                }
-                                            >
-                                                <Avatar
-                                                    className="border-2 border-white dark:border-gray-800 shadow-lg"
-                                                    size={60}
-                                                    shape="circle"
-                                                    icon={<HiOutlineUser />}
-                                                    {...avatarProps}
-                                                />
-                                            </Upload>
-                                        )
-                                    }}
-                                </Field>
-                            </FormRow> */}
                             <FormRow
-                                name="title"
+                                name="phone"
                                 label="رقم الجوال"
                                 {...validatorProps}
                                 
@@ -232,7 +182,7 @@ const Profile = ({
                                 <Field
                                     type="text"
                                     autoComplete="off"
-                                    name="title"
+                                    name="phone"
                                     placeholder="رقم الجوال"
                                     component={Input}
                                     prefix={

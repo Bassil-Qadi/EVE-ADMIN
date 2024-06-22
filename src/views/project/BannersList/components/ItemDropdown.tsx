@@ -1,26 +1,28 @@
-import { useAppDispatch, toggleDeleteBannerDialog, setDeletedBannerId } from '../store'
+import { useAppDispatch, toggleDeleteBannerDialog, setDeletedBannerId, setSelectedBanner, toggleEditBannerDialog } from '../store'
 import Dropdown from '@/components/ui/Dropdown'
 import {
-    HiOutlineSwitchHorizontal,
-    HiOutlineFlag,
-    HiOutlineCog,
+    HiOutlinePencil,
     HiOutlineFolderRemove 
 } from 'react-icons/hi'
 import EllipsisButton from '@/components/shared/EllipsisButton'
 
 
-const ItemDropdown = ({ bannerId }: any) => {
+const ItemDropdown = ({ bannerId, banner }: any) => {
     
     const dispatch = useAppDispatch()
+
     const handleOpenDeleteBanner = () => {
         dispatch(toggleDeleteBannerDialog(true))
         dispatch(setDeletedBannerId(bannerId))
     }
+
+    const handleOpenEditBanner = () => {
+        dispatch(setSelectedBanner(banner))
+        dispatch(toggleEditBannerDialog(true))
+    }
     
     const dropdownList = [
-        { label: 'إضافة مرجع', value: 'addFlag', icon: <HiOutlineFlag /> },
-        { label: 'نقل', value: 'move', icon: <HiOutlineSwitchHorizontal /> },
-        { label: 'الإعدادات', value: 'projectSetting', icon: <HiOutlineCog /> },
+        { label: 'تعديل', value: 'editProject', icon: <HiOutlinePencil  />, click: handleOpenEditBanner },
         { label: 'حذف', value: 'categoryRemove', icon: <HiOutlineFolderRemove  />, click: handleOpenDeleteBanner },
     ]
 

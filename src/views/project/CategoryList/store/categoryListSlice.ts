@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import {
     apiGetCategoryList,
     apiPutProjectList,
+    apiPutCategory,
     apiAddCategoryList,
     apiDeleteCategoryList
 } from '@/services/ProjectService'
@@ -11,9 +12,9 @@ type Category = {
     name: string,
     description: string,
     image: string,
-    createdBy: string,
-    createdAt: string,
-    updatedAt: string
+    createdBy?: string,
+    createdAt?: string,
+    updatedAt?: string
 }
 
 type CategoryList = Category[]
@@ -51,7 +52,9 @@ export type ProjectListState = {
     query: Query
     newProjectDialog: boolean,
     deleteCategoryDialog: boolean
+    editCategoryDialog: boolean
     deletedCategoryId: string
+    selectedCategory: Category
 }
 
 export const SLICE_NAME = 'categoryList'
@@ -87,6 +90,17 @@ export const deleteCategory = createAsyncThunk(
     }
 )
 
+export const putCategory = createAsyncThunk(
+    SLICE_NAME + '/putCategory',
+    async (data: any) => {
+        const response = await apiPutCategory<
+            AddCategoryListResponse,
+            PutProjectListRequest
+        >(data)
+        return response.data
+    }
+)
+
 export const putProject = createAsyncThunk(
     SLICE_NAME + '/putProject',
     async (data: PutProjectListRequest) => {
@@ -108,7 +122,14 @@ const initialState: ProjectListState = {
     },
     newProjectDialog: false,
     deleteCategoryDialog: false,
-    deletedCategoryId: ''
+    editCategoryDialog: false,
+    deletedCategoryId: '',
+    selectedCategory: {
+        _id: '',
+        name: '',
+        description: '',
+        image: ''
+    }
 }
 
 const categoryListSlice = createSlice({
@@ -127,11 +148,17 @@ const categoryListSlice = createSlice({
         toggleNewProjectDialog: (state, action) => {
             state.newProjectDialog = action.payload
         },
+        toggleEditCategoryDialog: (state, action) => {
+            state.editCategoryDialog = action.payload
+        },
         toggleDeleteCategoryDialog: (state, action) => {
             state.deleteCategoryDialog = action.payload
         },
         setDeletedCategoryId: (state, action) => {
             state.deletedCategoryId = action.payload
+        },
+        setSelectedCategory: (state, action) => {
+            state.selectedCategory = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -143,13 +170,19 @@ const categoryListSlice = createSlice({
             .addCase(getCategoryList.pending, (state) => {
                 state.loading = true
             })
+            .addCase(putCategory.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(putCategory.fulfilled, (state) => {
+                state.loading = false
+            })
             // .addCase(putProject.fulfilled, (state, action) => {
             //     state.projectList = action.payload
             // })
     },
 })
 
-export const { toggleView, toggleSort, toggleNewProjectDialog, toggleDeleteCategoryDialog, setSearch, setDeletedCategoryId } =
+export const { toggleView, toggleSort, toggleNewProjectDialog, toggleDeleteCategoryDialog, setSearch, setDeletedCategoryId, toggleEditCategoryDialog, setSelectedCategory } =
 categoryListSlice.actions
 
 export default categoryListSlice.reducer

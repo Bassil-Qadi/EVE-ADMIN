@@ -55,7 +55,7 @@ const Confirmations = ({ data }: { data: Page[] }) => {
         dispatch(deletePage(selected.id))
         dispatch(setPages(removedData))
         toast.push(
-            <Notification title={'Successfuly Deleted'} type="success">
+            <Notification title={'Successfully Deleted'} type="success">
                 تم حذف الصفحة بنجاح
             </Notification>
         )
@@ -113,7 +113,7 @@ const Confirmations = ({ data }: { data: Page[] }) => {
         }
         dispatch(toggleAddPage(false))
         toast.push(
-            <Notification title={'Successfuly Added'} type="success">
+            <Notification title={'Successfully Added'} type="success">
                 تم إضافة الصفحة بنجاح
             </Notification>
         )

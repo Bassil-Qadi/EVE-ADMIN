@@ -49,3 +49,51 @@ export async function apiGetAccountFormData<T>() {
         method: 'get',
     })
 }
+
+export async function apiGetNotificationsList<
+    T
+>() {
+    return ApiService.fetchData<T>({
+        url: '/admin/notifications',
+        method: 'get',
+    })
+}
+
+export async function apiAddNotification<
+T
+>(data: any) {
+    return ApiService.fetchData<T>({
+        url: '/notification/send-to-user',
+        method: 'post',
+        data
+    })
+}
+
+export async function apiAddAllUsersNotification<
+T
+>(data: any) {
+    return ApiService.fetchData<T>({
+        url: '/notification/send-to-all-users',
+        method: 'post',
+        data
+    })
+}
+
+export async function apiAddAllSaloonssNotification<
+T
+>(data: any) {
+    return ApiService.fetchData<T>({
+        url: '/notification/send-to-allsaloon',
+        method: 'post',
+        data
+    })
+}
+
+export async function apiDeleteNotification<
+T
+>(notificationId: any) {
+    return ApiService.fetchData<T>({
+        url: `/notification/${notificationId}`,
+        method: 'delete'
+    })
+}

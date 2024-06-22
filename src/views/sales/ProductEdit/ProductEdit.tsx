@@ -66,11 +66,11 @@ const ProductEdit = () => {
     const popNotification = (keyword: string) => {
         toast.push(
             <Notification
-                title={`Successfuly ${keyword}`}
+                title={`Successfully ${keyword}`}
                 type="success"
                 duration={2500}
             >
-                Product successfuly {keyword}
+                Product Successfully {keyword}
             </Notification>,
             {
                 placement: 'top-center',

@@ -213,8 +213,8 @@ const Customers = () => {
         fetchData()
         navigate('/app/crm/customers')
         toast.push(
-            <Notification title={'Successfuly Deleted'} type="success">
-                Customer successfuly deleted
+            <Notification title={'Successfully Deleted'} type="success">
+                Customer Successfully deleted
             </Notification>
         )
     }

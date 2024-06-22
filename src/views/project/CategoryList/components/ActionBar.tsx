@@ -63,7 +63,7 @@ const ActionBar = () => {
                     prefix={<HiOutlineSearch className="text-lg" />}
                     onChange={handleInputChange}
                 />
-                <Tooltip title={view === 'grid' ? 'List view' : 'Grid view'}>
+                {/* <Tooltip title={view === 'grid' ? 'List view' : 'Grid view'}>
                     <Button
                         className="hidden md:flex"
                         variant="plain"
@@ -92,7 +92,7 @@ const ActionBar = () => {
                         }
                         onClick={onToggleSort}
                     />
-                </Tooltip>
+                </Tooltip> */}
                 <Button
                     size="sm"
                     variant="twoTone"

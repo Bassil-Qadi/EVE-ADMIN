@@ -26,7 +26,7 @@ export async function apiGetCrmCustomers<T, U extends Record<string, unknown>>(
 
 export async function apiGetCrmUsers<T, U extends Record<string, unknown>>() {
     return ApiService.fetchData<T>({
-        url: '/users',
+        url: '/admin/users',
         method: 'get',
     })
 }
@@ -52,7 +52,7 @@ export async function apCreateCrmUser<T, U extends Record<string, unknown>>(
     data: U
 ) {
     return ApiService.fetchData<T>({
-        url: `/users`,
+        url: `/admin/users/create`,
         method: 'post',
         data,
     })
@@ -62,8 +62,9 @@ export async function apPutCrmUser<T, U extends Record<string, unknown>>(
     data: U
 ) {
     let id = data.updatedBy
+    delete data['id']
     return ApiService.fetchData<T>({
-        url: `/users/${id}`,
+        url: `/admin/users/${id}`,
         method: 'put',
         data,
     })
@@ -85,7 +86,7 @@ export async function apiDeleteCrmUser<
     U extends Record<string, unknown>
 >(data: U) {
     return ApiService.fetchData<T>({
-        url: `/users/${data.deletedUserId}`,
+        url: `/admin/users/${data.deletedUserId}`,
         method: 'delete',
     })
 }

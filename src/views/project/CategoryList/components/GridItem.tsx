@@ -10,9 +10,9 @@ export type GridItemProps = {
         name: string,
         description: string,
         image: string,
-        createdBy: string,
-        createdAt: string,
-        updatedAt: string
+        createdBy?: string,
+        createdAt?: string,
+        updatedAt?: string
     }
 }
 
@@ -27,7 +27,7 @@ const GridItem = ({ data }: GridItemProps) => {
                     <Link to="/app/scrum-board">
                         <h6>{name}</h6>
                     </Link>
-                    <ItemDropdown categoryId={_id} />
+                    <ItemDropdown category={data} categoryId={_id} />
                 </div>
                 <p className="mt-4">{description}</p>
                 <div className="mt-3">

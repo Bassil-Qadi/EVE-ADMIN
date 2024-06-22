@@ -5,16 +5,15 @@ import Container from '@/components/shared/Container'
 import { useNavigate, useLocation } from 'react-router-dom'
 import isEmpty from 'lodash/isEmpty'
 import { apiGetAccountSettingData } from '@/services/AccountServices'
+import { useAppSelector } from '@/store'
 
 type AccountSetting = {
     profile: {
         name: string
         email: string
-        title: string
-        avatar: string
-        timeZone: string
-        lang: string
-        syncData: boolean
+        role: string
+        phone: string
+        id: string
     }
     loginHistory: {
         type: string
@@ -56,10 +55,8 @@ const settingsMenu: Record<
     }
 > = {
     profile: { label: 'الملف الشخصي', path: 'profile' },
-    password: { label: 'كلمة السر', path: 'password' },
-    notification: { label: 'الإشعارات', path: 'notification' },
-    // integration: { label: 'Integration', path: 'integration' },
-    // billing: { label: 'Billing', path: 'billing' },
+    // password: { label: 'كلمة السر', path: 'password' },
+    // notification: { label: 'الإشعارات', path: 'notification' },
 }
 
 const Settings = () => {
@@ -72,6 +69,10 @@ const Settings = () => {
 
     const path = location.pathname.substring(
         location.pathname.lastIndexOf('/') + 1
+    )
+
+    const currentUser = useAppSelector(
+        state => state.auth.user
     )
 
     const onTabChange = (val: string) => {
@@ -107,7 +108,7 @@ const Settings = () => {
                 <div className="px-4 py-6">
                     <Suspense fallback={<></>}>
                         {currentTab === 'profile' && (
-                            <Profile data={data.profile} />
+                            <Profile data={currentUser} />
                         )}
                         {currentTab === 'password' && (
                             <Password data={data.loginHistory} />

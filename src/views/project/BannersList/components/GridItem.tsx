@@ -24,7 +24,7 @@ const GridItem = ({ data }: GridItemProps) => {
             <div className="flex flex-col h-full p-4">
                 <div className="flex justify-between">
                 <h6>{title}</h6>
-                    <ItemDropdown bannerId={_id} />
+                    <ItemDropdown bannerId={_id} banner={data} />
                 </div>
                 <p className="mt-4">{description}</p>
                 <div className="mt-3">

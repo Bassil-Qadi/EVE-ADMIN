@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
-import { apiGetAccountLogData } from '@/services/AccountServices'
+import { apiGetAccountLogData, apiGetNotificationsList, apiDeleteNotification, apiAddNotification, apiAddAllUsersNotification, apiAddAllSaloonssNotification } from '@/services/AccountServices'
 import {
     UPDATE_TICKET,
     COMMENT,
@@ -41,6 +41,22 @@ type GetAccountLogDataResponse = {
     loadable: boolean
 }
 
+type GetNotificationsListDataResponse = {
+    data: Logs
+    loadable: boolean
+}
+
+export type Notification = {
+    _id: string
+    title: string
+    message: string
+    userIds: []
+    status: string
+    type: string
+    createdAt: string
+}
+
+
 export type ActivityLogState = {
     loading: boolean
     loadMoreLoading: boolean
@@ -48,9 +64,24 @@ export type ActivityLogState = {
     activityIndex: number
     logs: Logs
     selectedType: string[]
+    notificationsList: Notification[]
+    deleteDialog: boolean
+    deletedNotification: string
+    newNotificationDialog: boolean
 }
 
+
 export const SLICE_NAME = 'accountActivityLog'
+
+export const getNotifications = createAsyncThunk(
+    SLICE_NAME + '/getNotifications',
+    async () => {
+        const response = await apiGetNotificationsList<
+            any
+        >()
+        return response.data.data
+    }
+)
 
 export const getLogs = createAsyncThunk(
     SLICE_NAME + '/getLogs',
@@ -74,12 +105,48 @@ export const filterLogs = createAsyncThunk(
     }
 )
 
+export const addSaloonNotification = createAsyncThunk(
+    SLICE_NAME + '/addSaloonNotification',
+    async (data: any) => {
+        const response = await apiAddNotification(data)
+        return response.data
+    }
+)
+
+export const addAllSaloonsNotification = createAsyncThunk(
+    SLICE_NAME + '/addAllSaloonsNotification',
+    async (data: any) => {
+        const response = await apiAddAllSaloonssNotification(data)
+        return response.data
+    }
+)
+
+export const addAllUsersNotification = createAsyncThunk(
+    SLICE_NAME + '/addNotification',
+    async (data: any) => {
+        const response = await apiAddAllUsersNotification(data)
+        return response.data
+    }
+)
+
+export const deleteNotification = createAsyncThunk(
+    SLICE_NAME + '/deleteNotification',
+    async (data: any) => {
+        const response = await apiDeleteNotification(data)
+        return response.data
+    }
+)
+
 const initialState: ActivityLogState = {
     loading: false,
     loadMoreLoading: false,
     loadable: false,
     activityIndex: 1,
     logs: [],
+    notificationsList: [],
+    deleteDialog: false,
+    deletedNotification: '',
+    newNotificationDialog: false,
     selectedType: [
         UPDATE_TICKET,
         COMMENT,
@@ -101,6 +168,15 @@ const activityLogSlice = createSlice({
         setSelected: (state, action) => {
             state.selectedType = action.payload
         },
+        toggleDeleteNotificationDialog: (state, action) => {
+            state.deleteDialog = action.payload
+        },
+        toggleNewNotificationDialog: (state, action) => {
+            state.newNotificationDialog = action.payload
+        },
+        setSelectedNotification: (state, action) => {
+            state.deletedNotification = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -121,9 +197,22 @@ const activityLogSlice = createSlice({
             .addCase(filterLogs.pending, (state) => {
                 state.loading = true
             })
+            .addCase(getNotifications.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getNotifications.fulfilled, (state, action) => {
+                state.loading = false
+                state.notificationsList = action.payload
+            })
+            // .addCase(addNotification.pending, (state) => {
+            //     state.loading = true
+            // })
+            // .addCase(addNotification.fulfilled, (state, action) => {
+            //     state.loading = false
+            // })
     },
 })
 
-export const { setActivityIndex, setSelected } = activityLogSlice.actions
+export const { setActivityIndex, setSelected, toggleDeleteNotificationDialog, setSelectedNotification, toggleNewNotificationDialog } = activityLogSlice.actions
 
 export default activityLogSlice.reducer

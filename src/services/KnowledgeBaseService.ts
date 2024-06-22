@@ -41,7 +41,7 @@ export async function apiAddFAQ<T>(
     data: any
 ) {
     return ApiService.fetchData<T>({
-        url: '/faq/create',
+        url: '/admin/faq/create',
         method: 'post',
         data,
     })
@@ -53,7 +53,7 @@ export async function apiUpdateFAQ<T>(
     let id = data.id
     data = {...data, ["id"]: undefined}
     return ApiService.fetchData<T>({
-        url: `/faq/${id}`,
+        url: `/admin/faq/${id}`,
         method: 'put',
         data,
     })
@@ -79,7 +79,7 @@ export async function apiGetCategorizedArticles<T>() {
 
 export async function apiGetFAQs<T>() {
     return ApiService.fetchData<T>({
-        url: '/faq',
+        url: '/admin/faq',
         method: 'get',
     })
 }
@@ -89,14 +89,14 @@ export async function apiDeleteFAQ<T>(
     data: any
 ) {
     return ApiService.fetchData<T>({
-        url: `/faq/${data}`,
+        url: `/admin/faq/${data}`,
         method: 'delete',
     })
 }
 
 export async function apiGetPages<T>() {
     return ApiService.fetchData<T>({
-        url: '/pages',
+        url: '/admin/pages',
         method: 'get',
     })
 }
@@ -105,7 +105,7 @@ export async function apiAddPage<T>(
     data: any
 ) {
     return ApiService.fetchData<T>({
-        url: '/page/create',
+        url: '/admin/page/create',
         method: 'post',
         data,
     })
@@ -117,7 +117,7 @@ export async function apiUpdatePage<T>(
     let id = data.id
     data = {...data, ["id"]: undefined}
     return ApiService.fetchData<T>({
-        url: `/page/${id}`,
+        url: `/admin/page/${id}`,
         method: 'put',
         data,
     })
@@ -128,7 +128,7 @@ export async function apiDeletePage<T>(
     data: any
 ) {
     return ApiService.fetchData<T>({
-        url: `/page/${data}`,
+        url: `/admin/page/${data}`,
         method: 'delete',
     })
 }

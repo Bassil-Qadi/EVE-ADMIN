@@ -23,9 +23,10 @@ import { Link } from 'react-router-dom'
 import isLastChild from '@/utils/isLastChild'
 import useTwColorByName from '@/utils/hooks/useTwColorByName'
 import useThemeClass from '@/utils/hooks/useThemeClass'
-import { useAppSelector } from '@/store'
+import { useAppSelector, useAppDispatch } from '@/store'
 import useResponsive from '@/utils/hooks/useResponsive'
 import acronym from '@/utils/acronym'
+import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 
 type NotificationList = {
     id: string
@@ -119,7 +120,7 @@ const NotificationToggle = ({
 
 const _Notification = ({ className }: { className?: string }) => {
     const [notificationList, setNotificationList] = useState<
-        NotificationList[]
+        any[]
     >([])
     const [unreadNotification, setUnreadNotification] = useState(false)
     const [noResult, setNoResult] = useState(false)
@@ -132,8 +133,8 @@ const _Notification = ({ className }: { className?: string }) => {
     const direction = useAppSelector((state) => state.theme.direction)
 
     const getNotificationCount = useCallback(async () => {
-        const resp = await apiGetNotificationCount()
-        if (resp.data.count > 0) {
+        const resp = await apiGetNotificationList()
+        if (resp.data.length > 0) {
             setNoResult(false)
             setUnreadNotification(true)
         } else {
@@ -150,15 +151,15 @@ const _Notification = ({ className }: { className?: string }) => {
             setLoading(true)
             const resp = await apiGetNotificationList()
             setLoading(false)
-            setNotificationList(resp.data)
+            setNotificationList(resp.data.data)
         }
     }, [notificationList, setLoading])
 
     const onMarkAllAsRead = useCallback(() => {
-        const list = notificationList.map((item: NotificationList) => {
-            if (!item.readed) {
-                item.readed = true
-            }
+        const list = notificationList.map((item: any) => {
+            // if (item.status !== 'delivered') {
+            //     item.status = 'delivered'
+            // }
             return item
         })
         setNotificationList(list)
@@ -197,7 +198,7 @@ const _Notification = ({ className }: { className?: string }) => {
         >
             <Dropdown.Item variant="header">
                 <div className="border-b border-gray-200 dark:border-gray-600 px-4 py-2 flex items-center justify-between">
-                    <h6>Notifications</h6>
+                    <h6>الإشعارات</h6>
                     <Tooltip title="Mark all as read">
                         <Button
                             variant="plain"
@@ -214,30 +215,30 @@ const _Notification = ({ className }: { className?: string }) => {
                     {notificationList.length > 0 &&
                         notificationList.map((item, index) => (
                             <div
-                                key={item.id}
+                                key={item._id}
                                 className={`relative flex px-4 py-4 cursor-pointer hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-black dark:hover:bg-opacity-20  ${
                                     !isLastChild(notificationList, index)
                                         ? 'border-b border-gray-200 dark:border-gray-600'
                                         : ''
                                 }`}
-                                onClick={() => onMarkAsRead(item.id)}
+                                onClick={() => onMarkAsRead(item._id)}
                             >
-                                <div>{notificationTypeAvatar(item)}</div>
+                                <div><NotificationsActiveOutlinedIcon /></div>
                                 <div className="ltr:ml-3 rtl:mr-3">
                                     <div>
-                                        {item.target && (
+                                        {item.title && (
                                             <span className="font-semibold heading-text">
-                                                {item.target}{' '}
+                                                {item.title}{' '}
                                             </span>
                                         )}
-                                        <span>{item.description}</span>
+                                       
                                     </div>
-                                    <span className="text-xs">{item.date}</span>
+                                    <span className="text-xs">{item.message}</span>
                                 </div>
                                 <Badge
                                     className="absolute top-4 ltr:right-4 rtl:left-4 mt-1.5"
                                     innerClass={`${
-                                        item.readed ? 'bg-gray-300' : bgTheme
+                                        item.status === 'delivered' ? 'bg-gray-300' : bgTheme
                                     } `}
                                 />
                             </div>
@@ -266,9 +267,9 @@ const _Notification = ({ className }: { className?: string }) => {
                                     alt="no-notification"
                                 />
                                 <h6 className="font-semibold">
-                                    No notifications!
+                                    لا يوجد إشعارات!
                                 </h6>
-                                <p className="mt-1">Please Try again later</p>
+                                <p className="mt-1">الرجاء المحاولة لاحقا</p>
                             </div>
                         </div>
                     )}
@@ -280,7 +281,7 @@ const _Notification = ({ className }: { className?: string }) => {
                         to="/app/account/activity-log"
                         className="font-semibold cursor-pointer p-2 px-3 text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
                     >
-                        View All Activity
+                        عرض جميع الإشعارات
                     </Link>
                 </div>
             </Dropdown.Item>

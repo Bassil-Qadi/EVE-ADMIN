@@ -55,13 +55,13 @@ const OrderDeleteConfirmation = () => {
             dispatch(getOrders(tableData))
             toast.push(
                 <Notification
-                    title={'Successfuly Deleted'}
+                    title={'Successfully Deleted'}
                     type="success"
                     duration={2500}
                 >
                     {deleteMode === 'single' && 'Order '}
                     {deleteMode === 'batch' && `${orders} orders `}
-                    successfuly deleted
+                    Successfully deleted
                 </Notification>,
                 {
                     placement: 'top-center',

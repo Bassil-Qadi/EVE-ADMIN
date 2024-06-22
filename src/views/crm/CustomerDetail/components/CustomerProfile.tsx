@@ -70,7 +70,7 @@ const CustomerProfileAction = ({ id }: { id?: string }) => {
         }
         navigate('/app/crm/customers')
         toast.push(
-            <Notification title={'Successfuly Deleted'} type="success">
+            <Notification title={'Successfully Deleted'} type="success">
                 تم حذف المستخدم بنجاح
             </Notification>,
         )

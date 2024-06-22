@@ -1,9 +1,10 @@
 import Card from '@/components/ui/Card'
+import Button from '@/components/ui/Button'
 import ItemDropdown from './ItemDropdown'
 import Members from './Members'
 import ProgressionBar from './ProgressionBar'
-import { HiOutlineClipboardCheck } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
+import { HiBadgeCheck, HiBan, HiEye } from 'react-icons/hi'
+import { Link, useNavigate } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
 import 'swiper/css'
@@ -24,11 +25,13 @@ export type GridItemProps = {
             id: string
         }
         images: string[]
+        isActive: boolean
     }
 }
 
 const GridItem = ({ data }: GridItemProps) => {
-    const { name, createdBy, categories, images, logo } = data
+    const navigate = useNavigate()
+    const { _id, name, createdBy, categories, images, logo, isActive } = data
 
     return (
         <Card bodyClass="h-full p-0">
@@ -55,25 +58,41 @@ const GridItem = ({ data }: GridItemProps) => {
                             className="w-10 h-10 rounded-full"
                             alt={name}
                         />
-                        <Link to="/app/scrum-board">
+                        <Link to={`/app/project/saloon-details?id=${_id}`}>
                             <h6>{name}</h6>
                         </Link>
                     </div>
-                    <ItemDropdown />
+                    {/* <ItemDropdown /> */}
+                    <Button
+                        shape="circle"
+                        variant="plain"
+                        size="xs"
+                        icon={<HiEye />}
+                        onClick={() =>
+                            navigate(`/app/project/saloon-details?id=${_id}`)
+                        }
+                    />
                 </div>
-                <p className="mt-4"><strong>المالك:</strong> {createdBy.name}</p>
+                <p className="mt-4">
+                    <strong>المالك:</strong> {createdBy?.name}
+                </p>
                 <div className="mt-3">
-                    {/* <ProgressionBar progression={90} /> */}
                     <div className="flex items-center justify-between mt-2">
                         <Members members={categories} />
-                        {/* <div className="flex items-center rounded-full font-semibold text-xs">
-                            <div className="flex items-center px-2 py-1 border border-gray-300 rounded-full">
-                                <HiOutlineClipboardCheck className="text-base" />
-                                <span className="ml-1 rtl:mr-1 whitespace-nowrap">
-                                    {10} / {12}
-                                </span>
-                            </div>
-                        </div> */}
+                        <div className="flex items-center px-2 py-1 border border-gray-300 rounded-full">
+                        {isActive ? (
+                                <HiBadgeCheck className="text-base text-green-600" />
+                            ) : (
+                                <HiBan className="text-base text-red-600" />
+                            )}
+                            <span
+                                className={`ml-1 rtl:mr-1 whitespace-nowrap ${
+                                    isActive ? 'text-green-600' : 'text-red-600'
+                                }`}
+                            >
+                                {isActive ? 'مفعّل' : 'غير مفعّل'}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

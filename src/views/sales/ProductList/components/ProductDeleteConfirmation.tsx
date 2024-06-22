@@ -33,11 +33,11 @@ const ProductDeleteConfirmation = () => {
             dispatch(getProducts(tableData))
             toast.push(
                 <Notification
-                    title={'Successfuly Deleted'}
+                    title={'Successfully Deleted'}
                     type="success"
                     duration={2500}
                 >
-                    Product successfuly deleted
+                    Product Successfully deleted
                 </Notification>,
                 {
                     placement: 'top-center',

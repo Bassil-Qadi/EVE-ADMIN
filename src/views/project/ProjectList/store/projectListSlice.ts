@@ -3,6 +3,9 @@ import {
     apiGetProjectList,
     apiGetScrumBoardtMembers,
     apiPutProjectList,
+    apiAddSaloon,
+    apiDeleteSaloon,
+    apiChangeSaloonStatus
 } from '@/services/ProjectService'
 
 type Member = {
@@ -67,7 +70,8 @@ type Saloon = {
         name: string,
         id: string
     },
-    images: string[]
+    images: string[],
+    type: string
 }
 
 type SaloonsList = Saloon[]
@@ -112,6 +116,30 @@ export const getSaloonsList = createAsyncThunk(
         >()
 
         return response.data.data
+    }
+)
+
+export const addSaloon = createAsyncThunk(
+    SLICE_NAME + '/addSaloon', 
+    async(data: any) => {
+        const response = await apiAddSaloon(data)
+        return response.data
+    }
+)
+
+export const deleteSaloon = createAsyncThunk(
+    SLICE_NAME + '/deleteSaloon', 
+    async(data: any) => {
+        const response = await apiDeleteSaloon(data)
+        return response.data
+    }
+)
+
+export const changeSaloonStatus = createAsyncThunk(
+    SLICE_NAME + '/changeSaloonStatus',
+    async (data: any) => {
+        const response = await apiChangeSaloonStatus(data)
+        return response.data
     }
 )
 

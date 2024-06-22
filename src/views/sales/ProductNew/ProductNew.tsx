@@ -25,11 +25,11 @@ const ProductNew = () => {
         if (success) {
             toast.push(
                 <Notification
-                    title={'Successfuly added'}
+                    title={'Successfully added'}
                     type="success"
                     duration={2500}
                 >
-                    Product successfuly added
+                    Product Successfully added
                 </Notification>,
                 {
                     placement: 'top-center',

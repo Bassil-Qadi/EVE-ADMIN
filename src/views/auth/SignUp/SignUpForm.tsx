@@ -82,7 +82,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                     <Form>
                         <FormContainer>
                             <FormItem
-                                label="User Name"
+                                label="اسم المستخدم"
                                 invalid={errors.userName && touched.userName}
                                 errorMessage={errors.userName}
                             >
@@ -90,12 +90,12 @@ const SignUpForm = (props: SignUpFormProps) => {
                                     type="text"
                                     autoComplete="off"
                                     name="userName"
-                                    placeholder="User Name"
+                                    placeholder="اسم المستخدم"
                                     component={Input}
                                 />
                             </FormItem>
                             <FormItem
-                                label="Email"
+                                label="البريد الإلكتروني"
                                 invalid={errors.email && touched.email}
                                 errorMessage={errors.email}
                             >
@@ -103,24 +103,24 @@ const SignUpForm = (props: SignUpFormProps) => {
                                     type="email"
                                     autoComplete="off"
                                     name="email"
-                                    placeholder="Email"
+                                    placeholder="البريد الإلكتروني"
                                     component={Input}
                                 />
                             </FormItem>
                             <FormItem
-                                label="Password"
+                                label="كلمة المرور"
                                 invalid={errors.password && touched.password}
                                 errorMessage={errors.password}
                             >
                                 <Field
                                     autoComplete="off"
                                     name="password"
-                                    placeholder="Password"
+                                    placeholder="كلمة المرور"
                                     component={PasswordInput}
                                 />
                             </FormItem>
                             <FormItem
-                                label="Confirm Password"
+                                label="تأكيد كلمةالمرور"
                                 invalid={
                                     errors.confirmPassword &&
                                     touched.confirmPassword
@@ -130,7 +130,7 @@ const SignUpForm = (props: SignUpFormProps) => {
                                 <Field
                                     autoComplete="off"
                                     name="confirmPassword"
-                                    placeholder="Confirm Password"
+                                    placeholder="تأكيد كلمةالمرور"
                                     component={PasswordInput}
                                 />
                             </FormItem>
@@ -141,12 +141,12 @@ const SignUpForm = (props: SignUpFormProps) => {
                                 type="submit"
                             >
                                 {isSubmitting
-                                    ? 'Creating Account...'
-                                    : 'Sign Up'}
+                                    ? 'جارٍ إنشاء الحساب'
+                                    : 'إنشاء الحساب'}
                             </Button>
                             <div className="mt-4 text-center">
-                                <span>Already have an account? </span>
-                                <ActionLink to={signInUrl}>Sign in</ActionLink>
+                                <span>لديك حساب بالفعل؟</span>
+                                <ActionLink to={signInUrl}>تسجيل الدخول</ActionLink>
                             </div>
                         </FormContainer>
                     </Form>

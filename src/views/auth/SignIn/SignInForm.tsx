@@ -66,8 +66,8 @@ const SignInForm = (props: SignInFormProps) => {
             )}
             <Formik
                 initialValues={{
-                    email: 'admin1@eve.com',
-                    password: '09182As77wwEE#@#373',
+                    email: 'admin@eve.com',
+                    password: 'Nagm@2030$$',
                     rememberMe: true,
                 }}
                 validationSchema={validationSchema}
@@ -135,7 +135,7 @@ const SignInForm = (props: SignInFormProps) => {
                             </Button>
                             <div className="mt-4 text-center">
                                 <span>{`لا تملك حسابًا بعد؟`} </span>
-                                <ActionLink to={signUpUrl}>تسجيل الدخول</ActionLink>
+                                <ActionLink to={signUpUrl}>إنشاء حساب جديد</ActionLink>
                             </div>
                         </FormContainer>
                     </Form>

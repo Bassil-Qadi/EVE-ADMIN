@@ -3,6 +3,12 @@ import type { Routes } from '@/@types/routes'
 
 const authRoute: Routes = [
     {
+        key: 'newRegister',
+        path: `/new-register`,
+        component: lazy(() => import('@/views/NewRegisteration/SignUp')),
+        authority: [],
+    },
+    {
         key: 'signIn',
         path: `/sign-in`,
         component: lazy(() => import('@/views/auth/SignIn')),

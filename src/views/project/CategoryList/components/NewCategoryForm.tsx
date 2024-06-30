@@ -45,9 +45,13 @@ const NewCategoryForm = () => {
         formData.append('createdBy', currentUserId || '')
         formData.append('file', file)
 
-        dispatch(addCategory(formData))
-        dispatch(toggleNewProjectDialog(false))
-        dispatch(getCategoryList())
+        let response = dispatch(addCategory(formData))
+        response.then(data => {
+            if(data?.payload?.responseType === 'Success') {
+                dispatch(toggleNewProjectDialog(false))
+                dispatch(getCategoryList())
+            }
+        })
     }
 
     return (
@@ -99,7 +103,7 @@ const NewCategoryForm = () => {
                 <Field name="file">
                     {({ field, form }: FieldProps) => {
                         const avatarProps = field.value
-                            ? { src: field.value }
+                            ? { src: URL.createObjectURL(field.value) }
                             : {}
                         return (
                             <div className="flex justify-center">
@@ -110,13 +114,7 @@ const NewCategoryForm = () => {
                                     onChange={(files) =>
                                         form.setFieldValue(
                                             field.name,
-                                            URL.createObjectURL(files[0])
-                                        )
-                                    }
-                                    onFileRemove={(files) =>
-                                        form.setFieldValue(
-                                            field.name,
-                                            URL.createObjectURL(files[0])
+                                            files[0]
                                         )
                                     }
                                 >

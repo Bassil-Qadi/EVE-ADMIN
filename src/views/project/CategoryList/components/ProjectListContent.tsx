@@ -40,7 +40,7 @@ const ProjectListContent = () => {
         (state) => state.categoryList.data.editCategoryDialog,
     )
     const selectedCategory = useAppSelector(
-        (state) => state.categoryList.data.selectedCategory,
+        (state) => state.categoryList.data.deletedCategoryId,
     )
 
     const onDialogClose = () => {
@@ -52,8 +52,13 @@ const ProjectListContent = () => {
     }
 
     const onDeleteCategory = () => {
-        dispatch(deleteCategory(selectedCategory))
-        dispatch(toggleDeleteCategoryDialog(false))
+        let response = dispatch(deleteCategory(selectedCategory))
+        response.then(data => {
+            if(data?.payload?.responseType === 'Success') {
+                dispatch(toggleDeleteCategoryDialog(false))
+                dispatch(getCategoryList())
+            }
+        })
     }
 
     const formSubmit = () => {

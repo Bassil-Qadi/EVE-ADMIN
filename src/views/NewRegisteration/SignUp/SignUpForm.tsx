@@ -9,6 +9,7 @@ import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import useAuth from '@/utils/hooks/useAuth'
 import type { CommonProps } from '@/@types/common'
+import { getToken, messaging } from '@/configs/firebase'
 
 interface SignUpFormProps extends CommonProps {
     disableSubmit?: boolean
@@ -19,6 +20,7 @@ type SignUpFormSchema = {
     userName: string
     password: string
     email: string
+    phone: string
 }
 
 const validationSchema = Yup.object().shape({
@@ -31,6 +33,7 @@ const validationSchema = Yup.object().shape({
         [Yup.ref('password')],
         'Your passwords do not match'
     ),
+    phone: Yup.string().required('Please enter your phone number'),
 })
 
 const SignUpForm = (props: SignUpFormProps) => {
@@ -44,9 +47,29 @@ const SignUpForm = (props: SignUpFormProps) => {
         values: SignUpFormSchema,
         setSubmitting: (isSubmitting: boolean) => void
     ) => {
-        const { userName, password, email } = values
+        let fcmToken
+        const { userName, password, email, phone } = values
         setSubmitting(true)
-        const result = await signUp({ userName, password, email })
+
+        // Generate FCM Token
+        getToken(messaging, {
+            vapidKey:
+                'BHL8HjzpfV7yxr0uUrIfQo-CZGBOSO_gvI1sBE45npBZk3fZkeG0h5yk711TYekiEWaIQ3IOq_eGp2L7FMDWF1E',
+        })
+            .then((currentToken) => {
+                if (currentToken) {
+                    fcmToken = currentToken
+                } else {
+                    console.log(
+                        'No registration token available. Request permission to generate one.',
+                    )
+                }
+            })
+            .catch((err) => {
+                console.log('An error occurred while retrieving token. ', err)
+            })
+
+        const result = await signUp({ name: userName, password, email, phone, fcmToken })
 
         if (result?.status === 'failed') {
             setMessage(result.message)
@@ -64,10 +87,11 @@ const SignUpForm = (props: SignUpFormProps) => {
             )}
             <Formik
                 initialValues={{
-                    userName: 'admin1',
-                    password: '123Qwe1',
-                    confirmPassword: '123Qwe1',
-                    email: 'test@testmail.com',
+                    userName: '',
+                    password: '',
+                    confirmPassword: '',
+                    email: '',
+                    phone: '',
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
@@ -132,6 +156,19 @@ const SignUpForm = (props: SignUpFormProps) => {
                                     name="confirmPassword"
                                     placeholder="تأكيد كلمةالمرور"
                                     component={PasswordInput}
+                                />
+                            </FormItem>
+                            <FormItem
+                                label="رقم الجوال"
+                                invalid={errors.phone && touched.phone}
+                                errorMessage={errors.phone}
+                            >
+                                <Field
+                                type="text"
+                                    autoComplete="off"
+                                    name="phone"
+                                    placeholder="رقم الجوال"
+                                    component={Input}
                                 />
                             </FormItem>
                             <Button

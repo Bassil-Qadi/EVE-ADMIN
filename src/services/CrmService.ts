@@ -110,3 +110,12 @@ export async function apiGetCrmMail<T, U extends Record<string, unknown>>(
         params,
     })
 }
+
+export async function apiGetSaloonDetails<T, U extends Record<string, unknown>>(
+    data: U
+) {
+    return ApiService.fetchData<T>({
+        url: `/saloon/web/${data}`,
+        method: 'get',
+    })
+}

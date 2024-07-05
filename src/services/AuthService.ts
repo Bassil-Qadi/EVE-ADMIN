@@ -2,6 +2,7 @@ import ApiService from './ApiService'
 import type {
     SignInCredential,
     SignUpCredential,
+    OtpCredential,
     ForgotPassword,
     ResetPassword,
     SignInResponse,
@@ -19,6 +20,14 @@ export async function apiSignIn(data: SignInCredential) {
 export async function apiSignUp(data: SignUpCredential) {
     return ApiService.fetchData<SignUpResponse>({
         url: '/auth/register',
+        method: 'post',
+        data,
+    })
+}
+
+export async function apiVerifyOtp(data: OtpCredential) {
+    return ApiService.fetchData<any>({
+        url: '/auth/user/verify-otp',
         method: 'post',
         data,
     })

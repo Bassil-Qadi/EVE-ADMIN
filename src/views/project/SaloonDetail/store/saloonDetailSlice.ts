@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import {
+    apiGetSaloonDetails,
     apiGetCrmCustomerDetails,
     // apiDeleteCrmCustomer,
     apPutCrmCustomer,
@@ -113,6 +114,17 @@ export const getCustomer = createAsyncThunk(
     }
 )
 
+export const getSaloon = createAsyncThunk(
+    SLICE_NAME + '/getSaloon',
+    async (data: any) => {
+        const response = await apiGetSaloonDetails<
+            GetSaloonDetailsResponse,
+            GetSaloonDetailsRequest
+        >(data)
+        return response.data
+    }
+)
+
 // export const deleteCustomer = createAsyncThunk(
 //     SLICE_NAME + '/deleteCustomer',
 //     async (data: DeleteCrmCustomerRequest) => {
@@ -189,6 +201,15 @@ const saloonDetailSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(getSaloon.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(getSaloon.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(getSaloon.rejected, (state) => {
+                state.loading = false
+            })
             .addCase(getCustomer.fulfilled, (state, action) => {
                 state.loading = false
                 state.profileData = action.payload

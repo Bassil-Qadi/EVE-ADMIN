@@ -11,6 +11,7 @@ import reducer, {
     useAppDispatch,
     useAppSelector,
     setSelectedSaloon,
+    getSaloon
 } from './store'
 import { useAppSelector as saloonAppSelector } from '@/views/project/ProjectList/store'
 
@@ -41,13 +42,31 @@ const SaloonDetail = () => {
     }, [])
 
     const fetchData = () => {
-        const id = query.get('id')
-        let selectedSaloon = saloonsList?.filter(
-            (saloon) => saloon?._id === id,
-        )[0]
-        if (selectedSaloon) {
-            dispatch(setSelectedSaloon(selectedSaloon))
-        }
+        // const id = query.get('id')
+        // let selectedSaloon = saloonsList?.filter(
+        //     (saloon) => saloon?._id === id,
+        // )[0]
+        // if (selectedSaloon) {
+        //     dispatch(setSelectedSaloon(selectedSaloon))
+        // }
+        let response = dispatch(getSaloon(query.get('id')))
+        response.then((data) => {
+            if (data.payload) {
+                dispatch(setSelectedSaloon(data.payload.data))
+            }
+        })
+    }
+    
+    const calcProgressBarValue = () => {
+        let filledArrays = 0
+
+        if(data?.saloonCategories.length > 0) filledArrays++
+        if(data?.saloonStaff.length > 0) filledArrays++
+        if(data?.saloonWork.length > 0) filledArrays++
+
+        let progress = (filledArrays / 3) * 100
+
+        return progress
     }
 
     return (
@@ -56,12 +75,12 @@ const SaloonDetail = () => {
                 {!isEmpty(data) && (
                     <div className="flex flex-col xl:flex-row gap-4">
                         <div>
-                            <SaloonProfile data={data} />
+                            <SaloonProfile data={data.saloon} value={calcProgressBarValue()} />
                         </div>
                         <div className="w-full">
                             <AdaptableCard>
                                 {/* <CurrentSubscription /> */}
-                                <PaymentHistory data={data.workingTime} userId={query.get('id')} />
+                                <PaymentHistory data={data.saloon.workingTime} userId={query.get('id')} />
                                 {/* <PaymentMethods /> */}
                             </AdaptableCard>
                         </div>

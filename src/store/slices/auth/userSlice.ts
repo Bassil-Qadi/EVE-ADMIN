@@ -5,20 +5,24 @@ export type UserState = {
     avatar?: string
     name?: string
     email?: string
+    isVerified?: boolean
     authority?: string[],
     role?: string,
     phone?: string,
     id?: string
+    otp?: string
 }
 
 const initialState: UserState = {
     avatar: '',
     name: '',
     email: '',
+    isVerified: false,
     authority: [],
     role: '',
     phone: '',
-    id: ''
+    id: '',
+    otp: ''
 }
 
 const userSlice = createSlice({
@@ -29,10 +33,12 @@ const userSlice = createSlice({
             state.avatar = action.payload?.avatar
             state.email = action.payload?.email
             state.name = action.payload?.name
+            state.isVerified = action.payload?.isVerified
             state.authority = action.payload?.authority
             state.role = action.payload?.role
             state.phone = action.payload?.phone
             state.id = action.payload?.id
+            state.otp = action.payload?.otp
         },
     },
 })

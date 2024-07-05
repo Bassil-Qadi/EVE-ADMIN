@@ -4,6 +4,7 @@ export type SignInCredential = {
 }
 
 export type SignInResponse = {
+    otp: string | undefined
     // token: string
     // user: {
     //     userName: string
@@ -31,14 +32,29 @@ export type SignInResponse = {
         updatedAt: string,
         id: string
     }
+    data: {
+            otp: string
+            user: {
+            name: string,
+            phone: string,
+            email: string,
+            isVerified: boolean,
+            role: string,
+            createdAt: string,
+            updatedAt: string,
+            id: string
+        }
+    }
 }
 
 export type SignUpResponse = SignInResponse
 
 export type SignUpCredential = {
-    userName: string
+    name: string
     email: string
     password: string
+    phone: string
+    fcmToken: string | undefined
 }
 
 export type ForgotPassword = {
@@ -47,4 +63,9 @@ export type ForgotPassword = {
 
 export type ResetPassword = {
     password: string
+}
+
+export type OtpCredential = {
+    otp: string
+    phone: string | undefined
 }

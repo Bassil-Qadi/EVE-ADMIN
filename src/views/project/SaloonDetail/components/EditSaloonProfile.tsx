@@ -45,7 +45,7 @@ const EditCustomerProfile = () => {
         (state) => state.projectSaloonDetails.data.editSaloonDetailDialog
     )
     const saloon = useAppSelector(
-        (state) => state.projectSaloonDetails.data.profileData
+        (state) => state.projectSaloonDetails.data.profileData.saloon
     )
 
     const onDrawerClose = () => {

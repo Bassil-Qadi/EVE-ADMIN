@@ -5,6 +5,7 @@ import Button from '@/components/ui/Button'
 import Notification from '@/components/ui/Notification'
 import toast from '@/components/ui/toast'
 import ConfirmDialog from '@/components/shared/ConfirmDialog'
+import ProgressionBar from './ProgressionBar'
 import {
     FaFacebookF,
     FaSnapchat,
@@ -30,6 +31,7 @@ type SaloonInfoFieldProps = {
 
 type CustomerProfileProps = {
     data?: Partial<Saloon>
+    value: number
 }
 
 const SaloonInfoField = ({ title, value, color }: SaloonInfoFieldProps) => {
@@ -49,7 +51,7 @@ const SaloonInfoField = ({ title, value, color }: SaloonInfoFieldProps) => {
     )
 }
 
-const SaloonProfileAction = ({ id, status = '', onchangeStatus }: { id?: string, status: string, onchangeStatus: any }) => {
+const SaloonProfileAction = ({ id, status = false, onchangeStatus }: { id?: string, status: boolean | undefined, onchangeStatus: any }) => {
     const dispatch = useAppDispatch()
     const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -134,7 +136,7 @@ const SaloonProfileAction = ({ id, status = '', onchangeStatus }: { id?: string,
     )
 }
 
-const SaloonProfile = ({ data = {} }: CustomerProfileProps) => {
+const SaloonProfile = ({ data = {}, value }: CustomerProfileProps) => {
 
     const [profileStatus, setProfileStatus] = useState(data?.isActive)
 
@@ -149,7 +151,7 @@ const SaloonProfile = ({ data = {} }: CustomerProfileProps) => {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-y-7 gap-x-4 mt-8">
                     <SaloonInfoField title="الاسم" value={data.name} />
-                    <SaloonInfoField title="المالك" value={data?.createdBy?.name} />
+                    { data?.createdBy?.name && <SaloonInfoField title="المالك" value={data?.createdBy?.name} /> }
                     <SaloonInfoField
                         title="التصنيف"
                         value={data?. type === 'saloon' ? 'صالون' : 'عيادة'}
@@ -166,6 +168,10 @@ const SaloonProfile = ({ data = {} }: CustomerProfileProps) => {
                         title="العنوان"
                         value={data?.address}
                     />
+                    <div>
+                        <span>نسبة إكتمال الملف</span>
+                        <ProgressionBar progression={value} />
+                    </div>
                     <div className="mb-7">
                         <span>وسائل التواصل الاجتماعي</span>
                         <div className="flex mt-4">

@@ -6,7 +6,7 @@ import {
     useAppSelector,
 } from '../store'
 
-const NewProjectDialog = () => {
+const NewProjectDialog = ({ saloons }: any) => {
     const dispatch = useAppDispatch()
 
     const newBannerDialog = useAppSelector(
@@ -25,7 +25,7 @@ const NewProjectDialog = () => {
         >
             <h4>إضافة عرض جديد</h4>
             <div className="mt-4">
-                <NewCategoryForm />
+                <NewCategoryForm saloons={saloons} />
             </div>
         </Dialog>
     )

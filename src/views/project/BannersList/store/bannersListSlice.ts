@@ -4,7 +4,8 @@ import {
     apiPutProjectList,
     apiAddBannerList,
     apiDeleteBannerList,
-    apiPutBanner
+    apiPutBanner,
+    apiGetSaloonsList
 } from '@/services/ProjectService'
 
 type Banner = {
@@ -70,6 +71,15 @@ export const getBannersList = createAsyncThunk(
 
         return response.data.data
     },
+)
+
+export const getSaloonsList = createAsyncThunk(
+    SLICE_NAME + '/getSaloonsList',
+    async () => {
+        const response = await apiGetSaloonsList()
+
+        return response.data.data
+    }
 )
 
 export const addBanner = createAsyncThunk(
@@ -159,6 +169,9 @@ const categoryListSlice = createSlice({
             })
             .addCase(getBannersList.pending, (state) => {
                 state.loading = true
+            })
+            .addCase(getBannersList.rejected, (state) => {
+                state.loading = false
             })
         // .addCase(putProject.fulfilled, (state, action) => {
         //     state.projectList = action.payload

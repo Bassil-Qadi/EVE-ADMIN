@@ -139,6 +139,16 @@ export async function apiGetScrumBoardtTicketDetail<T>() {
     })
 }
 
+
+export async function apiGetSaloonsList<T, U extends Record<string, unknown>>(
+    
+) {
+    return ApiService.fetchData<T>({
+        url: '/admin/all-saloons',
+        method: 'get',
+    })
+}
+
 export async function apiAddBannerList<T, U extends Record<string, unknown>>(
     data: U
 ) {

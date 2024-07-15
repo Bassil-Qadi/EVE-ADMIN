@@ -3,6 +3,7 @@ import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import Avatar from '@/components/ui/Avatar'
 import Upload from '@/components/ui/Upload'
+import Select from '@/components/ui/Select'
 import Notification from '@/components/ui/Notification'
 import toast from '@/components/ui/toast'
 import { Field, Form, Formik, FieldProps } from 'formik'
@@ -29,7 +30,7 @@ const validationSchema = Yup.object().shape({
     description: Yup.string().required('Title required'),
 })
 
-const NewCategoryForm = () => {
+const NewCategoryForm = ({ saloons }: any) => {
     const dispatch = useAppDispatch()
 
     const currentUserId = useAppSelector((state) => state.auth.user.id)
@@ -45,7 +46,7 @@ const NewCategoryForm = () => {
 
         formData.append('title', title)
         formData.append('description', description)
-        formData.append('saloonId', '66656459b0a535ea879ac0ad' || '')
+        formData.append('saloonId', saloonId)
         formData.append('userId', currentUserId || '')
         formData.append('image', image)
 
@@ -69,6 +70,7 @@ const NewCategoryForm = () => {
             initialValues={{
                 title: '',
                 description: '',
+                saloonId: '',
                 image: '',
             }}
             validationSchema={validationSchema}
@@ -105,6 +107,24 @@ const NewCategoryForm = () => {
                                 placeholder="ادخل تفاصيل العرض"
                                 component={Input}
                             />
+                        </FormItem>
+                        <FormItem label="قائمة الصالونات">
+                            <Field name="saloonId">
+                                {({ field, form }: FieldProps) => {
+                                    return (
+                                        <Select
+                                            placeholder="اختر الصالون"
+                                            options={saloons}
+                                            onChange={(option: any) => {
+                                                form.setFieldValue(
+                                                    field.name,
+                                                    option?._id,
+                                                )
+                                            }}
+                                        />
+                                    )
+                                }}
+                            </Field>
                         </FormItem>
                         <FormItem
                             invalid={errors.image && touched.image}

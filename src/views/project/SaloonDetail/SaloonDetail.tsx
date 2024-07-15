@@ -1,10 +1,13 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import AdaptableCard from '@/components/shared/AdaptableCard'
 import Loading from '@/components/shared/Loading'
 import Container from '@/components/shared/Container'
 import DoubleSidedImage from '@/components/shared/DoubleSidedImage'
 import SaloonProfile from './components/SaloonProfile'
 import PaymentHistory from './components/PaymentHistory'
+import ServicesTable from './components/ServicesTable'
+import NewServiceDialog from './components/NewServiceDialog'
+import NewProjectDialog from '../CategoryList/components/NewProjectDialog'
 // // import CurrentSubscription from './components/CurrentSubscription'
 // import PaymentMethods from './components/PaymentMethods'
 import reducer, {
@@ -18,6 +21,12 @@ import { useAppSelector as saloonAppSelector } from '@/views/project/ProjectList
 import { injectReducer } from '@/store'
 import isEmpty from 'lodash/isEmpty'
 import useQuery from '@/utils/hooks/useQuery'
+import {
+    deleteCategory,
+    getCategoryList,
+    getSaloonServices,
+    getSaloonUsers
+} from '../CategoryList/store'
 
 injectReducer('projectSaloonDetails', reducer)
 
@@ -35,20 +44,53 @@ const SaloonDetail = () => {
     const loading = useAppSelector(
         (state) => state.projectSaloonDetails?.data.loading,
     )
+    const serviceDialogOpen = useAppSelector(
+        (state) => state.projectSaloonDetails.data.deleteServiceDialog,
+    )
+    const saloonStaff = useAppSelector(
+        state => state.projectSaloonDetails.data.profileData.saloonStaff
+    )
+    const saloonCategories = useAppSelector(
+        (state) => state.projectSaloonDetails.data.profileData.saloonCategories,
+    )
+    
+    const [saloonServices, setSaloonServices] = useState([])
+    const [saloonUsers, setSaloonUsers] = useState([])
+
+    console.log(saloonUsers)
 
     useEffect(() => {
+        fetchSaloonUsers()
+        fetchSaloonServices()
         fetchData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const fetchSaloonUsers = () => {
+        if(data?._id) {
+            let response = dispatch(getSaloonUsers({ saloonId: data._id }))
+            response.then((data) => {
+                if(data.error) setSaloonUsers([])
+                if (data.payload) {
+                    setSaloonUsers(data.payload)
+                }
+            })
+        }
+    }
+
+    const fetchSaloonServices = () => {
+        if (data?._id) {
+            let response = dispatch(getSaloonServices({ saloonId: data._id }))
+            response.then((data) => {
+                if(data.error) setSaloonServices([])
+                if (data.payload) {
+                    setSaloonServices(data.payload)
+                }
+            })
+        }
+    }
+
     const fetchData = () => {
-        // const id = query.get('id')
-        // let selectedSaloon = saloonsList?.filter(
-        //     (saloon) => saloon?._id === id,
-        // )[0]
-        // if (selectedSaloon) {
-        //     dispatch(setSelectedSaloon(selectedSaloon))
-        // }
         let response = dispatch(getSaloon(query.get('id')))
         response.then((data) => {
             if (data.payload) {
@@ -75,13 +117,17 @@ const SaloonDetail = () => {
                 {!isEmpty(data) && (
                     <div className="flex flex-col xl:flex-row gap-4">
                         <div>
-                            <SaloonProfile data={data.saloon} value={calcProgressBarValue()} />
+                            <SaloonProfile data={data.saloon} value={calcProgressBarValue()} fetchData={fetchData} />
                         </div>
                         <div className="w-full">
                             <AdaptableCard>
-                                {/* <CurrentSubscription /> */}
                                 <PaymentHistory data={data.saloon.workingTime} userId={query.get('id')} />
-                                {/* <PaymentMethods /> */}
+                                {/* {saloonServices && (
+                                    <ServicesTable
+                                        data={saloonServices}
+                                        userId={query.get('id')}
+                                    />
+                                )} */}
                             </AdaptableCard>
                         </div>
                     </div>
@@ -97,6 +143,12 @@ const SaloonDetail = () => {
                     <h3 className="mt-8">No user found!</h3>
                 </div>
             )}
+            {/* <NewProjectDialog saloonId={data?._id} fetchData={fetchData} /> */}
+            {/* <NewServiceDialog
+                saloonStaff={saloonStaff}
+                saloonCategories={saloonCategories}
+                fetchData={fetchSaloonServices}
+            /> */}
         </Container>
     )
 }

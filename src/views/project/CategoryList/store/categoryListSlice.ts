@@ -4,7 +4,9 @@ import {
     apiPutProjectList,
     apiPutCategory,
     apiAddCategoryList,
-    apiDeleteCategoryList
+    apiDeleteCategoryList,
+    apiGetSaloonServices,
+    apiGetSaloonUsers
 } from '@/services/ProjectService'
 
 type Category = {
@@ -111,6 +113,26 @@ export const putProject = createAsyncThunk(
         return response.data
     }
 )
+
+
+export const getSaloonServices = createAsyncThunk(
+    SLICE_NAME + '/getSaloonServices',
+    async (data: any) => {
+        const response = await apiGetSaloonServices({ saloonId: data.saloonId })
+
+        return response.data.data
+    }
+)
+
+export const getSaloonUsers = createAsyncThunk(
+    SLICE_NAME + '/getSaloonUsers',
+    async (data: any) => {
+        const response = await apiGetSaloonUsers({ saloonId: data.saloonId })
+
+        return response.data.data
+    }
+)
+
 
 const initialState: ProjectListState = {
     loading: false,

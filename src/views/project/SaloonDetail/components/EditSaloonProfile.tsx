@@ -36,7 +36,7 @@ const DrawerFooter = ({ onSaveClick, onCancel }: DrawerFooterProps) => {
     )
 }
 
-const EditCustomerProfile = () => {
+const EditCustomerProfile = ({ fetchData }: any) => {
     const dispatch = useAppDispatch()
 
     const formikRef = useRef<FormikRef>(null)
@@ -69,7 +69,7 @@ const EditCustomerProfile = () => {
             phone
         } = values
 
-        let newCategories = categories.map((category) => category._id)
+        let newCategories = categories.map((category) => category.id)
 
         let formData = new FormData()
 
@@ -100,6 +100,8 @@ const EditCustomerProfile = () => {
                         تم التعديل بنجاح
                     </Notification>
                 )
+
+                fetchData()
             }
         })
         onDrawerClose()

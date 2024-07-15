@@ -60,16 +60,23 @@ export const SLICE_NAME = 'salesDashboard'
 export const getSalesDashboardData = createAsyncThunk(
     SLICE_NAME + '/getSalesDashboardData',
     async () => {
+       try {
         const response = await apiGetSalesDashboardData()
         const serviceResponse = await apiGetServicesDashboardData()
         const saloonsResponse = await apiGetSaloonsDashboardData()
 
-        // return response.data
         return {
             categories: response.data.data,
             services: serviceResponse.data.data,
             saloons: saloonsResponse.data.data
         }
+       } catch (error) {
+        return {
+            categories: [],
+            services: [],
+            saloons: []
+        }
+       }
     }
 )
 

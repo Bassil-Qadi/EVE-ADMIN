@@ -142,6 +142,10 @@
         "banners": {
             "banner": "البنرات",
             "manageBanners": "قائمة البنرات"
+        },
+        "offers": {
+            "offer": "العروض",
+            "manageOffers": "قائمة العروض"
         }
     }
 }

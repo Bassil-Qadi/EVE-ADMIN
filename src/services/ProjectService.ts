@@ -193,3 +193,22 @@ export async function apiDeleteBannerList<T>(
         method: 'delete',
     })
 }
+
+export async function apiGetSaloonServices<T, U extends Record<string, unknown>>(
+    data: U
+) {
+    return ApiService.fetchData<T>({
+        url: `/saloon/${data.saloonId}/services`,
+        method: 'get',
+    })
+}
+
+export async function apiGetSaloonUsers<T, U extends Record<string, unknown>>(
+    data: U
+) {
+    return ApiService.fetchData<T>({
+        url: '/saloon/users',
+        method: 'post',
+        data
+    })
+}

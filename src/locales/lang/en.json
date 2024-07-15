@@ -142,6 +142,10 @@
         "banners": {
             "banner": "Banners",
             "manageBanners": "Banners List"
+        },
+        "offers": {
+            "offer": "Offers",
+            "manageOffers": "Offers List"
         }
     }
 }

@@ -232,6 +232,12 @@ const appsRoute: Routes = [
         authority: [ADMIN, USER],
     },
     {
+        key: 'appsOffers.manageOffers',
+        path: `${APP_PREFIX_PATH}/offers/manage-offers`,
+        component: lazy(() => import('@/views/project/OffersList')),
+        authority: [ADMIN, USER],
+    },
+    {
         key: 'appsPages.managePages',
         path: `${APP_PREFIX_PATH}/pages/manage-pages`,
         component: lazy(() => import('@/views/knowledge-base/ManagePages')),

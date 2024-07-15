@@ -119,3 +119,41 @@ export async function apiGetSaloonDetails<T, U extends Record<string, unknown>>(
         method: 'get',
     })
 }
+
+export async function apiAddSaloonUser<T, U extends Record<string, unknown>>(
+    data: U
+) {
+    return ApiService.fetchData<T>({
+        url: '/saloon/users/create',
+        method: 'post',
+        data,
+    })
+}
+
+export async function apiAddSaloonService<T, U extends Record<string, unknown>>(
+    data: U
+) {
+    return ApiService.fetchData<T>({
+        url: '/services/create',
+        method: 'post',
+        data,
+    })
+}
+
+export async function apiDeleteService<T>(
+    data: any
+) {
+    return ApiService.fetchData<T>({
+        url: `/services/${data}`,
+        method: 'delete',
+    })
+}
+
+export async function apiDeleteSaloonUser<T>(
+    data: any
+) {
+    return ApiService.fetchData<T>({
+        url: `/saloon/users/${data}`,
+        method: 'delete',
+    })
+}

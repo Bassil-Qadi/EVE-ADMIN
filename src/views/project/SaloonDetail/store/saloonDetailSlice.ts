@@ -4,6 +4,10 @@ import {
     apiGetCrmCustomerDetails,
     // apiDeleteCrmCustomer,
     apPutCrmCustomer,
+    apiAddSaloonUser,
+    apiAddSaloonService,
+    apiDeleteService,
+    apiDeleteSaloonUser,
 } from '@/services/CrmService'
 
 import { apPutSaloon } from '@/services/ProjectService'
@@ -94,12 +98,21 @@ type DeleteCrmCustomerRequest = { id: string }
 export type CustomerDetailState = {
     loading: boolean
     profileData: Partial<Saloon>
+    saloonCategories: any
     subscriptionData: Subscription[]
     paymentHistoryData: OrderHistory[]
     paymentMethodData: PaymentMethod[]
+    newCategoryDialog: boolean
+    newServiceDialog: boolean
+    newSaloonUserDialog: boolean
     deletePaymentMethodDialog: boolean
     editPaymentMethodDialog: boolean
     editSaloonDetailDialog: boolean
+    deleteCategoryDialog: boolean
+    deleteServiceDialog: boolean
+    deleteSaloonUserDialog: boolean
+    selectedCategory: string
+    selectedService: string
     selectedCard: Partial<PaymentMethod>
 }
 
@@ -125,16 +138,13 @@ export const getSaloon = createAsyncThunk(
     }
 )
 
-// export const deleteCustomer = createAsyncThunk(
-//     SLICE_NAME + '/deleteCustomer',
-//     async (data: DeleteCrmCustomerRequest) => {
-//         const response = await apiDeleteCrmCustomer<
-//             DeleteCrmCustomerResponse,
-//             DeleteCrmCustomerRequest
-//         >(data)
-//         return response.data
-//     }
-// )
+export const addSaloonUser = createAsyncThunk(
+    SLICE_NAME + '/addSaloonUser',
+    async (data: any) => {
+        const response = await apiAddSaloonUser(data)
+        return response.data
+    }
+)
 
 export const putCustomer = createAsyncThunk(
     SLICE_NAME + '/putCustomer',
@@ -152,15 +162,48 @@ export const putSaloon = createAsyncThunk(
     }
 )
 
+export const addService = createAsyncThunk(
+    SLICE_NAME + '/addService',
+    async (data: any) => {
+        const response = await apiAddSaloonService(data)
+        return response.data
+    }
+)
+
+export const deleteService = createAsyncThunk(
+    SLICE_NAME + '/deleteService',
+    async (data: any) => {
+        const response = await apiDeleteService(data)
+        return response.data
+    }
+)
+
+export const deleteSaloonUser = createAsyncThunk(
+    SLICE_NAME + '/deleteSaloonUser',
+    async (data: any) => {
+        const response = await apiDeleteSaloonUser(data)
+        return response.data
+    }
+)
+
 const initialState: CustomerDetailState = {
     loading: false,
     profileData: {},
+    saloonCategories: {},
     subscriptionData: [],
     paymentHistoryData: [],
     paymentMethodData: [],
     deletePaymentMethodDialog: false,
     editPaymentMethodDialog: false,
     editSaloonDetailDialog: false,
+    newCategoryDialog: false,
+    newServiceDialog: false,
+    newSaloonUserDialog: false,
+    deleteCategoryDialog: false, 
+    deleteServiceDialog: false,
+    deleteSaloonUserDialog: false,
+    selectedCategory: '',
+    selectedService: '',
     selectedCard: {},
 }
 
@@ -170,6 +213,12 @@ const saloonDetailSlice = createSlice({
     reducers: {
         setSelectedSaloon: (state, action) => {
             state.profileData = action.payload
+        },
+        setDeletedCategory: (state, action) => {
+            state.selectedCategory = action.payload
+        },
+        setDeletedService: (state, action) => {
+            state.selectedService = action.payload
         },
         updatePaymentMethodData: (state, action) => {
             state.paymentMethodData = action.payload
@@ -198,6 +247,24 @@ const saloonDetailSlice = createSlice({
         updateSelectedCard: (state, action) => {
             state.selectedCard = action.payload
         },
+        toggleNewCategoryDialog: (state, action) => {
+            state.newCategoryDialog = action.payload
+        },
+        toggleDeleteCategoryDialog: (state, action) => {
+            state.deleteCategoryDialog = action.payload
+        },
+        toggleNewServiceDialog: (state, action) => {
+            state.newServiceDialog = action.payload
+        },
+        toggleNewSaloonUserDialog: (state, action) => {
+            state.newSaloonUserDialog = action.payload
+        },
+        toggleDeleteServiceDialog: (state, action) => {
+            state.deleteServiceDialog = action.payload
+        },
+        toggleDeleteSaloonUser: (state, action) => {
+            state.deleteSaloonUserDialog = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -217,9 +284,6 @@ const saloonDetailSlice = createSlice({
                 state.paymentHistoryData = action.payload?.orderHistory || []
                 state.paymentMethodData = action.payload?.paymentMethod || []
             })
-            // .addCase(getCustomer.pending, (state) => {
-            //     state.loading = true
-            // })
     },
 })
 
@@ -233,7 +297,15 @@ export const {
     openEditSaloonDetailDialog,
     closeEditSaloonDetailDialog,
     updateSelectedCard,
-    setSelectedSaloon
+    setSelectedSaloon,
+    toggleNewCategoryDialog,
+    toggleNewServiceDialog,
+    toggleDeleteCategoryDialog,
+    setDeletedCategory,
+    setDeletedService,
+    toggleDeleteServiceDialog,
+    toggleDeleteSaloonUser,
+    toggleNewSaloonUserDialog
 } = saloonDetailSlice.actions
 
 export default saloonDetailSlice.reducer

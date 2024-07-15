@@ -365,6 +365,27 @@ const appsNavigationConfig: NavigationTree[] = [
                 ],
             },
             {
+                key: 'apps.offers',
+                path: '',
+                title: 'Offers',
+                translateKey: 'nav.offers.offer',
+                icon: 'offer',
+                type: NAV_ITEM_TYPE_COLLAPSE,
+                authority: [ADMIN, USER],
+                subMenu: [
+                    {
+                        key: 'appsOffers.manageOffers',
+                        path: `${APP_PREFIX_PATH}/offers/manage-offers`,
+                        title: 'Manage Offers',
+                        translateKey: 'nav.offers.manageOffers',
+                        icon: '',
+                        type: NAV_ITEM_TYPE_ITEM,
+                        authority: [ADMIN, USER],
+                        subMenu: [],
+                    },
+                ],
+            },
+            {
                 key: 'appsPages.pages',
                 path: '',
                 title: 'Pages',

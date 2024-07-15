@@ -57,8 +57,6 @@ const SaloonDetail = () => {
     const [saloonServices, setSaloonServices] = useState([])
     const [saloonUsers, setSaloonUsers] = useState([])
 
-    console.log(saloonUsers)
-
     useEffect(() => {
         fetchSaloonUsers()
         fetchSaloonServices()

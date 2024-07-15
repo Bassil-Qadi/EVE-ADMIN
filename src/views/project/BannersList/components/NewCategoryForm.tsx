@@ -23,7 +23,13 @@ type FormModel = {
     saloonId?: string
     userId?: string
     image: string
+    type: string
 }
+
+const BANNER_TYPE = [
+    { label: 'صالون', name: 'صالون', value: 'saloon', },
+    { label: 'عيادة', name: 'عيادة', value: 'clinic', }
+]
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().min(3, 'Too Short!').required('Title required'),
@@ -42,13 +48,14 @@ const NewCategoryForm = ({ saloons }: any) => {
         setSubmitting(true)
 
         const formData = new FormData()
-        const { title, description, saloonId, userId, image } = formValue
+        const { title, description, saloonId, image, type } = formValue
 
         formData.append('title', title)
         formData.append('description', description)
         formData.append('saloonId', saloonId)
         formData.append('userId', currentUserId || '')
         formData.append('image', image)
+        formData.append('type', type)
 
         let responseData = dispatch(addBanner(formData))
         
@@ -58,7 +65,7 @@ const NewCategoryForm = ({ saloons }: any) => {
                 dispatch(getBannersList())
                 toast.push(
                     <Notification title={'Successfully Added'} type="success">
-                        تم إضافة العرض بنجاح
+                        تم إضافة البنر بنجاح
                     </Notification>
                 )
             }
@@ -72,6 +79,7 @@ const NewCategoryForm = ({ saloons }: any) => {
                 description: '',
                 saloonId: '',
                 image: '',
+                type: '',
             }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
@@ -90,7 +98,7 @@ const NewCategoryForm = ({ saloons }: any) => {
                                 type="text"
                                 autoComplete="off"
                                 name="title"
-                                placeholder="ادخل عنوان العرض"
+                                placeholder="ادخل عنوان البنر"
                                 component={Input}
                             />
                         </FormItem>
@@ -104,7 +112,7 @@ const NewCategoryForm = ({ saloons }: any) => {
                                 type="text"
                                 autoComplete="off"
                                 name="description"
-                                placeholder="ادخل تفاصيل العرض"
+                                placeholder="ادخل تفاصيل البنر"
                                 component={Input}
                             />
                         </FormItem>
@@ -119,6 +127,26 @@ const NewCategoryForm = ({ saloons }: any) => {
                                                 form.setFieldValue(
                                                     field.name,
                                                     option?._id,
+                                                )
+                                            }}
+                                        />
+                                    )
+                                }}
+                            </Field>
+                        </FormItem>
+                        <FormItem label="الصنف">
+                            <Field name="type">
+                                {({ field, form }: FieldProps) => {
+                                    return (
+                                        <Select
+                                            placeholder="اختر الصنف"
+                                            options={BANNER_TYPE}
+                                            defaultValue={BANNER_TYPE[0]}
+                                            onChange={(option: any) => {
+                                                console.log(option)
+                                                form.setFieldValue(
+                                                    field.name,
+                                                    option?.value,
                                                 )
                                             }}
                                         />

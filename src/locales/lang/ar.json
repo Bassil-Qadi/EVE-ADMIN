@@ -140,8 +140,8 @@
             "changeLog": "سجل التغيير"
         },
         "banners": {
-            "banner": "العروض",
-            "manageBanners": "قائمة العروض"
+            "banner": "البنرات",
+            "manageBanners": "قائمة البنرات"
         }
     }
 }

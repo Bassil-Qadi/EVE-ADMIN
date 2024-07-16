@@ -173,6 +173,15 @@ const categoryListSlice = createSlice({
             .addCase(getBannersList.rejected, (state) => {
                 state.loading = false
             })
+            .addCase(addBanner.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(addBanner.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(addBanner.rejected, (state) => {
+                state.loading = false
+            })
         // .addCase(putProject.fulfilled, (state, action) => {
         //     state.projectList = action.payload
         // })

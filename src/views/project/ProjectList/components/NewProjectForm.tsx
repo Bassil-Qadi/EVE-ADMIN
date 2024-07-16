@@ -364,18 +364,22 @@ const NewProjectForm = () => {
                             </Field>
                         </FormItem>
                         <div>
-                            <p className='mb-2 font-semibold'>موقع الصالون</p>
-                        <MapContainer
-                            center={[24.774265, 46.738586]}
-                            zoom={13}
-                            style={{ height: '100vh', width: '100%', marginBottom: '20px' }}
-                        >
-                            <TileLayer
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            />
-                            <LocationMarker />
-                        </MapContainer>
+                            <p className="mb-2 font-semibold">موقع الصالون</p>
+                            <MapContainer
+                                center={[24.774265, 46.738586]}
+                                zoom={13}
+                                style={{
+                                    height: '100vh',
+                                    width: '100%',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <TileLayer
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                />
+                                <LocationMarker />
+                            </MapContainer>
                         </div>
                         <Button block variant="solid" type="submit">
                             إرسال

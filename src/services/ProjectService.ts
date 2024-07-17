@@ -212,3 +212,49 @@ export async function apiGetSaloonUsers<T, U extends Record<string, unknown>>(
         data
     })
 }
+
+export async function apiGetOffersList<T, U extends Record<string, unknown>>(
+    data: any
+) {
+    return ApiService.fetchData<T>({
+        url: `/offers/saloon/${data}`,
+        method: 'get',
+    })
+}
+
+
+export async function apiAddOfferList<T, U extends Record<string, unknown>>(
+    data: U
+) {
+    return ApiService.fetchData<T>({
+        url: '/offers/create',
+        method: 'post',
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
+export async function apiDeleteOfferList<T>(
+    data: any
+) {
+    return ApiService.fetchData<T>({
+        url: `/offers/${data}`,
+        method: 'delete',
+    })
+}
+
+export async function apiPutOffer<T, U extends Record<string, unknown>>(
+    data: U
+) {
+
+    let offerId = data.get('offerId')
+    data.delete('offerId')
+
+    return ApiService.fetchData<T>({
+        url: `/offers/${offerId}`,
+        method: 'put',
+        data,
+    })
+}

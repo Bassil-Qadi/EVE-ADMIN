@@ -146,6 +146,24 @@ const manageArticlesSlice = createSlice({
             .addCase(addFAQ.rejected, (state) => {
                 state.loading = false
             })
+            .addCase(updateFAQ.fulfilled, (state, action) => {
+                state.loading = false
+            })
+            .addCase(updateFAQ.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(updateFAQ.rejected, (state) => {
+                state.loading = false
+            })
+            .addCase(deleteFAQ.fulfilled, (state, action) => {
+                state.loading = false
+            })
+            .addCase(deleteFAQ.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(deleteFAQ.rejected, (state) => {
+                state.loading = false
+            })
     },
 })
 

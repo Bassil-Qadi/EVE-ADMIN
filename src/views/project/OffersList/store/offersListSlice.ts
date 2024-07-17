@@ -4,7 +4,11 @@ import {
     apiPutProjectList,
     apiAddBannerList,
     apiDeleteBannerList,
-    apiPutBanner
+    apiPutBanner,
+    apiGetOffersList,
+    apiAddOfferList,
+    apiDeleteOfferList,
+    apiPutOffer
 } from '@/services/ProjectService'
 
 type Banner = {
@@ -65,19 +69,19 @@ export type ProjectListState = {
 
 export const SLICE_NAME = 'bannersList'
 
-export const getBannersList = createAsyncThunk(
+export const getOffersList = createAsyncThunk(
     SLICE_NAME + '/getList',
     async (data: any) => {
-        const response = await apiGetBannersList(data)
+        const response = await apiGetOffersList(data.saloonId)
 
         return response.data.data
     },
 )
 
-export const addBanner = createAsyncThunk(
-    SLICE_NAME + '/addBanner',
+export const addOffer = createAsyncThunk(
+    SLICE_NAME + '/addOffer',
     async (data: any) => {
-        const response = await apiAddBannerList<
+        const response = await apiAddOfferList<
             AddCategoryListResponse,
             AddCategoryListRequest
         >(data)
@@ -85,18 +89,18 @@ export const addBanner = createAsyncThunk(
     },
 )
 
-export const deleteBanner = createAsyncThunk(
-    SLICE_NAME + '/deleteBanner',
+export const deleteOffer = createAsyncThunk(
+    SLICE_NAME + '/deleteOffer',
     async (data: any) => {
-        const response = await apiDeleteBannerList<any>(data)
+        const response = await apiDeleteOfferList<any>(data)
         return response.data
     },
 )
 
-export const putBanner = createAsyncThunk(
-    SLICE_NAME + '/putBanner',
+export const putOffer = createAsyncThunk(
+    SLICE_NAME + '/putOffer',
     async (data: any) => {
-        const response = await apiPutBanner(data)
+        const response = await apiPutOffer(data)
         return response.data
     },
 )
@@ -163,14 +167,41 @@ const categoryListSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getBannersList.fulfilled, (state, action) => {
+            .addCase(getOffersList.fulfilled, (state, action) => {
                 state.bannersList = action.payload
                 state.loading = false
             })
-            .addCase(getBannersList.pending, (state) => {
+            .addCase(getOffersList.pending, (state) => {
                 state.loading = true
             })
-            .addCase(getBannersList.rejected, (state) => {
+            .addCase(getOffersList.rejected, (state) => {
+                state.loading = false
+            })
+            .addCase(addOffer.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(addOffer.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(addOffer.rejected, (state) => {
+                state.loading = false
+            })
+            .addCase(deleteOffer.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(deleteOffer.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(deleteOffer.rejected, (state) => {
+                state.loading = false
+            })
+            .addCase(putOffer.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(putOffer.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(putOffer.rejected, (state) => {
                 state.loading = false
             })
         // .addCase(putProject.fulfilled, (state, action) => {

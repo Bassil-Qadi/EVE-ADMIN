@@ -31,7 +31,6 @@ const CategorySection = ({ data }: { data: Article }) => {
     const [collapse, ] = useState(false)
 
     const onArticleEdit = (data: {}) => {
-        console.log(data)
         dispatch(setSelected(data))
         dispatch(toggleEditFaq(true))
     }

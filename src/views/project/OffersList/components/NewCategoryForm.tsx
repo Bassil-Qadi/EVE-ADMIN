@@ -11,8 +11,8 @@ import { Field, Form, Formik, FieldProps } from 'formik'
 import { HiCloudUpload } from 'react-icons/hi'
 import DatePicker from '@/components/ui/DatePicker'
 import {
-    addBanner,
-    getBannersList,
+    addOffer,
+    getOffersList,
     toggleNewBannerDialog,
     useAppDispatch,
     useAppSelector,
@@ -92,12 +92,12 @@ const NewCategoryForm = () => {
         formData.append('priceAfterDiscount', priceAfterDiscount)
         formData.append('serviceIds', JSON.stringify(newServices))
 
-        let responseData = dispatch(addBanner(formData))
+        let responseData = dispatch(addOffer(formData))
 
         responseData.then((data) => {
             if (data.payload.statusCode === 201) {
                 dispatch(toggleNewBannerDialog(false))
-                dispatch(getBannersList({ saloonId: selectedSaloonId }))
+                dispatch(getOffersList({ saloonId: selectedSaloonId }))
                 toast.push(
                     <Notification title={'Successfully Added'} type="success">
                         تم إضافة العرض بنجاح

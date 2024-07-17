@@ -9,7 +9,7 @@ import EditOfferForm from './EditOfferForm'
 import Notification from '@/components/ui/Notification'
 import toast from '@/components/ui/toast'
 
-import { getBannersList, deleteBanner, useAppDispatch, useAppSelector, toggleDeleteBannerDialog, toggleEditBannerDialog } from '../store'
+import { getOffersList, deleteOffer, useAppDispatch, useAppSelector, toggleDeleteBannerDialog, toggleEditBannerDialog } from '../store'
 import { useAppSelector as useCrmSelector  } from "@/views/crm/Customers/store"
 
 const ProjectListContent = () => {
@@ -50,12 +50,12 @@ const ProjectListContent = () => {
     }
 
     const onDeleteBanner = () => {
-        let responseData = dispatch(deleteBanner(selectedBannerId))
+        let responseData = dispatch(deleteOffer(selectedBannerId))
 
         dispatch(toggleDeleteBannerDialog(false))
         responseData.then(data => {
             if(data.payload.statusCode === 201) {
-                dispatch(getBannersList({ saloonId: selectedSaloonId }))
+                dispatch(getOffersList({ saloonId: selectedSaloonId }))
                 toast.push(
                     <Notification title={'Successfully Deleted'} type="success">
                         تم حذف العرض  بنجاح
@@ -66,7 +66,7 @@ const ProjectListContent = () => {
     }
 
     useEffect(() => {
-        if(selectedSaloonId) dispatch(getBannersList({ saloonId: selectedSaloonId }))
+        if(selectedSaloonId) dispatch(getOffersList({ saloonId: selectedSaloonId }))
     }, [dispatch, sort, search, selectedSaloonId])
 
 

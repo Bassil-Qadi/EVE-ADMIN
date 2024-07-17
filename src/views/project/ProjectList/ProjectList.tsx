@@ -9,11 +9,13 @@ injectReducer('projectList', reducer)
 
 const ProjectList = () => {
     return (
-        <Container className="h-full">
-            <ActionBar />
-            <ProjectListContent />
-            <NewProjectDialog />
-        </Container>
+        
+            <Container className="h-full">
+                <ActionBar />
+                <ProjectListContent />
+                <NewProjectDialog />
+            </Container>
+      
     )
 }
 

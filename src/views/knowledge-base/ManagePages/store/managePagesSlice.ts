@@ -37,7 +37,7 @@ export const addPage = createAsyncThunk(
     SLICE_NAME + 'addPage',
     async (data: any) => {
         const response = await apiAddPage<any>(data)
-        return response.data
+        return response.data.data
     }
 )
 
@@ -54,8 +54,7 @@ export const getPages = createAsyncThunk(
     async () => {
         const response =
             await apiGetPages<any>()
-        let { data } = response.data
-        return data
+        return response.data.data
     }
 )
 
@@ -126,6 +125,36 @@ const manageArticlesSlice = createSlice({
                 state.loading = true
             })
             .addCase(getPages.rejected, (state) => {
+                state.loading = false
+            })
+            .addCase(addPage.fulfilled, (state, action) => {
+                state.loading = false
+                state.pages = action.payload
+            })
+            .addCase(addPage.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(addPage.rejected, (state) => {
+                state.loading = false
+            })
+            .addCase(deletePage.fulfilled, (state, action) => {
+                state.loading = false
+                state.pages = action.payload
+            })
+            .addCase(deletePage.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(deletePage.rejected, (state) => {
+                state.loading = false
+            })
+            .addCase(updatePage.fulfilled, (state, action) => {
+                state.loading = false
+                state.pages = action.payload
+            })
+            .addCase(updatePage.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(updatePage.rejected, (state) => {
                 state.loading = false
             })
     },

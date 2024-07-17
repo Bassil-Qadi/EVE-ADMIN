@@ -268,6 +268,24 @@ const customersSlice = createSlice({
             .addCase(getCustomerStatistic.pending, (state) => {
                 state.statisticLoading = true
             })
+            .addCase(putUser.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(putUser.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(putUser.rejected, (state) => {
+                state.loading = false
+            })
+            .addCase(deleteUser.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(deleteUser.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(deleteUser.rejected, (state) => {
+                state.loading = false
+            })
     },
 })
 

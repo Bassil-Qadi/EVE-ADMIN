@@ -9,7 +9,7 @@ import toast from '@/components/ui/toast'
 import { HiOutlineUser } from 'react-icons/hi'
 import { FormContainer, FormItem } from '@/components/ui/Form'
 import { Form, Formik, FormikProps } from 'formik'
-import { useAppDispatch, putBanner, getBannersList, toggleEditBannerDialog } from '../store'
+import { useAppDispatch, putOffer, getOffersList, toggleEditBannerDialog } from '../store'
 import { useAppSelector as useCrmSelector } from '@/views/crm/Customers/store'
 import dayjs from 'dayjs'
 import { Field, FieldProps } from 'formik'
@@ -80,13 +80,13 @@ const EditBannerForm = ({ banner }: any) => {
                 formData.append('startDate', startDate)
                 formData.append('endDate', endDate)
                 formData.append('price', price)
-                formData.append('bannerId', banner._id)
+                formData.append('offerId', banner._id)
 
-                let returndedData = dispatch(putBanner(formData))
+                let returndedData = dispatch(putOffer(formData))
 
                 returndedData.then((data) => {
                     if (data?.payload?.statusCode === 201) {
-                        dispatch(getBannersList({ saloonId: selectedSaloonId }))
+                        dispatch(getOffersList({ saloonId: selectedSaloonId }))
                         toast.push(
                             <Notification title={'Successfully Modified'} type="success">
                                 تم تعديل العرض بنجاح

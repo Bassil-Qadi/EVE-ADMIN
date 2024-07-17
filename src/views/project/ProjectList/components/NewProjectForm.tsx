@@ -4,8 +4,9 @@ import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import Select from '@/components/ui/Select'
 import Upload from '@/components/ui/Upload'
-import Checkbox from '@/components/ui/Checkbox'
+import Spinner from '@/components/ui/Spinner'
 import Notification from '@/components/ui/Notification'
+import Loading from '@/components/shared/Loading'
 import toast from '@/components/ui/toast'
 import { Field, Form, Formik, FieldProps } from 'formik'
 import { FcImageFile } from 'react-icons/fc'
@@ -76,6 +77,7 @@ const NewProjectForm = () => {
     const dispatch = useAppDispatch()
 
     const currentUserId = useAppSelector((state) => state.auth.user.id)
+    const loading = useAppSelector((state) => state.projectList.data.loading)
 
     const [categories, setCategories] = useState([])
     const [checkboxList, setCheckboxList] = useState<(string | number)[]>([])
@@ -127,8 +129,8 @@ const NewProjectForm = () => {
             formData.append('images', images[i])
         }
 
-        dispatch(toggleNewProjectDialog(false))
         let responseData = dispatch(addSaloon(formData))
+        dispatch(toggleNewProjectDialog(false))
         responseData.then((data) => {
             if (data.payload.statusCode === 201) {
                 toast.push(
@@ -369,7 +371,7 @@ const NewProjectForm = () => {
                                 center={[24.774265, 46.738586]}
                                 zoom={13}
                                 style={{
-                                    height: '100vh',
+                                    height: '40vh',
                                     width: '100%',
                                     marginBottom: '20px',
                                 }}

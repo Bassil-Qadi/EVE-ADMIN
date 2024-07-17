@@ -157,7 +157,7 @@ const Articles = () => {
                             <p className="mt-5 font-semibold">إضافة صفحة جديدة</p>
                         </div>
                     </Card>
-                {pages?.map((page) => <CategorySection key={page._id} data={page} />)}
+                {pages?.length > 0 && pages?.map((page) => <CategorySection key={page._id} data={page} />)}
                 </motion.div>
             <Confirmations data={pages} />
         </Loading>

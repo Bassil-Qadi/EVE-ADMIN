@@ -103,7 +103,7 @@ const Log = () => {
                             Load More
                         </Button>
                     ) : (
-                        'No more activity to load'
+                        'لا يوجد إشعارات'
                     )}
                 </div>
             </div>

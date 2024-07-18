@@ -24,7 +24,7 @@ const NewProjectDialog = ({ saloons }: any) => {
             onRequestClose={onDialogClose}
         >
             <h4>إضافة بنر جديد</h4>
-            <div className="mt-4 overflow-y-auto">
+            <div className="max-h-96 overflow-y-auto mt-4 px-4">
                 <NewCategoryForm saloons={saloons} />
             </div>
         </Dialog>

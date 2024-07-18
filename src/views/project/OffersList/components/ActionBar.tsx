@@ -36,8 +36,8 @@ const ActionBar = () => {
 
     const { sort } = useAppSelector((state) => state.bannersList.data.query)
 
-    const { selectedSaloon } = useAppSelector(
-        (state) => state?.bannersList?.data?.filterData
+    const selectedSaloon  = useAppSelector(
+        (state) => state?.bannersList?.data?.filterData?.selectedSaloon
     )
 
     // useEffect(() => {

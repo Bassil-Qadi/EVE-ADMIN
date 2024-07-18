@@ -70,8 +70,8 @@ const OffersFilter = () => {
 
     const [saloonsList, setSaloonsList] = useState([])
 
-    const { selectedSaloon } = useAppSelector(
-        (state) => state?.bannersList?.data?.filterData
+    const selectedSaloon = useAppSelector(
+        (state) => state?.bannersList?.data?.filterData?.selectedSaloon
     )
 
     useEffect(() => {

@@ -38,7 +38,7 @@ const ProjectListContent = () => {
     )
 
     const selectedSaloonId = useAppSelector(
-        state => state.bannersList.data.filterData.selectedSaloon
+        state => state.bannersList.data.filterData?.selectedSaloon
     )
 
     const onDialogClose = () => {

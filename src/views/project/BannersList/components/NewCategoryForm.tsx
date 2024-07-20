@@ -49,13 +49,14 @@ const NewCategoryForm = ({ saloons }: any) => {
 
         const formData = new FormData()
         const { title, description, saloonId, image, type } = formValue
+        console.log(type)
 
         formData.append('title', title)
         formData.append('description', description)
         formData.append('saloonId', saloonId)
         formData.append('userId', currentUserId || '')
         formData.append('image', image)
-        formData.append('type', type)
+        formData.append('type', type?.value)
 
         let responseData = dispatch(addBanner(formData))
         
@@ -141,12 +142,11 @@ const NewCategoryForm = ({ saloons }: any) => {
                                         <Select
                                             placeholder="اختر الصنف"
                                             options={BANNER_TYPE}
-                                            defaultValue={BANNER_TYPE[0]}
+                                            defaultValue={BANNER_TYPE[0]?.value}
                                             onChange={(option: any) => {
-                                                console.log(option)
                                                 form.setFieldValue(
                                                     field.name,
-                                                    option?.value,
+                                                    option,
                                                 )
                                             }}
                                         />

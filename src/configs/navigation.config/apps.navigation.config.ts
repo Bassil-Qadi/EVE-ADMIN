@@ -22,7 +22,7 @@ const appsNavigationConfig: NavigationTree[] = [
                         path: `${APP_PREFIX_PATH}/sales/dashboard`,
                         title: 'Dashboard',
                         translateKey: 'nav.appsSales.dashboard',
-                        icon: '',
+                        icon: 'sales',
                         type: NAV_ITEM_TYPE_ITEM,
                         authority: [ADMIN, USER],
                         subMenu: [],

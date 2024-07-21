@@ -171,7 +171,7 @@ const SaloonProfile = ({ data = {}, value, fetchData }: CustomerProfileProps) =>
                     />
                     <div>
                         <span>نسبة إكتمال الملف</span>
-                        <ProgressionBar progression={value} />
+                        <ProgressionBar progression={value.toFixed(0)} />
                     </div>
                     <div className="mb-7">
                         <span>وسائل التواصل الاجتماعي</span>

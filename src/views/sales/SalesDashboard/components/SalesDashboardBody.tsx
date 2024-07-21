@@ -72,7 +72,7 @@ const SalesDashboardBody = () => {
         salesByCategoriesData: {
             // labels: Object.keys(dashboardData),
             labels: ["الفئات", "الخدمات", "الصالونات"],
-            data: Object.values(dashboardData).map((arr) => arr.length),
+            data: Object.values(dashboardData).map((arr: any) => arr.length),
         },
     }
 

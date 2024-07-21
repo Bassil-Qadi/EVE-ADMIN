@@ -8,7 +8,7 @@ import Spinner from '@/components/ui/Spinner'
 import Notification from '@/components/ui/Notification'
 import Loading from '@/components/shared/Loading'
 import toast from '@/components/ui/toast'
-import { Field, Form, Formik, FieldProps } from 'formik'
+import { Field, Form, Formik, FieldProps, FieldArray, ErrorMessage } from 'formik'
 import { FcImageFile } from 'react-icons/fc'
 import {
     useAppDispatch,
@@ -43,7 +43,7 @@ type FormModel = {
         value: string
     }
     images: string[]
-    // workingTime: []
+    workingTime: []
     file: string
 }
 
@@ -92,7 +92,6 @@ const NewProjectForm = () => {
         useMapEvents({
             click(e) {
                 const { lat, lng } = e.latlng
-                console.log(lat, lng)
                 setPosition(e.latlng)
                 // setLocation({ lat, lng });
             },
@@ -108,7 +107,7 @@ const NewProjectForm = () => {
         setSubmitting(true)
 
         const formData = new FormData()
-        const { name, description, categories, address, file, images, phone } =
+        const { name, description, categories, address, file, images, phone, workingTime } =
             formValue
 
         let newCategories = categories.map((category) => category.id)
@@ -117,6 +116,7 @@ const NewProjectForm = () => {
         formData.append('discription', description)
         formData.append('createdBy', currentUserId || '')
         formData.append('categories', JSON.stringify(newCategories))
+        formData.append('workingTime', JSON.stringify(workingTime))
         formData.append('location[type]', 'Point')
         formData.append('location[coordinates][]', position.lat)
         formData.append('location[coordinates][]', position.lng)
@@ -167,7 +167,15 @@ const NewProjectForm = () => {
                 address: {
                     value: '',
                 },
-                // workingTime: [],
+                workingTime: [
+                    { day: 'السبت', open: '', close: '', selected: false },
+                    { day: 'الأحد', open: '', close: '', selected: false },
+                    { day: 'الاثنين', open: '', close: '', selected: false },
+                    { day: 'الثلاثاء', open: '', close: '', selected: false },
+                    { day: 'الأربعاء', open: '', close: '', selected: false },
+                    { day: 'الخميس', open: '', close: '', selected: false },
+                    { day: 'الجمعة', open: '', close: '', selected: false },
+                ],
                 images: [],
                 file: '',
             }}
@@ -263,29 +271,55 @@ const NewProjectForm = () => {
                                 }}
                             </Field>
                         </FormItem>
-                        {/* <FormItem>
-                            <Field name="workingTime">
-                                {({ field, form }: FieldProps) => {
-                                    return <div>
-                                    <Checkbox.Group
-                                        vertical
-                                        value={checkboxList}
-                                        onChange={onCheckboxChange}
-                                    >
-                                        <Checkbox value="Selection A">
-                                            Selection A{' '}
-                                        </Checkbox>
-                                        <Checkbox value="Selection B">
-                                            Selection B{' '}
-                                        </Checkbox>
-                                        <Checkbox value="Selection C">
-                                            Selection C{' '}
-                                        </Checkbox>
-                                    </Checkbox.Group>
+                        <FormItem label='أوقات العمل'>
+                        <FieldArray name="workingTime">
+                            {() => (
+                                <div>
+                                    {values.workingTime.map((time, index) => (
+                                        <div
+                                            key={time.day}
+                                            style={{ marginLeft: '10px' }}
+                                        >
+                                            <label>
+                                                <Field
+                                                    type="checkbox"
+                                                    name={`workingTime.${index}.selected`}
+                                                />
+                                                <span className='ms-2'>{time.day}</span>
+                                            </label>
+                                            {values.workingTime[index]
+                                                .selected && (
+                                                <div>
+                                                    <span>يبدأ</span>
+                                                    <Field
+                                                        type="time"
+                                                        name={`workingTime.${index}.open`}
+                                                        placeholder="Open Time"
+                                                    />
+                                                    <ErrorMessage
+                                                        name={`workingTime.${index}.open`}
+                                                        component="div"
+                                                        style={{ color: 'red' }}
+                                                    />
+                                                    <span className='ms-4'>ينتهي</span>
+                                                    <Field
+                                                        type="time"
+                                                        name={`workingTime.${index}.close`}
+                                                        placeholder="Close Time"
+                                                    />
+                                                    <ErrorMessage
+                                                        name={`workingTime.${index}.close`}
+                                                        component="div"
+                                                        style={{ color: 'red' }}
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
                                 </div>
-                                }}
-                            </Field>
-                        </FormItem> */}
+                            )}
+                        </FieldArray>
+                        </FormItem>
                         <FormItem
                             label="شعار الصالون"
                             invalid={errors.file && touched.file}

@@ -6,7 +6,7 @@ import Notification from '@/components/ui/Notification'
 import toast from '@/components/ui/toast'
 import Select from '@/components/ui/Select'
 import Upload from '@/components/ui/Upload'
-import { Field, Form, Formik, FieldProps } from 'formik'
+import { Field, Form, Formik, FieldProps, FieldArray, ErrorMessage } from 'formik'
 import { FcImageFile } from 'react-icons/fc'
 import {
     useAppDispatch,
@@ -38,6 +38,7 @@ type FormModel = {
     categories: string[]
     address: string
     images: string[]
+    workingTime: []
     file: string
 }
 
@@ -79,7 +80,6 @@ const NewProjectForm = () => {
         useMapEvents({
             click(e) {
                 const { lat, lng } = e.latlng
-                console.log(lat, lng)
                 setPosition(e.latlng)
                 // setLocation({ lat, lng });
             },
@@ -150,8 +150,19 @@ const NewProjectForm = () => {
                 name: '',
                 description: '',
                 categories: [],
-                address: '',
+                address: {
+                    value: '',
+                },
                 images: [],
+                workingTime: [
+                    { day: 'السبت', open: '', close: '', selected: false },
+                    { day: 'الأحد', open: '', close: '', selected: false },
+                    { day: 'الاثنين', open: '', close: '', selected: false },
+                    { day: 'الثلاثاء', open: '', close: '', selected: false },
+                    { day: 'الأربعاء', open: '', close: '', selected: false },
+                    { day: 'الخميس', open: '', close: '', selected: false },
+                    { day: 'الجمعة', open: '', close: '', selected: false },
+                ],
                 file: '',
             }}
             validationSchema={validationSchema}
@@ -210,8 +221,8 @@ const NewProjectForm = () => {
                         </FormItem>
                         <FormItem
                             label="العنوان"
-                            invalid={errors.address && touched.address}
-                            errorMessage={errors.address}
+                            invalid={errors.address?.value && touched.address?.value}
+                            errorMessage={errors.address?.value}
                         >
                             <Field name="address">
                                 {({ field, form }: FieldProps) => {
@@ -230,6 +241,55 @@ const NewProjectForm = () => {
                                     )
                                 }}
                             </Field>
+                        </FormItem>
+                        <FormItem label='أوقات العمل'>
+                        <FieldArray name="workingTime">
+                            {() => (
+                                <div>
+                                    {values.workingTime.map((time, index) => (
+                                        <div
+                                            key={time.day}
+                                            style={{ marginLeft: '10px' }}
+                                        >
+                                            <label>
+                                                <Field
+                                                    type="checkbox"
+                                                    name={`workingTime.${index}.selected`}
+                                                />
+                                                <span className='ms-2'>{time.day}</span>
+                                            </label>
+                                            {values.workingTime[index]
+                                                .selected && (
+                                                <div>
+                                                    <span>يبدأ</span>
+                                                    <Field
+                                                        type="time"
+                                                        name={`workingTime.${index}.open`}
+                                                        placeholder="Open Time"
+                                                    />
+                                                    <ErrorMessage
+                                                        name={`workingTime.${index}.open`}
+                                                        component="div"
+                                                        style={{ color: 'red' }}
+                                                    />
+                                                    <span className='ms-4'>ينتهي</span>
+                                                    <Field
+                                                        type="time"
+                                                        name={`workingTime.${index}.close`}
+                                                        placeholder="Close Time"
+                                                    />
+                                                    <ErrorMessage
+                                                        name={`workingTime.${index}.close`}
+                                                        component="div"
+                                                        style={{ color: 'red' }}
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </FieldArray>
                         </FormItem>
                         <FormItem
                             label="شعار العيادة"

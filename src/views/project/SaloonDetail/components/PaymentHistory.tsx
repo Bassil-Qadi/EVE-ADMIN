@@ -12,22 +12,8 @@ import { getSaloonsList, useAppSelector as useProjectListSelector } from '@/view
 
 const { Tr, Th, Td, THead, TBody, Sorter } = Table
 
-interface PaymentHistoryProps {
-    userId: string | null;
-    data: [] | undefined
-  }
 
 const columnHelper = createColumnHelper<OrderHistory>()
-
-const DAYS_TO_ARABIC: any = {
-    'Sunday': 'الأحد',
-    'Monday': 'الإثنين',
-    'Tuesday': 'الثلاثاء',
-    'Saturday': 'السبت',
-    'Wednesday': 'الأربعاء',
-    'Thursday': 'الخميس',
-    'Friday': 'الجمعة',
-}
 
 const columns = [
     // columnHelper.accessor('_id', {
@@ -47,7 +33,8 @@ const columns = [
             const row = props.row.original
             return (
                 <div className="flex items-center">
-                    <span>{DAYS_TO_ARABIC[row.day]}</span>
+                    {/* <span>{DAYS_TO_ARABIC[row.day]}</span> */}
+                    <span>{row.day}</span>
                 </div>
             )
         },
@@ -77,6 +64,7 @@ const columns = [
 ]
 
 const PaymentHistory = ({ data }: any) => {
+    console.log(data)
     
     const dispatch = useAppDispatch()
   

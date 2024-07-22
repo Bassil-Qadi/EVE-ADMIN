@@ -37,7 +37,7 @@ const ProjectListContent = () => {
             )}
             {view === 'grid' && saloonsList.length > 0 && !loading && (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {saloonsList?.filter(saloon => saloon.name.toLocaleLowerCase()?.startsWith(search))?.map((saloon) => (
+                    {saloonsList?.filter(saloon => saloon.name.toLocaleLowerCase()?.includes(search))?.map((saloon) => (
                         <GridItem key={saloon._id} data={saloon} />
                     ))}
                 </div>

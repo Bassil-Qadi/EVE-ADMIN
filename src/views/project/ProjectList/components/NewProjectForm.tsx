@@ -26,6 +26,7 @@ import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import markerIconShadow from 'leaflet/dist/images/marker-shadow.png'
+import 'leaflet.locatecontrol'
 
 let DefaultIcon = L.icon({
     iconUrl: markerIcon,
@@ -45,6 +46,12 @@ type FormModel = {
     images: string[]
     workingTime: []
     file: string
+    commercialRegister: string
+    ownersIdentity: string
+    activityPracticeLicense: string
+    ibanCertificate: string
+    valueAddedTaxCertificate: string
+    taxNumber: string
 }
 
 type Category = {
@@ -73,6 +80,31 @@ const validationSchema = Yup.object().shape({
     description: Yup.string().required('الرجاء إدخال التفاصيل'),
 })
 
+const LocateControl = ({ onLocationFound }: any) => {
+    const map = useMapEvents({
+        locationfound(e) {
+          onLocationFound(e);
+        },
+      });
+
+    useEffect(() => {
+        const lc = L.control
+            .locate({
+                position: 'topright',
+                strings: {
+                    title: 'Show me where I am',
+                },
+                flyTo: true,
+            })
+            .addTo(map)
+        return () => {
+            lc.remove()
+        }
+    }, [map])
+
+    return null
+}
+
 const NewProjectForm = () => {
     const dispatch = useAppDispatch()
 
@@ -82,6 +114,10 @@ const NewProjectForm = () => {
     const [categories, setCategories] = useState([])
     const [checkboxList, setCheckboxList] = useState<(string | number)[]>([])
     const [position, setPosition] = useState(null)
+
+    const handleLocationFound = (e: any) => {
+        setPosition(e.latlng);
+      };
 
     const onCheckboxChange = (options: (string | number)[], e: any) => {
         console.log('Checkbox change', options, e)
@@ -107,14 +143,19 @@ const NewProjectForm = () => {
         setSubmitting(true)
 
         const formData = new FormData()
-        const { name, description, categories, address, file, images, phone, workingTime } =
+        const { name, description, categories, address, file, images, phone, workingTime, commercialRegister,
+            ownersIdentity,
+            activityPracticeLicense,
+            ibanCertificate,
+            valueAddedTaxCertificate,
+            taxNumber } =
             formValue
 
         let newCategories = categories.map((category) => category.id)
 
         formData.append('name', name)
         formData.append('discription', description)
-        formData.append('createdBy', currentUserId || '')
+        formData.append('userId', currentUserId || '')
         formData.append('categories', JSON.stringify(newCategories))
         formData.append('workingTime', JSON.stringify(workingTime))
         formData.append('location[type]', 'Point')
@@ -124,6 +165,12 @@ const NewProjectForm = () => {
         formData.append('type', 'saloon')
         formData.append('logo', file)
         formData.append('phone', phone)
+        formData.append('commercialRegister', commercialRegister)
+        formData.append('ownersIdentity', ownersIdentity)
+        formData.append('activityPracticeLicense', activityPracticeLicense)
+        formData.append('ibanCertificate', ibanCertificate)
+        formData.append('valueAddedTaxCertificate', valueAddedTaxCertificate)
+        formData.append('taxNumber', taxNumber)
 
         for (let i = 0; i < images.length; i++) {
             formData.append('images', images[i])
@@ -178,6 +225,12 @@ const NewProjectForm = () => {
                 ],
                 images: [],
                 file: '',
+                commercialRegister: '',
+                ownersIdentity: '',
+                activityPracticeLicense: '',
+                ibanCertificate: '',
+                valueAddedTaxCertificate: '',
+                taxNumber: '',
             }}
             validationSchema={validationSchema}
             onSubmit={(values, { setSubmitting }) => {
@@ -399,7 +452,219 @@ const NewProjectForm = () => {
                                 }}
                             </Field>
                         </FormItem>
+                        <FormItem
+                            label="السجل التجاري"
+                            invalid={errors.commercialRegister && touched.commercialRegister}
+                            errorMessage={errors.commercialRegister}
+                        >
+                            <Field name="commercialRegister">
+                                {({ field, form }: FieldProps) => {
+                                    return (
+                                        <div>
+                                            <Upload
+                                                draggable
+                                                uploadLimit={1}
+                                                onChange={(files) => {
+                                                    form.setFieldValue(
+                                                        field.name,
+                                                        files[0],
+                                                    )
+                                                }}
+                                            >
+                                                <div className="my-10 text-center">
+                                                    <div className="text-6xl mb-4 flex justify-center">
+                                                        <FcImageFile />
+                                                    </div>
+                                                    <p className="font-semibold">
+                                                        <span className="text-gray-800 dark:text-white">
+                                                            Drop your image
+                                                            here, or{' '}
+                                                        </span>
+                                                        <span className="text-blue-500">
+                                                            browse
+                                                        </span>
+                                                    </p>
+                                                    <p className="mt-1 opacity-60 dark:text-white">
+                                                        Support: jpeg, png, gif
+                                                    </p>
+                                                </div>
+                                            </Upload>
+                                        </div>
+                                    )
+                                }}
+                            </Field>
+                        </FormItem>
+                        <FormItem
+                            label="رقم البطاقة الشخصية"
+                            invalid={errors.ownersIdentity && touched.ownersIdentity}
+                            errorMessage={errors.ownersIdentity}
+                        >
+                            <Field
+                                type="text"
+                                autoComplete="off"
+                                name="ownersIdentity"
+                                placeholder="ادخل رقم البطاقة الشخصية"
+                                component={Input}
+                            />
+                        </FormItem>
+                        <FormItem
+                            label="رخصة مزاولة النشاط"
+                            invalid={errors.activityPracticeLicense && touched.activityPracticeLicense}
+                            errorMessage={errors.activityPracticeLicense}
+                        >
+                            <Field name="activityPracticeLicense">
+                                {({ field, form }: FieldProps) => {
+                                    return (
+                                        <div>
+                                            <Upload
+                                                draggable
+                                                uploadLimit={1}
+                                                onChange={(files) => {
+                                                    form.setFieldValue(
+                                                        field.name,
+                                                        files[0],
+                                                    )
+                                                }}
+                                            >
+                                                <div className="my-10 text-center">
+                                                    <div className="text-6xl mb-4 flex justify-center">
+                                                        <FcImageFile />
+                                                    </div>
+                                                    <p className="font-semibold">
+                                                        <span className="text-gray-800 dark:text-white">
+                                                            Drop your image
+                                                            here, or{' '}
+                                                        </span>
+                                                        <span className="text-blue-500">
+                                                            browse
+                                                        </span>
+                                                    </p>
+                                                    <p className="mt-1 opacity-60 dark:text-white">
+                                                        Support: jpeg, png, gif
+                                                    </p>
+                                                </div>
+                                            </Upload>
+                                        </div>
+                                    )
+                                }}
+                            </Field>
+                        </FormItem>
+                        <FormItem
+                            label="شهادة ايبان"
+                            invalid={errors.ibanCertificate && touched.ibanCertificate}
+                            errorMessage={errors.ibanCertificate}
+                        >
+                            <Field name="ibanCertificate">
+                                {({ field, form }: FieldProps) => {
+                                    return (
+                                        <div>
+                                            <Upload
+                                                draggable
+                                                uploadLimit={1}
+                                                onChange={(files) => {
+                                                    form.setFieldValue(
+                                                        field.name,
+                                                        files[0],
+                                                    )
+                                                }}
+                                            >
+                                                <div className="my-10 text-center">
+                                                    <div className="text-6xl mb-4 flex justify-center">
+                                                        <FcImageFile />
+                                                    </div>
+                                                    <p className="font-semibold">
+                                                        <span className="text-gray-800 dark:text-white">
+                                                            Drop your image
+                                                            here, or{' '}
+                                                        </span>
+                                                        <span className="text-blue-500">
+                                                            browse
+                                                        </span>
+                                                    </p>
+                                                    <p className="mt-1 opacity-60 dark:text-white">
+                                                        Support: jpeg, png, gif
+                                                    </p>
+                                                </div>
+                                            </Upload>
+                                        </div>
+                                    )
+                                }}
+                            </Field>
+                        </FormItem>
+                        <FormItem
+                            label="شهادة ضريبة القيمة المضافة"
+                            invalid={errors.valueAddedTaxCertificate && touched.valueAddedTaxCertificate}
+                            errorMessage={errors.valueAddedTaxCertificate}
+                        >
+                            <Field name="valueAddedTaxCertificate">
+                                {({ field, form }: FieldProps) => {
+                                    return (
+                                        <div>
+                                            <Upload
+                                                draggable
+                                                uploadLimit={1}
+                                                onChange={(files) => {
+                                                    form.setFieldValue(
+                                                        field.name,
+                                                        files[0],
+                                                    )
+                                                }}
+                                            >
+                                                <div className="my-10 text-center">
+                                                    <div className="text-6xl mb-4 flex justify-center">
+                                                        <FcImageFile />
+                                                    </div>
+                                                    <p className="font-semibold">
+                                                        <span className="text-gray-800 dark:text-white">
+                                                            Drop your image
+                                                            here, or{' '}
+                                                        </span>
+                                                        <span className="text-blue-500">
+                                                            browse
+                                                        </span>
+                                                    </p>
+                                                    <p className="mt-1 opacity-60 dark:text-white">
+                                                        Support: jpeg, png, gif
+                                                    </p>
+                                                </div>
+                                            </Upload>
+                                        </div>
+                                    )
+                                }}
+                            </Field>
+                        </FormItem>
+                        <FormItem
+                            label="الرقم الضريبي"
+                            invalid={errors.taxNumber && touched.taxNumber}
+                            errorMessage={errors.taxNumber}
+                        >
+                            <Field
+                                type="text"
+                                autoComplete="off"
+                                name="taxNumber"
+                                placeholder="ادخل الرقم الضريبي"
+                                component={Input}
+                            />
+                        </FormItem>
                         <div>
+                            <p className="mb-2 font-semibold">موقع الصالون</p>
+                            <MapContainer
+                                center={[24.774265, 46.738586]}
+                                zoom={13}
+                                style={{
+                                    height: '40vh',
+                                    width: '100%',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <TileLayer
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                />
+                                <LocateControl onLocationFound={handleLocationFound} />
+                            </MapContainer>
+                        </div>
+                        {/* <div>
                             <p className="mb-2 font-semibold">موقع الصالون</p>
                             <MapContainer
                                 center={[24.774265, 46.738586]}
@@ -416,7 +681,7 @@ const NewProjectForm = () => {
                                 />
                                 <LocationMarker />
                             </MapContainer>
-                        </div>
+                        </div> */}
                         <Button block variant="solid" type="submit">
                             إرسال
                         </Button>

@@ -41,6 +41,7 @@ type FormModel = {
     images: string[]
     workingTime: []
     file: string
+    phone: string
     commercialRegister: string
     ownersIdentity: string
     activityPracticeLicense: string
@@ -132,7 +133,7 @@ const NewProjectForm = () => {
         setSubmitting(true)
 
         const formData = new FormData()
-        const { name, description, categories, address, file, images, commercialRegister,
+        const { name, description, categories, address, file, images, phone, commercialRegister,
             ownersIdentity,
             activityPracticeLicense,
             ibanCertificate,
@@ -152,7 +153,7 @@ const NewProjectForm = () => {
         formData.append('address', address?.value)
         formData.append('type', 'clinic')
         formData.append('logo', file)
-        formData.append('phone', '12345678908')
+        formData.append('phone', phone)
         formData.append('commercialRegister', commercialRegister)
         formData.append('ownersIdentity', ownersIdentity)
         formData.append('activityPracticeLicense', activityPracticeLicense)
@@ -201,6 +202,7 @@ const NewProjectForm = () => {
                 address: {
                     value: '',
                 },
+                phone: '',
                 images: [],
                 workingTime: [
                     { day: 'السبت', open: '', close: '', selected: false },
@@ -251,6 +253,19 @@ const NewProjectForm = () => {
                                 autoComplete="off"
                                 name="description"
                                 placeholder="ادخل تفاصيل العيادة"
+                                component={Input}
+                            />
+                        </FormItem>
+                        <FormItem
+                            label="رقم الجوال"
+                            invalid={errors.phone && touched.phone}
+                            errorMessage={errors.phone}
+                        >
+                            <Field
+                                type="text"
+                                autoComplete="off"
+                                name="phone"
+                                placeholder="ادخل رقم الجوال"
                                 component={Input}
                             />
                         </FormItem>

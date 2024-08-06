@@ -661,7 +661,8 @@ const NewProjectForm = () => {
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                                 />
-                                <LocateControl onLocationFound={handleLocationFound} />
+                                {/* <LocateControl onLocationFound={handleLocationFound} /> */}
+                                <LocationMarker />
                             </MapContainer>
                         </div>
                         {/* <div>

@@ -14,6 +14,7 @@ import {
     HiLockOpen,
 } from 'react-icons/hi'
 import { Field, FieldProps, FormikErrors, FormikTouched } from 'formik'
+import { FcImageFile } from 'react-icons/fc'
 
 type Option = {
     value: boolean | string
@@ -82,39 +83,37 @@ const PersonalInfoForm = (props: PersonalInfoFormProps) => {
 
     return (
         <>
-            <FormItem
+             <FormItem
                 invalid={errors.logo && touched.logo}
                 errorMessage={errors.logo}
             >
                 <Field name="logo">
                     {({ field, form }: FieldProps) => {
-                        const avatarProps = field.value
-                            ? { src: field.value }
-                            : {}
                         return (
-                            <div className="flex justify-center">
+                            <div>
                                 <Upload
-                                    className="cursor-pointer"
-                                    showList={false}
+                                    draggable
                                     uploadLimit={1}
-                                    onChange={(files) =>
-                                        {
-                                            console.log(files[0])
-                                            form.setFieldValue(
-                                            field.name,
-                                            files[0]
-                                        )
-                                    }
-                                    }
-
+                                    onChange={(files) => {
+                                        form.setFieldValue(field.name, files[0])
+                                    }}
                                 >
-                                    <Avatar
-                                        className="border-2 border-white dark:border-gray-800 shadow-lg"
-                                        size={100}
-                                        shape="circle"
-                                        icon={<HiOutlineUser />}
-                                        {...avatarProps}
-                                    />
+                                    <div className="my-10 text-center">
+                                        <div className="text-6xl mb-4 flex justify-center">
+                                            <FcImageFile />
+                                        </div>
+                                        <p className="font-semibold">
+                                            <span className="text-gray-800 dark:text-white">
+                                                Drop your image here, or{' '}
+                                            </span>
+                                            <span className="text-blue-500">
+                                                browse
+                                            </span>
+                                        </p>
+                                        <p className="mt-1 opacity-60 dark:text-white">
+                                            Support: jpeg, png, gif
+                                        </p>
+                                    </div>
                                 </Upload>
                             </div>
                         )

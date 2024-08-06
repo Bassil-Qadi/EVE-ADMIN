@@ -64,8 +64,6 @@ const columns = [
 ]
 
 const PaymentHistory = ({ data }: any) => {
-    console.log(data)
-    
     const dispatch = useAppDispatch()
   
     const [sorting, setSorting] = useState<
